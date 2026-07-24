@@ -1,0 +1,698 @@
+openapi: 3.0.3
+info:
+  contact:
+    url: https://support.templafy.com/hc/en-us/requests/new
+    name: Submit support ticket
+  description: Please refer to our [documentation](https://support.templafy.com/hc/en-us/articles/4411351240081-Public-API-Hive-) for guidelines and examples.
+  title: Templafy Public DataSourceFields Folders API
+  version: v3
+  termsOfService: https://www.templafy.com/templafy-saas-agreement/
+servers:
+- variables:
+    tenantId:
+      default: ''
+      description: Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com
+  url: https://{tenantId}.api.templafy.com/v3
+tags:
+- name: Folders
+paths:
+  /libraries/{spaceId}/{libraryType}/folders/{folderId}:
+    get:
+      tags:
+      - Folders
+      summary: Returns the folder by the identifier.
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: libraryType
+        in: path
+        description: The type of the library you work with
+        required: true
+        schema:
+          $ref: '#/components/schemas/LibraryType'
+      - name: folderId
+        in: path
+        description: The identifier of the folder to retrieve
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FolderDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+      security:
+      - bearerAuth:
+        - library.read
+        - library.readwrite
+    patch:
+      tags:
+      - Folders
+      summary: Updates the folder.
+      description: The root folder can not be updated.
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: libraryType
+        in: path
+        description: The type of the library you work with
+        required: true
+        schema:
+          $ref: '#/components/schemas/LibraryType'
+      - name: folderId
+        in: path
+        description: The identifier of the folder to be updated
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/UpdateFolderRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFolderRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFolderRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UpdateFolderRequest'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+        '409':
+          description: The operation cannot be completed due to a conflict with the current state of the folder. This may occur if a folder with the provided name already exists, or if the destination folder is in the process of being deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConflictProblemDetails'
+      security:
+      - bearerAuth:
+        - library.readwrite
+    delete:
+      tags:
+      - Folders
+      summary: Deletes the folder by the identifier
+      description: The root folder of the library can not be deleted.
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: libraryType
+        in: path
+        description: The type of the library you work with
+        required: true
+        schema:
+          $ref: '#/components/schemas/LibraryType'
+      - name: folderId
+        in: path
+        description: The identifier of the folder to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+        '409':
+          description: The root folder can not be deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConflictProblemDetails'
+      security:
+      - bearerAuth:
+        - library.readwrite
+  /libraries/{spaceId}/{libraryType}/folders/{folderId}/folders:
+    get:
+      tags:
+      - Folders
+      summary: Lists all direct folders in the folder. The result does not include subfolders.
+      description: The folders from the library can be retrieved by using the root folder identifier.
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: libraryType
+        in: path
+        description: The type of the library you work with
+        required: true
+        schema:
+          $ref: '#/components/schemas/LibraryType'
+      - name: folderId
+        in: path
+        description: The identifier of the folder which children should be retrieved
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Folder'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+      security:
+      - bearerAuth:
+        - library.read
+        - library.readwrite
+    post:
+      tags:
+      - Folders
+      summary: Creates a folder inside the specified folder.
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: libraryType
+        in: path
+        description: The type of the library you work with
+        required: true
+        schema:
+          $ref: '#/components/schemas/LibraryType'
+      - name: folderId
+        in: path
+        description: The identifier of the parent folder in which a new folder is created
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/CreateFolderRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFolderRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CreateFolderRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CreateFolderRequest'
+      responses:
+        '201':
+          description: The identifier of the created folder
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+        '409':
+          description: The operation cannot be completed due to a conflict with the current state of the folder. This may occur if a folder with the provided name already exists, or if the parent folder is in the process of being deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConflictProblemDetails'
+      security:
+      - bearerAuth:
+        - library.readwrite
+  /libraries/{spaceId}/{libraryType}/folders/{folderId}/security:
+    get:
+      tags:
+      - Folders
+      summary: Returns the list of users and user groups that has access to the folder
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: libraryType
+        in: path
+        description: The type of the library you work with
+        required: true
+        schema:
+          $ref: '#/components/schemas/LibraryType'
+      - name: folderId
+        in: path
+        description: The identifier of the folder to retrieve
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FolderSecurityResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+      security:
+      - bearerAuth:
+        - library.read
+        - library.readwrite
+    put:
+      tags:
+      - Folders
+      summary: Updates the list of users and user groups that has access to folder. To make the folder available to a specific list, use the accessStatus as restricted and pass the list of users and groups that are expected. To make the folder available to everyone in the space, use the accessStatus as everyoneInTheSpace without passing any users or user groups. Please note that you can only change the access rights on folders that does not have any access rights defined on their parents. Also, if you limit the access for a parent folder, it will always overwrite it for all the folders below.
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: libraryType
+        in: path
+        description: The type of the library you work with
+        required: true
+        schema:
+          $ref: '#/components/schemas/LibraryType'
+      - name: folderId
+        in: path
+        description: The identifier of the folder to be updated
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/UpdateFolderSecurityRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFolderSecurityRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFolderSecurityRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UpdateFolderSecurityRequest'
+      responses:
+        '200':
+          description: The folder security has been updated
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+        '409':
+          description: The operation cannot be completed due to a conflict with the current state of the folder.This may occur if the security is set on a parent folder.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConflictProblemDetails'
+      security:
+      - bearerAuth:
+        - library.readwrite
+components:
+  schemas:
+    UpdateFolderSecurityRequest:
+      type: object
+      properties:
+        accessStatus:
+          $ref: '#/components/schemas/RequestFolderAccessStatus'
+        userIds:
+          maxItems: 150
+          type: array
+          items:
+            type: string
+          description: List of users who has access to the folder
+          nullable: true
+        userGroupIds:
+          maxItems: 50
+          type: array
+          items:
+            type: string
+          description: List of user groups which has access to the folder
+          nullable: true
+      additionalProperties: false
+      description: The request model to update security of a folder
+    NotFoundProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+        traceId:
+          type: string
+          nullable: true
+      additionalProperties: false
+      example:
+        title: NotFound
+        detail: The server can not find the requested resource.
+        status: 404
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    Folder:
+      required:
+      - id
+      - libraryId
+      - modifiedAt
+      - name
+      - navigationPath
+      - state
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique folder identifier
+          format: int64
+        libraryId:
+          type: integer
+          description: Unique library identifier
+          format: int64
+        name:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Display name
+        parentId:
+          type: integer
+          description: Unique identifier for the parent folder. The root folder does not have a parent folder identifier
+          format: int64
+          nullable: true
+        navigationPath:
+          maxLength: 700
+          minLength: 1
+          type: string
+          description: Hierarchical path in lowercase based on the location of a folder. E.g. "folder-a/folder-b" when the location is "Folder A > Folder B"
+        modifiedAt:
+          minLength: 1
+          type: string
+          description: Date and time in ISO 8601 format of when the folder was last modified
+        state:
+          $ref: '#/components/schemas/FolderState'
+      additionalProperties: false
+    FolderSecurityResponse:
+      required:
+      - accessStatus
+      type: object
+      properties:
+        accessStatus:
+          $ref: '#/components/schemas/ResponseFolderAccessStatus'
+        userIds:
+          type: array
+          items:
+            type: string
+          description: List of users who has access to the folder
+          nullable: true
+        userGroupIds:
+          type: array
+          items:
+            type: string
+          description: List of user groups which has access to the folder
+          nullable: true
+      additionalProperties: false
+    ResponseFolderAccessStatus:
+      enum:
+      - inheritedLocked
+      - restricted
+      - everyoneInTheSpace
+      type: string
+      description: The status of the folder access. It is either available to everyone in the space, restricted directly to a list of users and user groups or via a parent folder.
+    CreateFolderRequest:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Display name
+      additionalProperties: false
+      description: The request model to create a folder
+    LibraryType:
+      enum:
+      - documents
+      - presentations
+      - spreadsheets
+      - slides
+      - slide-elements
+      - text-elements
+      - images
+      - pdfs
+      - links
+      - email-elements
+      type: string
+      description: Type of the assets that can be stored in the library
+    FolderState:
+      enum:
+      - ready
+      - deleting
+      type: string
+      description: The current state of the folder
+    ValidationProblemDetails:
+      type: object
+      properties:
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          nullable: true
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+        traceId:
+          type: string
+          nullable: true
+      additionalProperties: false
+      example:
+        errors:
+        - name: The name field is required
+        - data: The input was invalid
+        title: One or more validation errors occurred.
+        status: 400
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    RequestFolderAccessStatus:
+      enum:
+      - restricted
+      - everyoneInTheSpace
+      type: string
+      description: The status of the folder access. It is either available to everyone in the space or restricted to a limited list of users and user groups.
+    FolderDetails:
+      required:
+      - id
+      - libraryId
+      - modifiedAt
+      - name
+      - navigationPath
+      - state
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique folder identifier
+          format: int64
+        libraryId:
+          type: integer
+          description: Unique library identifier
+          format: int64
+        name:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Display name
+        parentId:
+          type: integer
+          description: Unique identifier for the parent folder. The root folder does not have a parent folder identifier
+          format: int64
+          nullable: true
+        navigationPath:
+          maxLength: 700
+          minLength: 1
+          type: string
+          description: Hierarchical path in lowercase based on the location of a folder. E.g. "folder-a/folder-b" when the location is "Folder A > Folder B"
+        modifiedAt:
+          minLength: 1
+          type: string
+          description: Date and time in ISO 8601 format of when the folder was last modified
+        state:
+          $ref: '#/components/schemas/FolderState'
+      additionalProperties: false
+    UpdateFolderRequest:
+      type: object
+      properties:
+        name:
+          maxLength: 100
+          type: string
+          description: Display name
+          nullable: true
+        parentFolderId:
+          type: integer
+          description: The identifier of a folder that current folder should be moved to
+          format: int64
+          nullable: true
+      additionalProperties: false
+      description: The request model to update the folder
+    ConflictProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+        traceId:
+          type: string
+          nullable: true
+      additionalProperties: false
+      example:
+        title: Conflict
+        detail: The request could not be completed due to a conflict with the current state of the resource.
+        status: 409
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key

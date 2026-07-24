@@ -1,0 +1,696 @@
+openapi: 3.0.3
+info:
+  contact:
+    url: https://support.templafy.com/hc/en-us/requests/new
+    name: Submit support ticket
+  description: Please refer to our [documentation](https://support.templafy.com/hc/en-us/articles/4411351240081-Public-API-Hive-) for guidelines and examples.
+  title: Templafy Public DataSourceFields Spreadsheets API
+  version: v3
+  termsOfService: https://www.templafy.com/templafy-saas-agreement/
+servers:
+- variables:
+    tenantId:
+      default: ''
+      description: Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com
+  url: https://{tenantId}.api.templafy.com/v3
+tags:
+- name: Spreadsheets
+paths:
+  /libraries/{spaceId}/spreadsheets/assets/{assetId}/generate:
+    post:
+      tags:
+      - Spreadsheets
+      summary: Generates a spreadsheet from a template and returns information about the file, which includes the download url.
+      description: Creates a file from the template in a xlsx format. The file will have bindings replaced using various data sources. The url will only be valid for a short amount of time. When a PDF is included in the response, its download URL may briefly be unavailable on receipt; clients should retry the download with a short backoff before treating an initial failure as final.
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: assetId
+        in: path
+        description: The identifier of the spreadsheet template
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateFileRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeneratedFile'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+      security:
+      - bearerAuth:
+        - library.generate
+  /libraries/{spaceId}/spreadsheets/folders/{folderId}/assets:
+    get:
+      tags:
+      - Spreadsheets
+      summary: Lists all spreadsheet templates in the folder.
+      description: The result does not include spreadsheet templates from subfolders. When {searchQuery} is used the result includes spreadsheet templates from subfolders. The search mode enables pagination with 1000 page size maximum.
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: folderId
+        in: path
+        description: The identifier of the folder
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: searchQuery
+        in: query
+        description: Filter on template name, description and tags
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: Page number from the result set. Page number is set to 1 by default if {searchQuery} is passed. A value passed only for the page number and not for the page size is ignored.
+        schema:
+          maximum: 65535
+          minimum: 1
+          type: integer
+          format: int32
+      - name: pageSize
+        in: query
+        description: Size of the returned page. If {searchQuery} is not set, not passing page size or having it 0 returns all the assets from the folder. Acceptable values are 0 to 1000, inclusive.
+        schema:
+          maximum: 1000
+          minimum: 0
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Spreadsheet'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+      security:
+      - bearerAuth:
+        - library.read
+        - library.readwrite
+    post:
+      tags:
+      - Spreadsheets
+      summary: Uploads the spreadsheet template.
+      description: Only one file can be attached to the request body. The supported file formats are .XLSX and .XLSM for macro-enabled spreadsheets.
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: folderId
+        in: path
+        description: The identifier of the folder
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - File
+              type: object
+              properties:
+                File:
+                  type: string
+                  description: A file to be uploaded. The maximum file size is 50 mb
+                  format: binary
+                Name:
+                  type: string
+                  description: The name is inferred from the file name by default. It can be overriden by providing a different value with this field
+                Description:
+                  type: string
+                  description: Description is used to specify the intended usage of the asset
+                Tags:
+                  type: array
+                  items:
+                    type: string
+                  description: Tags should describe the content of the asset making it easier for a user to locate it
+                ExternalData:
+                  type: string
+                  description: External data which can be attached for future reference
+            encoding:
+              File:
+                style: form
+              Name:
+                style: form
+              Description:
+                style: form
+              Tags:
+                style: form
+              ExternalData:
+                style: form
+      responses:
+        '201':
+          description: The identifier of the created template
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+        '409':
+          description: The upload cannot proceed due to a conflict with the current state of the target location. This may occur if spreadsheet with the same name already exists in this location, or if the folder intended for the upload is in the process of being deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConflictProblemDetails'
+      security:
+      - bearerAuth:
+        - library.readwrite
+  /libraries/{spaceId}/spreadsheets/assets/{assetId}:
+    get:
+      tags:
+      - Spreadsheets
+      summary: Returns the spreadsheet template by the identifier.
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: assetId
+        in: path
+        description: The identifier of the spreadsheet template to retrieve
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpreadsheetDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+      security:
+      - bearerAuth:
+        - library.read
+        - library.readwrite
+    patch:
+      tags:
+      - Spreadsheets
+      summary: Updates the spreadsheet template.
+      description: Only one file can be attached to the request body. The supported file formats are .XLSX and .XLSM for macro-enabled spreadsheets.
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: assetId
+        in: path
+        description: The identifier of the spreadsheet template
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                FolderId:
+                  type: integer
+                  description: The identifier of the destination folder
+                  format: int64
+                Name:
+                  type: string
+                  description: A new display name of the asset
+                Description:
+                  type: string
+                  description: Description is used to specify the intended usage of the asset
+                Tags:
+                  type: array
+                  items:
+                    type: string
+                  description: Tags should describe the content of the asset making it easier for a user to locate it
+                ExternalData:
+                  type: string
+                  description: External data which can be attached for future reference
+                File:
+                  type: string
+                  description: A file to be uploaded. The maximum file size is 50 mb
+                  format: binary
+            encoding:
+              FolderId:
+                style: form
+              Name:
+                style: form
+              Description:
+                style: form
+              Tags:
+                style: form
+              ExternalData:
+                style: form
+              File:
+                style: form
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+        '409':
+          description: The update operation cannot be completed due to a conflict with the current state of the target location. This may occur if a spreadsheet with the same name already exists in the destination, or if the destination folder is in the process of being deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConflictProblemDetails'
+      security:
+      - bearerAuth:
+        - library.readwrite
+    delete:
+      tags:
+      - Spreadsheets
+      summary: Deletes the spreadsheet template by the identifier.
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: assetId
+        in: path
+        description: The identifier of the spreadsheet template to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+      security:
+      - bearerAuth:
+        - library.readwrite
+components:
+  schemas:
+    NotFoundProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+        traceId:
+          type: string
+          nullable: true
+      additionalProperties: false
+      example:
+        title: NotFound
+        detail: The server can not find the requested resource.
+        status: 404
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    GenerateFileRequest:
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          minLength: 1
+          type: string
+          description: Email to be used for identification.
+          format: email
+        data:
+          description: Data to be used during the file generation.
+          nullable: true
+        includePdf:
+          type: boolean
+          description: Specifies whether a PDF export of the file should be included in the response.
+      additionalProperties: false
+      description: The request model to generate a file.
+      example:
+        email: templafy@templafy.com
+        data:
+          Language: en-us
+        includePdf: true
+    SpreadsheetDetails:
+      required:
+      - assetState
+      - checksum
+      - description
+      - downloadUrl
+      - fileExtension
+      - fileSize
+      - folderId
+      - id
+      - modifiedAt
+      - name
+      - navigationPath
+      - tags
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique asset identifier
+          format: int64
+        folderId:
+          type: integer
+          description: Unique folder identifier
+          format: int64
+        name:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Display name
+        description:
+          maxLength: 250
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        fileSize:
+          type: integer
+          description: File size in bytes
+          format: int64
+        checksum:
+          minLength: 1
+          type: string
+          description: MD5 checksum of the bytes
+        fileExtension:
+          minLength: 1
+          type: string
+          description: Suffix to the name of the file
+        downloadUrl:
+          type: string
+          description: Generated temporary access URL for content downloading with 302 response code
+          format: uri
+        navigationPath:
+          maxLength: 700
+          minLength: 1
+          type: string
+          description: Hierarchical path in lowercase based on the location of a spreadsheet. E.g. "folder-a/folder-b/_my-spreadsheet" when the location is "Folder A > Folder B > My Spreadsheet"
+        externalData:
+          maxLength: 100
+          type: string
+          description: External data which can be attached for future reference
+          nullable: true
+        modifiedAt:
+          minLength: 1
+          type: string
+          description: Date and time in ISO 8601 format of when the asset was last modified
+        assetState:
+          $ref: '#/components/schemas/AssetFileStateWithoutPreviews'
+      additionalProperties: false
+    ValidationProblemDetails:
+      type: object
+      properties:
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          nullable: true
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+        traceId:
+          type: string
+          nullable: true
+      additionalProperties: false
+      example:
+        errors:
+        - name: The name field is required
+        - data: The input was invalid
+        title: One or more validation errors occurred.
+        status: 400
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    AssetFileStateWithoutPreviews:
+      enum:
+      - ready
+      - processing
+      - processingFailed
+      - deleting
+      type: string
+      description: The current state of the asset
+    Spreadsheet:
+      required:
+      - assetState
+      - checksum
+      - description
+      - fileExtension
+      - fileSize
+      - folderId
+      - id
+      - modifiedAt
+      - name
+      - navigationPath
+      - tags
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique asset identifier
+          format: int64
+        folderId:
+          type: integer
+          description: Unique folder identifier
+          format: int64
+        name:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Display name
+        description:
+          maxLength: 250
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        fileSize:
+          type: integer
+          description: File size in bytes
+          format: int64
+        checksum:
+          minLength: 1
+          type: string
+          description: MD5 checksum of the bytes
+        fileExtension:
+          minLength: 1
+          type: string
+          description: Suffix to the name of the file
+        navigationPath:
+          maxLength: 700
+          minLength: 1
+          type: string
+          description: Hierarchical path in lowercase based on the location of a spreadsheet. E.g. "folder-a/folder-b/_my-spreadsheet" when the location is "Folder A > Folder B > My Spreadsheet"
+        externalData:
+          maxLength: 100
+          type: string
+          description: External data which can be attached for future reference
+          nullable: true
+        modifiedAt:
+          minLength: 1
+          type: string
+          description: Date and time in ISO 8601 format of when the asset was last modified
+        assetState:
+          $ref: '#/components/schemas/AssetFileStateWithoutPreviews'
+      additionalProperties: false
+    ConflictProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+        traceId:
+          type: string
+          nullable: true
+      additionalProperties: false
+      example:
+        title: Conflict
+        detail: The request could not be completed due to a conflict with the current state of the resource.
+        status: 409
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    GeneratedFile:
+      required:
+      - checksum
+      - downloadUrl
+      - fileExtension
+      - fileSize
+      - mimeType
+      type: object
+      properties:
+        downloadUrl:
+          minLength: 1
+          type: string
+          description: Temporary access URL for generated file.
+          format: uri
+        fileSize:
+          type: integer
+          description: File size in bytes.
+          format: int64
+        checksum:
+          minLength: 1
+          type: string
+          description: MD5 checksum of the bytes.
+        mimeType:
+          minLength: 1
+          type: string
+          description: Mime type of the generated file.
+        fileExtension:
+          minLength: 1
+          type: string
+          description: Suffix to the name of the file.
+        pdfDownloadUrl:
+          type: string
+          description: 'Temporary access URL for generated PDF file. Only available if the file was converted to PDF. The URL is short-lived and may not be immediately fetchable on receipt; clients should retry the download with a short backoff before treating an initial failure as final. '
+          nullable: true
+      additionalProperties: false
+      description: The generated file response model.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key

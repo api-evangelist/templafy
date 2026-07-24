@@ -1,0 +1,367 @@
+openapi: 3.0.3
+info:
+  contact:
+    url: https://support.templafy.com/hc/en-us/requests/new
+    name: Submit support ticket
+  description: Please refer to our [documentation](https://support.templafy.com/hc/en-us/articles/4411351240081-Public-API-Hive-) for guidelines and examples.
+  title: Templafy Public DataSourceFields DataSourceItemFields API
+  version: v3
+  termsOfService: https://www.templafy.com/templafy-saas-agreement/
+servers:
+- variables:
+    tenantId:
+      default: ''
+      description: Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com
+  url: https://{tenantId}.api.templafy.com/v3
+tags:
+- name: DataSourceItemFields
+paths:
+  /data-sources/{dataSourceId}/items/{itemId}/fields/{fieldId}:
+    put:
+      tags:
+      - DataSourceItemFields
+      summary: Updates a single field on a data source item.
+      parameters:
+      - name: dataSourceId
+        in: path
+        description: The identifier of the data source
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: itemId
+        in: path
+        description: The identifier of the data source item
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: fieldId
+        in: path
+        description: The identifier of the data source item field
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/UpdateTextDataSourceItemFieldRequest'
+              - $ref: '#/components/schemas/UpdateNumberDataSourceItemFieldRequest'
+              - $ref: '#/components/schemas/UpdateColorThemeDataSourceItemFieldRequest'
+              - $ref: '#/components/schemas/UpdateReferenceDataSourceItemFieldRequest'
+              - $ref: '#/components/schemas/UpdateImageDataSourceItemFieldRequest'
+              - $ref: '#/components/schemas/UpdateFontDataSourceItemFieldRequest'
+              example:
+                type: text
+                value: An updated value
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/UpdateTextDataSourceItemFieldRequest'
+              - $ref: '#/components/schemas/UpdateNumberDataSourceItemFieldRequest'
+              - $ref: '#/components/schemas/UpdateColorThemeDataSourceItemFieldRequest'
+              - $ref: '#/components/schemas/UpdateReferenceDataSourceItemFieldRequest'
+              - $ref: '#/components/schemas/UpdateImageDataSourceItemFieldRequest'
+              - $ref: '#/components/schemas/UpdateFontDataSourceItemFieldRequest'
+              example:
+                type: text
+                value: An updated value
+          text/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/UpdateTextDataSourceItemFieldRequest'
+              - $ref: '#/components/schemas/UpdateNumberDataSourceItemFieldRequest'
+              - $ref: '#/components/schemas/UpdateColorThemeDataSourceItemFieldRequest'
+              - $ref: '#/components/schemas/UpdateReferenceDataSourceItemFieldRequest'
+              - $ref: '#/components/schemas/UpdateImageDataSourceItemFieldRequest'
+              - $ref: '#/components/schemas/UpdateFontDataSourceItemFieldRequest'
+              example:
+                type: text
+                value: An updated value
+          application/*+json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/UpdateTextDataSourceItemFieldRequest'
+              - $ref: '#/components/schemas/UpdateNumberDataSourceItemFieldRequest'
+              - $ref: '#/components/schemas/UpdateColorThemeDataSourceItemFieldRequest'
+              - $ref: '#/components/schemas/UpdateReferenceDataSourceItemFieldRequest'
+              - $ref: '#/components/schemas/UpdateImageDataSourceItemFieldRequest'
+              - $ref: '#/components/schemas/UpdateFontDataSourceItemFieldRequest'
+              example:
+                type: text
+                value: An updated value
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+      security:
+      - bearerAuth:
+        - datasources.readwrite
+    delete:
+      tags:
+      - DataSourceItemFields
+      summary: Deletes an existing field from a data source item.
+      description: Deletes an existing field from the specified data source item contained in the specified data source.
+      parameters:
+      - name: dataSourceId
+        in: path
+        description: The identifier of the data source
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: itemId
+        in: path
+        description: The identifier of the data source item
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: fieldId
+        in: path
+        description: The identifier of the data source item field
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+      security:
+      - bearerAuth:
+        - datasources.readwrite
+components:
+  schemas:
+    UpdateTextDataSourceItemFieldRequest:
+      allOf:
+      - $ref: '#/components/schemas/UpdateDataSourceItemFieldRequest'
+      - required:
+        - value
+        type: object
+        properties:
+          value:
+            maxLength: 8000
+            minLength: 1
+            type: string
+            description: Text data source item field value. Max length is 8000 characters.
+        additionalProperties: false
+      example:
+        type: text
+        value: An updated value
+    UpdateDataSourceItemFieldRequest:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          minLength: 1
+          type: string
+          description: Data source item field type.
+          readOnly: true
+      additionalProperties: false
+      discriminator:
+        propertyName: type
+        mapping:
+          Text: '#/components/schemas/UpdateTextDataSourceItemFieldRequest'
+          Number: '#/components/schemas/UpdateNumberDataSourceItemFieldRequest'
+          ColorTheme: '#/components/schemas/UpdateColorThemeDataSourceItemFieldRequest'
+          Reference: '#/components/schemas/UpdateReferenceDataSourceItemFieldRequest'
+          Image: '#/components/schemas/UpdateImageDataSourceItemFieldRequest'
+          Font: '#/components/schemas/UpdateFontDataSourceItemFieldRequest'
+      example:
+        type: text
+        value: An updated value
+    NotFoundProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+        traceId:
+          type: string
+          nullable: true
+      additionalProperties: false
+      example:
+        title: NotFound
+        detail: The server can not find the requested resource.
+        status: 404
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    UpdateNumberDataSourceItemFieldRequest:
+      allOf:
+      - $ref: '#/components/schemas/UpdateDataSourceItemFieldRequest'
+      - required:
+        - value
+        type: object
+        properties:
+          value:
+            type: number
+            description: The value of the field with the precision of 2 decimal places.
+            format: double
+        additionalProperties: false
+      example:
+        type: number
+        value: 123.45
+    UpdateFontDataSourceItemFieldRequest:
+      allOf:
+      - $ref: '#/components/schemas/UpdateDataSourceItemFieldRequest'
+      - required:
+        - fileName
+        type: object
+        properties:
+          fileName:
+            minLength: 1
+            type: string
+            description: The name of the file.
+          fileUrl:
+            type: string
+            description: 'The file size must be under 2MB, and it should be in one of these formats: .ttf, .otf.'
+            format: uri
+            nullable: true
+          content:
+            type: string
+            description: 'The base64 content size must be under 2MB, and it should be in one of these formats: .ttf, .otf.'
+            nullable: true
+        additionalProperties: false
+      example:
+        type: font
+        fileName: best-font
+        fileUrl: https://allfonts.com/best-font
+    UpdateColorThemeDataSourceItemFieldRequest:
+      allOf:
+      - $ref: '#/components/schemas/UpdateDataSourceItemFieldRequest'
+      - required:
+        - xmlValue
+        type: object
+        properties:
+          xmlValue:
+            maxLength: 3500
+            minLength: 1
+            type: string
+            description: The value of the field based on the schema http://schemas.openxmlformats.org/drawingml/2006/main. Max length is 3500 characters.
+        additionalProperties: false
+      example:
+        type: colorTheme
+        xmlValue: <a:clrScheme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="Templafy_New"><a:dk1><a:srgbClr val="0078FF"/></a:dk1><a:lt1><a:sysClr val="window" lastClr="FFFFFF"/></a:lt1><a:dk2><a:srgbClr val="000000"/></a:dk2><a:lt2><a:srgbClr val="E5E5E5"/></a:lt2><a:accent1><a:srgbClr val="0078FF"/></a:accent1><a:accent2><a:srgbClr val="575757"/></a:accent2><a:accent3><a:srgbClr val="12AA96"/></a:accent3><a:accent4><a:srgbClr val="15436B"/></a:accent4><a:accent5><a:srgbClr val="D44849"/></a:accent5><a:accent6><a:srgbClr val="7F7F7F"/></a:accent6><a:hlink><a:srgbClr val="0078FF"/></a:hlink><a:folHlink><a:srgbClr val="55CBFF"/></a:folHlink></a:clrScheme>
+    UpdateImageDataSourceItemFieldRequest:
+      allOf:
+      - $ref: '#/components/schemas/UpdateDataSourceItemFieldRequest'
+      - required:
+        - fileName
+        type: object
+        properties:
+          fileName:
+            minLength: 1
+            type: string
+            description: The name of the file.
+          fileUrl:
+            type: string
+            description: 'The file size must be under 2MB, and it should be in one of these formats: .png, .jpg, .jpeg, .gif, .bmp, .emf, .wmf, .svg.'
+            format: uri
+            nullable: true
+          content:
+            type: string
+            description: 'The base64 content size must be under 2MB, and it should be in one of these formats: .png, .jpg, .jpeg, .gif, .bmp, .emf, .wmf, .svg.'
+            nullable: true
+        additionalProperties: false
+      example:
+        type: image
+        fileName: Cat
+        fileUrl: https://en.wikipedia.org/wiki/Cat#/media/File:Cat_August_2010-4.jpg
+    UpdateReferenceDataSourceItemFieldRequest:
+      allOf:
+      - $ref: '#/components/schemas/UpdateDataSourceItemFieldRequest'
+      - required:
+        - dataSourceItemId
+        type: object
+        properties:
+          dataSourceItemId:
+            type: integer
+            description: The identifier of the data source item to be referenced.
+            format: int64
+        additionalProperties: false
+      example:
+        type: reference
+        dataSourceItemId: '638247997437572264'
+    ValidationProblemDetails:
+      type: object
+      properties:
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          nullable: true
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+        traceId:
+          type: string
+          nullable: true
+      additionalProperties: false
+      example:
+        errors:
+        - name: The name field is required
+        - data: The input was invalid
+        title: One or more validation errors occurred.
+        status: 400
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key

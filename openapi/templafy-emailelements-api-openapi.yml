@@ -1,0 +1,585 @@
+openapi: 3.0.3
+info:
+  contact:
+    url: https://support.templafy.com/hc/en-us/requests/new
+    name: Submit support ticket
+  description: Please refer to our [documentation](https://support.templafy.com/hc/en-us/articles/4411351240081-Public-API-Hive-) for guidelines and examples.
+  title: Templafy Public DataSourceFields EmailElements API
+  version: v3
+  termsOfService: https://www.templafy.com/templafy-saas-agreement/
+servers:
+- variables:
+    tenantId:
+      default: ''
+      description: Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com
+  url: https://{tenantId}.api.templafy.com/v3
+tags:
+- name: EmailElements
+paths:
+  /libraries/{spaceId}/email-elements/folders/{folderId}/assets:
+    get:
+      tags:
+      - EmailElements
+      summary: Lists all email elements in the folder.
+      description: The result does not include email elements from subfolders.When {searchQuery} is used the result includes email elements from subfolders. The search mode enables pagination with 1000 page size maximum.
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: folderId
+        in: path
+        description: The identifier of the folder
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: searchQuery
+        in: query
+        description: Filter on email element name, description and tags
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: Page number from the result set. Page number is set to 1 by default if {searchQuery} is passed. A value passed only for the page number and not for the page size is ignored.
+        schema:
+          maximum: 65535
+          minimum: 1
+          type: integer
+          format: int32
+      - name: pageSize
+        in: query
+        description: Size of the returned page. If {searchQuery} is not set, not passing page size or having it 0 returns all the assets from the folder. Acceptable values are 0 to 1000, inclusive.
+        schema:
+          maximum: 1000
+          minimum: 0
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmailElement'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+      security:
+      - bearerAuth:
+        - library.read
+        - library.readwrite
+    post:
+      tags:
+      - EmailElements
+      summary: Uploads the email element file.
+      description: Only one file can be attached to the request body. The supported file format is .DOCX
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: folderId
+        in: path
+        description: The identifier of the folder
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - File
+              type: object
+              properties:
+                File:
+                  type: string
+                  description: A file to be uploaded. The maximum file size is 50 mb
+                  format: binary
+                Name:
+                  type: string
+                  description: The name is inferred from the file name by default. It can be overriden by providing a different value with this field
+                Description:
+                  type: string
+                  description: Description is used to specify the intended usage of the asset
+                Tags:
+                  type: array
+                  items:
+                    type: string
+                  description: Tags should describe the content of the asset making it easier for a user to locate it
+                ExternalData:
+                  type: string
+                  description: External data which can be attached for future reference
+            encoding:
+              File:
+                style: form
+              Name:
+                style: form
+              Description:
+                style: form
+              Tags:
+                style: form
+              ExternalData:
+                style: form
+      responses:
+        '201':
+          description: The identifier of the created asset
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+        '409':
+          description: The upload cannot proceed due to a conflict with the current state of the target location. This may occur if an email element with the same name already exists in this location, or if the folder intended for the upload is in the process of being deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConflictProblemDetails'
+      security:
+      - bearerAuth:
+        - library.readwrite
+  /libraries/{spaceId}/email-elements/assets/{assetId}:
+    get:
+      tags:
+      - EmailElements
+      summary: Returns the email element by the identifier.
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: assetId
+        in: path
+        description: The identifier of the email element to retrieve
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailElementDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+      security:
+      - bearerAuth:
+        - library.read
+        - library.readwrite
+    patch:
+      tags:
+      - EmailElements
+      summary: Updates the email element asset.
+      description: Only one file can be attached to the request body. The supported file format is .DOCX
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: assetId
+        in: path
+        description: The identifier of the email element
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                FolderId:
+                  type: integer
+                  description: The identifier of the destination folder
+                  format: int64
+                Name:
+                  type: string
+                  description: A new display name of the asset
+                Description:
+                  type: string
+                  description: Description is used to specify the intended usage of the asset
+                Tags:
+                  type: array
+                  items:
+                    type: string
+                  description: Tags should describe the content of the asset making it easier for a user to locate it
+                ExternalData:
+                  type: string
+                  description: External data which can be attached for future reference
+                File:
+                  type: string
+                  description: A file to be uploaded. The maximum file size is 50 mb
+                  format: binary
+            encoding:
+              FolderId:
+                style: form
+              Name:
+                style: form
+              Description:
+                style: form
+              Tags:
+                style: form
+              ExternalData:
+                style: form
+              File:
+                style: form
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+        '409':
+          description: The update operation cannot be completed due to a conflict with the current state of the target location. This may occur if an email element with the same name already exists in the destination, or if the destination folder is in the process of being deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConflictProblemDetails'
+      security:
+      - bearerAuth:
+        - library.readwrite
+    delete:
+      tags:
+      - EmailElements
+      summary: Deletes the email element by the identifier.
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: assetId
+        in: path
+        description: The identifier of the email element to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+      security:
+      - bearerAuth:
+        - library.readwrite
+components:
+  schemas:
+    NotFoundProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+        traceId:
+          type: string
+          nullable: true
+      additionalProperties: false
+      example:
+        title: NotFound
+        detail: The server can not find the requested resource.
+        status: 404
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    ValidationProblemDetails:
+      type: object
+      properties:
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          nullable: true
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+        traceId:
+          type: string
+          nullable: true
+      additionalProperties: false
+      example:
+        errors:
+        - name: The name field is required
+        - data: The input was invalid
+        title: One or more validation errors occurred.
+        status: 400
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    AssetFileStateWithoutPreviews:
+      enum:
+      - ready
+      - processing
+      - processingFailed
+      - deleting
+      type: string
+      description: The current state of the asset
+    EmailElementDetails:
+      required:
+      - assetState
+      - checksum
+      - description
+      - downloadUrl
+      - fileExtension
+      - fileSize
+      - folderId
+      - id
+      - modifiedAt
+      - name
+      - navigationPath
+      - tags
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique asset identifier
+          format: int64
+        folderId:
+          type: integer
+          description: Unique folder identifier
+          format: int64
+        name:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Display name
+        description:
+          maxLength: 250
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        fileSize:
+          type: integer
+          description: File size in bytes
+          format: int64
+        checksum:
+          minLength: 1
+          type: string
+          description: MD5 checksum of the bytes
+        fileExtension:
+          minLength: 1
+          type: string
+          description: Suffix to the name of the file
+        downloadUrl:
+          type: string
+          description: Generated temporary access URL for content downloading with 302 response code
+          format: uri
+        navigationPath:
+          maxLength: 700
+          minLength: 1
+          type: string
+          description: Hierarchical path in lowercase based on the location of a email element. E.g. "folder-a/folder-b/_my-email-element" when the location is "Folder A > Folder B > My Email Element"
+        externalData:
+          maxLength: 100
+          type: string
+          description: External data which can be attached for future reference
+          nullable: true
+        modifiedAt:
+          minLength: 1
+          type: string
+          description: Date and time in ISO 8601 format of when the asset was last modified
+        assetState:
+          $ref: '#/components/schemas/AssetFileStateWithoutPreviews'
+      additionalProperties: false
+    EmailElement:
+      required:
+      - assetState
+      - checksum
+      - description
+      - fileExtension
+      - fileSize
+      - folderId
+      - id
+      - modifiedAt
+      - name
+      - navigationPath
+      - tags
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique asset identifier
+          format: int64
+        folderId:
+          type: integer
+          description: Unique folder identifier
+          format: int64
+        name:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Display name
+        description:
+          maxLength: 250
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        fileSize:
+          type: integer
+          description: File size in bytes
+          format: int64
+        checksum:
+          minLength: 1
+          type: string
+          description: MD5 checksum of the bytes
+        fileExtension:
+          minLength: 1
+          type: string
+          description: Suffix to the name of the file
+        navigationPath:
+          maxLength: 700
+          minLength: 1
+          type: string
+          description: Hierarchical path in lowercase based on the location of a email element. E.g. "folder-a/folder-b/_my-email-element" when the location is "Folder A > Folder B > My Email Element"
+        externalData:
+          maxLength: 100
+          type: string
+          description: External data which can be attached for future reference
+          nullable: true
+        modifiedAt:
+          minLength: 1
+          type: string
+          description: Date and time in ISO 8601 format of when the asset was last modified
+        assetState:
+          $ref: '#/components/schemas/AssetFileStateWithoutPreviews'
+      additionalProperties: false
+    ConflictProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+        traceId:
+          type: string
+          nullable: true
+      additionalProperties: false
+      example:
+        title: Conflict
+        detail: The request could not be completed due to a conflict with the current state of the resource.
+        status: 409
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key

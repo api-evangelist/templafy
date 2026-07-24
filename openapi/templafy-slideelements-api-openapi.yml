@@ -1,0 +1,687 @@
+openapi: 3.0.3
+info:
+  contact:
+    url: https://support.templafy.com/hc/en-us/requests/new
+    name: Submit support ticket
+  description: Please refer to our [documentation](https://support.templafy.com/hc/en-us/articles/4411351240081-Public-API-Hive-) for guidelines and examples.
+  title: Templafy Public DataSourceFields SlideElements API
+  version: v3
+  termsOfService: https://www.templafy.com/templafy-saas-agreement/
+servers:
+- variables:
+    tenantId:
+      default: ''
+      description: Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com
+  url: https://{tenantId}.api.templafy.com/v3
+tags:
+- name: SlideElements
+paths:
+  /libraries/{spaceId}/slide-elements/folders/{folderId}/assets:
+    get:
+      tags:
+      - SlideElements
+      summary: Lists all slide element decks along with slide elements in the folder.
+      description: The result does not include slide element decks or slide elements from subfolders. When {searchQuery} is used the result includes decks/slide elements from subfolders. The search mode enables pagination with 1000 page size maximum.
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: folderId
+        in: path
+        description: The identifier of the folder
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: searchQuery
+        in: query
+        description: Filter on slide element deck/slide element name, description and tags
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: Page number from the result set. Page number is set to 1 by default if {searchQuery} is passed. A value passed only for the page number and not for the page size is ignored.
+        schema:
+          maximum: 65535
+          minimum: 1
+          type: integer
+          format: int32
+      - name: pageSize
+        in: query
+        description: Size of the returned page. If {searchQuery} is not set, not passing page size or having it 0 returns all the assets from the folder. Acceptable values are 0 to 1000, inclusive.
+        schema:
+          maximum: 1000
+          minimum: 0
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  oneOf:
+                  - $ref: '#/components/schemas/SlideElement'
+                  - $ref: '#/components/schemas/SlideElementDeck'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+      security:
+      - bearerAuth:
+        - library.read
+        - library.readwrite
+    post:
+      tags:
+      - SlideElements
+      summary: Uploads the slide element file.
+      description: Only one file can be attached to the request body. The supported file format is .PPTX
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: folderId
+        in: path
+        description: The identifier of the folder
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - File
+              type: object
+              properties:
+                File:
+                  type: string
+                  description: A file to be uploaded. The maximum file size is 50 mb
+                  format: binary
+                Name:
+                  type: string
+                  description: The name is inferred from the file name by default. It can be overriden by providing a different value with this field
+                Description:
+                  type: string
+                  description: Description is used to specify the intended usage of the asset
+                Tags:
+                  type: array
+                  items:
+                    type: string
+                  description: Tags should describe the content of the asset making it easier for a user to locate it
+                ExternalData:
+                  type: string
+                  description: External data which can be attached for future reference
+            encoding:
+              File:
+                style: form
+              Name:
+                style: form
+              Description:
+                style: form
+              Tags:
+                style: form
+              ExternalData:
+                style: form
+      responses:
+        '201':
+          description: The identifier of the created asset
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+        '409':
+          description: The upload cannot proceed due to a conflict with the current state of the target location. This may occur if a slide element deck with the same name already exists in this location, or if the folder intended for the upload is in the process of being deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConflictProblemDetails'
+      security:
+      - bearerAuth:
+        - library.readwrite
+  /libraries/{spaceId}/slide-elements/assets/{assetId}:
+    get:
+      tags:
+      - SlideElements
+      summary: Returns the slide element deck or slide element by the identifier.
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: assetId
+        in: path
+        description: The identifier of the slide element deck or slide element to retrieve
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/SlideElementDeckDetails'
+                - $ref: '#/components/schemas/SlideElementDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+      security:
+      - bearerAuth:
+        - library.read
+        - library.readwrite
+    patch:
+      tags:
+      - SlideElements
+      summary: Updates the slide element asset.
+      description: 'Only one file can be attached to the request body. The supported file format is .PPTX. Slide elements are limited to the following properties that can be updated: Name, Tags, ExternalData'
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: assetId
+        in: path
+        description: The identifier of the slide element deck or slide element
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                FolderId:
+                  type: integer
+                  description: The identifier of the destination folder
+                  format: int64
+                Name:
+                  type: string
+                  description: A new display name of the asset
+                Description:
+                  type: string
+                  description: Description is used to specify the intended usage of the asset
+                Tags:
+                  type: array
+                  items:
+                    type: string
+                  description: Tags should describe the content of the asset making it easier for a user to locate it
+                ExternalData:
+                  type: string
+                  description: External data which can be attached for future reference
+                File:
+                  type: string
+                  description: A file to be uploaded. The maximum file size is 50 mb
+                  format: binary
+            encoding:
+              FolderId:
+                style: form
+              Name:
+                style: form
+              Description:
+                style: form
+              Tags:
+                style: form
+              ExternalData:
+                style: form
+              File:
+                style: form
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+        '409':
+          description: The update operation cannot be completed due to a conflict with the current state of the target location. This may occur if a slide element with the same name already exists in the destination, or if the destination folder is in the process of being deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConflictProblemDetails'
+      security:
+      - bearerAuth:
+        - library.readwrite
+    delete:
+      tags:
+      - SlideElements
+      summary: Deletes the slide element deck by the identifier.
+      description: Slide elements can only be deleted along with the slide element deck.
+      parameters:
+      - name: spaceId
+        in: path
+        description: The identifier of the space
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: assetId
+        in: path
+        description: The identifier of the slide element deck to delete
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationProblemDetails'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundProblemDetails'
+      security:
+      - bearerAuth:
+        - library.readwrite
+components:
+  schemas:
+    SlideElementDetails:
+      required:
+      - assetType
+      - slideElementDeckId
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/SlideElementDetailsBase'
+      properties:
+        assetType:
+          minLength: 1
+          type: string
+          description: Type of the asset. It is always SlideElement for this schema
+        slideElementDeckId:
+          type: integer
+          description: The identifier of the slide element deck to which a slide element belongs
+          format: int64
+      additionalProperties: false
+    SlideElement:
+      required:
+      - assetType
+      - slideElementDeckId
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/SlideElementBase'
+      properties:
+        assetType:
+          minLength: 1
+          type: string
+          description: Type of the asset. It is always SlideElement for this schema
+        slideElementDeckId:
+          type: integer
+          description: The identifier of the slide element deck to which a slide element belongs
+          format: int64
+      additionalProperties: false
+    NotFoundProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+        traceId:
+          type: string
+          nullable: true
+      additionalProperties: false
+      example:
+        title: NotFound
+        detail: The server can not find the requested resource.
+        status: 404
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    SlideElementDetailsBase:
+      required:
+      - assetState
+      - assetType
+      - checksum
+      - fileExtension
+      - fileSize
+      - folderId
+      - id
+      - modifiedAt
+      - name
+      - navigationPath
+      - tags
+      type: object
+      properties:
+        assetType:
+          minLength: 1
+          type: string
+        assetState:
+          $ref: '#/components/schemas/AssetFileStateWithPreviews'
+        id:
+          type: integer
+          description: Unique asset identifier
+          format: int64
+        folderId:
+          type: integer
+          description: Unique folder identifier
+          format: int64
+        name:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Display name
+        tags:
+          type: array
+          items:
+            type: string
+        fileSize:
+          type: integer
+          description: File size in bytes
+          format: int64
+        checksum:
+          minLength: 1
+          type: string
+          description: MD5 checksum of the bytes
+        fileExtension:
+          minLength: 1
+          type: string
+          description: Suffix to the name of the file
+        navigationPath:
+          maxLength: 700
+          minLength: 1
+          type: string
+          description: Hierarchical path in lowercase based on the location of a slide element. E.g. "folder-a/folder-b/_my-slide-element" when the location is "Folder A > Folder B > My Slide Element"
+        externalData:
+          maxLength: 100
+          type: string
+          description: External data which can be attached for future reference
+          nullable: true
+        modifiedAt:
+          minLength: 1
+          type: string
+          description: Date and time in ISO 8601 format of when the asset was last modified
+        smallPreviewLink:
+          type: string
+          description: Link to the asset with the maximum width 400px
+          nullable: true
+        largePreviewLink:
+          type: string
+          description: Link to the asset with the maximum width 1500px
+          nullable: true
+      additionalProperties: false
+    AssetFileStateWithPreviews:
+      enum:
+      - ready
+      - processing
+      - processingFailed
+      - generatingPreviews
+      - generatingPreviewsFailed
+      - deleting
+      type: string
+      description: The current state of the asset
+    SlideElementDeck:
+      required:
+      - assetType
+      - description
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/SlideElementBase'
+      properties:
+        assetType:
+          minLength: 1
+          type: string
+          description: Type of the asset. It is always SlideElementDeck for this schema
+        description:
+          maxLength: 250
+          type: string
+      additionalProperties: false
+    ValidationProblemDetails:
+      type: object
+      properties:
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          nullable: true
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+        traceId:
+          type: string
+          nullable: true
+      additionalProperties: false
+      example:
+        errors:
+        - name: The name field is required
+        - data: The input was invalid
+        title: One or more validation errors occurred.
+        status: 400
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    ConflictProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+        traceId:
+          type: string
+          nullable: true
+      additionalProperties: false
+      example:
+        title: Conflict
+        detail: The request could not be completed due to a conflict with the current state of the resource.
+        status: 409
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    SlideElementDeckDetails:
+      required:
+      - assetType
+      - childrenAssetIds
+      - description
+      - downloadUrl
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/SlideElementDetailsBase'
+      properties:
+        assetType:
+          minLength: 1
+          type: string
+          description: Type of the asset. It is always SlideElementDeck for this schema
+        childrenAssetIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: The array of the identifiers of slide elements included in the slide element deck
+        description:
+          maxLength: 250
+          type: string
+        downloadUrl:
+          type: string
+          description: Generated temporary access URL for content downloading with 302 response code
+          format: uri
+      additionalProperties: false
+    SlideElementBase:
+      required:
+      - assetState
+      - assetType
+      - checksum
+      - fileExtension
+      - fileSize
+      - folderId
+      - id
+      - modifiedAt
+      - name
+      - navigationPath
+      - tags
+      type: object
+      properties:
+        assetType:
+          minLength: 1
+          type: string
+        assetState:
+          $ref: '#/components/schemas/AssetFileStateWithPreviews'
+        id:
+          type: integer
+          description: Unique asset identifier
+          format: int64
+        folderId:
+          type: integer
+          description: Unique folder identifier
+          format: int64
+        name:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Display name
+        tags:
+          type: array
+          items:
+            type: string
+        fileSize:
+          type: integer
+          description: File size in bytes
+          format: int64
+        checksum:
+          minLength: 1
+          type: string
+          description: MD5 checksum of the bytes
+        fileExtension:
+          minLength: 1
+          type: string
+          description: Suffix to the name of the file
+        navigationPath:
+          maxLength: 700
+          minLength: 1
+          type: string
+          description: Hierarchical path in lowercase based on the location of a slide element. E.g. "folder-a/folder-b/_my-slide-element" when the location is "Folder A > Folder B > My Slide Element"
+        externalData:
+          maxLength: 100
+          type: string
+          description: External data which can be attached for future reference
+          nullable: true
+        modifiedAt:
+          minLength: 1
+          type: string
+          description: Date and time in ISO 8601 format of when the asset was last modified
+        smallPreviewLink:
+          type: string
+          description: Link to the asset with the maximum width 400px
+          nullable: true
+        largePreviewLink:
+          type: string
+          description: Link to the asset with the maximum width 1500px
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
