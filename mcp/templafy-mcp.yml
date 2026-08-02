@@ -1,0 +1,249 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/templafy-public-api-v3-openapi.json
+status: candidate
+note: >-
+  No official hosted/remote MCP server was found for the Templafy Public API as of this pass.
+  Templafy publishes a `document-agent-plugins` GitHub repo (agent plugins for its document
+  platform) but not a Model Context Protocol server. The tools below are a CANDIDATE surface
+  derived one-per-operation from the Public API v3 OpenAPI (operationIds are absent in the
+  source spec, so each tool is keyed to its METHOD + path).
+server:
+  name: templafy
+  transport: http
+  url: null
+tools:
+  - name: get_spaces
+    description: "Lists all existing active spaces."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /spaces
+  - name: create_libraries_documents_assets_generate
+    description: "Generates a document from a template and returns information about the file, which includes the download url."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#POST /libraries/{spaceId}/documents/assets/{assetId}/generate
+  - name: get_libraries_documents_folders_assets
+    description: "Lists all document templates in the folder."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/documents/folders/{folderId}/assets
+  - name: create_libraries_documents_folders_assets
+    description: "Uploads the document template."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#POST /libraries/{spaceId}/documents/folders/{folderId}/assets
+  - name: get_libraries_documents_assets
+    description: "Returns the document template by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/documents/assets/{assetId}
+  - name: update_libraries_documents_assets
+    description: "Updates the document template."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#PATCH /libraries/{spaceId}/documents/assets/{assetId}
+  - name: delete_libraries_documents_assets
+    description: "Deletes the document template by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#DELETE /libraries/{spaceId}/documents/assets/{assetId}
+  - name: get_libraries_email_elements_folders_assets
+    description: "Lists all email elements in the folder."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/email-elements/folders/{folderId}/assets
+  - name: create_libraries_email_elements_folders_assets
+    description: "Uploads the email element file."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#POST /libraries/{spaceId}/email-elements/folders/{folderId}/assets
+  - name: get_libraries_email_elements_assets
+    description: "Returns the email element by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/email-elements/assets/{assetId}
+  - name: update_libraries_email_elements_assets
+    description: "Updates the email element asset."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#PATCH /libraries/{spaceId}/email-elements/assets/{assetId}
+  - name: delete_libraries_email_elements_assets
+    description: "Deletes the email element by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#DELETE /libraries/{spaceId}/email-elements/assets/{assetId}
+  - name: get_libraries_folders
+    description: "Returns the folder by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/{libraryType}/folders/{folderId}
+  - name: update_libraries_folders
+    description: "Updates the folder."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#PATCH /libraries/{spaceId}/{libraryType}/folders/{folderId}
+  - name: delete_libraries_folders
+    description: "Deletes the folder by the identifier"
+    source_operation: openapi/templafy-public-api-v3-openapi.json#DELETE /libraries/{spaceId}/{libraryType}/folders/{folderId}
+  - name: get_libraries_folders_folders
+    description: "Lists all direct folders in the folder. The result does not include subfolders."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/{libraryType}/folders/{folderId}/folders
+  - name: create_libraries_folders_folders
+    description: "Creates a folder inside the specified folder."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#POST /libraries/{spaceId}/{libraryType}/folders/{folderId}/folders
+  - name: get_libraries_images_folders_assets
+    description: "Lists all image assets in the folder."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/images/folders/{folderId}/assets
+  - name: create_libraries_images_folders_assets
+    description: "Uploads the image file."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#POST /libraries/{spaceId}/images/folders/{folderId}/assets
+  - name: get_libraries_images_assets
+    description: "Returns the image by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/images/assets/{assetId}
+  - name: update_libraries_images_assets
+    description: "Updates the image asset."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#PATCH /libraries/{spaceId}/images/assets/{assetId}
+  - name: delete_libraries_images_assets
+    description: "Deletes the image by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#DELETE /libraries/{spaceId}/images/assets/{assetId}
+  - name: get_libraries
+    description: "Lists all libraries from all spaces."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries
+  - name: get_libraries_2
+    description: "Returns the library by the space identifier and library type."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/{libraryType}
+  - name: get_libraries_links_folders_assets
+    description: "Lists all link assets in the folder."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/links/folders/{folderId}/assets
+  - name: create_libraries_links_folders_assets
+    description: "Creates the link asset."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#POST /libraries/{spaceId}/links/folders/{folderId}/assets
+  - name: get_libraries_links_assets
+    description: "Returns the link asset by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/links/assets/{assetId}
+  - name: update_libraries_links_assets
+    description: "Updates the link asset."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#PATCH /libraries/{spaceId}/links/assets/{assetId}
+  - name: delete_libraries_links_assets
+    description: "Deletes the link by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#DELETE /libraries/{spaceId}/links/assets/{assetId}
+  - name: get_libraries_pdfs_folders_assets
+    description: "Lists all pdf assets in the folder."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/pdfs/folders/{folderId}/assets
+  - name: create_libraries_pdfs_folders_assets
+    description: "Uploads the pdf file."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#POST /libraries/{spaceId}/pdfs/folders/{folderId}/assets
+  - name: get_libraries_pdfs_assets
+    description: "Returns the pdf by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/pdfs/assets/{assetId}
+  - name: update_libraries_pdfs_assets
+    description: "Updates the pdf asset."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#PATCH /libraries/{spaceId}/pdfs/assets/{assetId}
+  - name: delete_libraries_pdfs_assets
+    description: "Deletes the pdf by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#DELETE /libraries/{spaceId}/pdfs/assets/{assetId}
+  - name: create_libraries_presentations_assets_generate
+    description: "Generates a presentation from a template and returns information about the file, which includes the download url."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#POST /libraries/{spaceId}/presentations/assets/{assetId}/generate
+  - name: get_libraries_presentations_folders_assets
+    description: "Lists all presentation templates along with their slides in the folder."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/presentations/folders/{folderId}/assets
+  - name: create_libraries_presentations_folders_assets
+    description: "Uploads the presentation template."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#POST /libraries/{spaceId}/presentations/folders/{folderId}/assets
+  - name: get_libraries_presentations_assets
+    description: "Returns the presentation template or presentation slide by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/presentations/assets/{assetId}
+  - name: update_libraries_presentations_assets
+    description: "Updates the presentation template."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#PATCH /libraries/{spaceId}/presentations/assets/{assetId}
+  - name: delete_libraries_presentations_assets
+    description: "Deletes the presentation template by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#DELETE /libraries/{spaceId}/presentations/assets/{assetId}
+  - name: get_libraries_slide_elements_folders_assets
+    description: "Lists all slide element decks along with slide elements in the folder."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/slide-elements/folders/{folderId}/assets
+  - name: create_libraries_slide_elements_folders_assets
+    description: "Uploads the slide element file."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#POST /libraries/{spaceId}/slide-elements/folders/{folderId}/assets
+  - name: get_libraries_slide_elements_assets
+    description: "Returns the slide element deck or slide element by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/slide-elements/assets/{assetId}
+  - name: update_libraries_slide_elements_assets
+    description: "Updates the slide element asset."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#PATCH /libraries/{spaceId}/slide-elements/assets/{assetId}
+  - name: delete_libraries_slide_elements_assets
+    description: "Deletes the slide element deck by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#DELETE /libraries/{spaceId}/slide-elements/assets/{assetId}
+  - name: get_libraries_slides_folders_assets
+    description: "Lists all slide decks along with slides in the folder."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/slides/folders/{folderId}/assets
+  - name: create_libraries_slides_folders_assets
+    description: "Uploads the slide file."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#POST /libraries/{spaceId}/slides/folders/{folderId}/assets
+  - name: get_libraries_slides_assets
+    description: "Returns the slide deck or slide by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/slides/assets/{assetId}
+  - name: update_libraries_slides_assets
+    description: "Updates the slide asset."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#PATCH /libraries/{spaceId}/slides/assets/{assetId}
+  - name: delete_libraries_slides_assets
+    description: "Deletes the slide deck by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#DELETE /libraries/{spaceId}/slides/assets/{assetId}
+  - name: create_libraries_spreadsheets_assets_generate
+    description: "Generates a spreadsheet from a template and returns information about the file, which includes the download url."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#POST /libraries/{spaceId}/spreadsheets/assets/{assetId}/generate
+  - name: get_libraries_spreadsheets_folders_assets
+    description: "Lists all spreadsheet templates in the folder."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/spreadsheets/folders/{folderId}/assets
+  - name: create_libraries_spreadsheets_folders_assets
+    description: "Uploads the spreadsheet template."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#POST /libraries/{spaceId}/spreadsheets/folders/{folderId}/assets
+  - name: get_libraries_spreadsheets_assets
+    description: "Returns the spreadsheet template by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/spreadsheets/assets/{assetId}
+  - name: update_libraries_spreadsheets_assets
+    description: "Updates the spreadsheet template."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#PATCH /libraries/{spaceId}/spreadsheets/assets/{assetId}
+  - name: delete_libraries_spreadsheets_assets
+    description: "Deletes the spreadsheet template by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#DELETE /libraries/{spaceId}/spreadsheets/assets/{assetId}
+  - name: create_libraries_text_elements_assets_generate
+    description: "Generates a text element from a template and returns information about the file, which includes the download url."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#POST /libraries/{spaceId}/text-elements/assets/{assetId}/generate
+  - name: get_libraries_text_elements_folders_assets
+    description: "Lists all text elements in the folder."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/text-elements/folders/{folderId}/assets
+  - name: create_libraries_text_elements_folders_assets
+    description: "Uploads the text element file."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#POST /libraries/{spaceId}/text-elements/folders/{folderId}/assets
+  - name: get_libraries_text_elements_assets
+    description: "Returns the text element by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /libraries/{spaceId}/text-elements/assets/{assetId}
+  - name: update_libraries_text_elements_assets
+    description: "Updates the text element asset."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#PATCH /libraries/{spaceId}/text-elements/assets/{assetId}
+  - name: delete_libraries_text_elements_assets
+    description: "Deletes the text element by the identifier."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#DELETE /libraries/{spaceId}/text-elements/assets/{assetId}
+  - name: get_data_sources_fields
+    description: "Gets an existing data source field."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /data-sources/{dataSourceId}/fields/{fieldId}
+  - name: update_data_sources_fields
+    description: "Updates an existing data source field."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#PATCH /data-sources/{dataSourceId}/fields/{fieldId}
+  - name: delete_data_sources_fields
+    description: "Deletes a data source field."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#DELETE /data-sources/{dataSourceId}/fields/{fieldId}
+  - name: create_data_sources_fields
+    description: "Creates a new data source field."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#POST /data-sources/{dataSourceId}/fields
+  - name: put_data_sources_items_fields
+    description: "Updates a single field on a data source item."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#PUT /data-sources/{dataSourceId}/items/{itemId}/fields/{fieldId}
+  - name: delete_data_sources_items_fields
+    description: "Deletes an existing field from a data source item."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#DELETE /data-sources/{dataSourceId}/items/{itemId}/fields/{fieldId}
+  - name: get_data_sources_items
+    description: "Lists all existing data source items."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /data-sources/{dataSourceId}/items
+  - name: create_data_sources_items
+    description: "Creates a new data source item."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#POST /data-sources/{dataSourceId}/items
+  - name: get_data_sources_items_2
+    description: "Gets an existing data source item."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /data-sources/{dataSourceId}/items/{itemId}
+  - name: update_data_sources_items
+    description: "Updates data source item."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#PATCH /data-sources/{dataSourceId}/items/{itemId}
+  - name: delete_data_sources_items
+    description: "Deletes an existing data source item."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#DELETE /data-sources/{dataSourceId}/items/{itemId}
+  - name: get_data_sources
+    description: "Lists all existing data sources."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /data-sources
+  - name: create_data_sources
+    description: "Creates a new data source."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#POST /data-sources
+  - name: get_data_sources_2
+    description: "Gets an existing data source."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#GET /data-sources/{id}
+  - name: update_data_sources
+    description: "Updates an existing data source."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#PATCH /data-sources/{id}
+  - name: delete_data_sources
+    description: "Deletes an existing data source."
+    source_operation: openapi/templafy-public-api-v3-openapi.json#DELETE /data-sources/{id}

@@ -1,0 +1,28 @@
+generated: '2026-07-21'
+method: searched
+source: https://api.templafy.com/ (Swagger config, multi-version) + https://status.templafy.com/
+note: >-
+  The Templafy Public API is versioned in the URI path and publishes multiple concurrent versions
+  each carrying a stability level. Operational status is published on an Atlassian Statuspage.
+versioning:
+  scheme: uri-path
+  current: v3
+  versions:
+  - {version: v1, stability: Stable}
+  - {version: v2, stability: Stable}
+  - {version: v3, stability: Stable}
+  - {version: v4, stability: Preview}
+  - {version: unstable, stability: Unstable}
+  stability_levels:
+    Stable: Production-ready; safe to build on.
+    Preview: Feature-complete but may still change before promotion to Stable.
+    Unstable: Early access; may change or be removed without notice.
+  docs: https://support.templafy.com/hc/en-us/articles/9982927949341-Templafy-Public-API
+deprecation:
+  policy: >-
+    Older API versions are superseded as newer stable versions ship; Unstable/Preview surfaces may
+    change or be withdrawn per their stability level. Version stability is the deprecation contract.
+  docs: https://support.templafy.com/hc/en-us/articles/9982927949341-Templafy-Public-API
+status_page: https://status.templafy.com/
+status_provider: Atlassian Statuspage
+security_updates: https://support.templafy.com/hc/en-us/sections/200622682-Security-Trust-Center-Updates

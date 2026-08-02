@@ -1,0 +1,94 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/templafy-public-api-v3-openapi.json
+note: >-
+  Entity-relationship graph derived from the Public API v3 OpenAPI schemas and their id-reference
+  fields. Two subsystems: the content Library graph (spaces -> libraries -> folders -> assets) and
+  the Data Sources graph (data sources -> items -> fields) that feeds document generation.
+entities:
+- name: Space
+  key: id
+  description: Top-level container that groups libraries.
+- name: Library
+  key: id
+  description: A typed collection (documents, images, pdfs, links, presentations, slides, slide-elements, spreadsheets, text-elements, email-elements) within a space.
+- name: Folder
+  key: id
+  description: Hierarchical container of assets inside a library.
+- name: Asset
+  key: id
+  description: A library item — Document, Image, Pdf, Link, Presentation, Slide, SlideDeck, SlideElement, Spreadsheet, TextElement, or EmailElement.
+- name: DataSource
+  key: id
+  description: A structured table of fields and items used to populate generated documents.
+- name: DataSourceItem
+  key: id
+  description: A row in a data source.
+- name: DataSourceField
+  key: id
+  description: A typed column definition (text, number, image, color-theme, font, language, reference) on a data source.
+relationships:
+- from: Library
+  to: Space
+  type: belongs_to
+  via: spaceId
+- from: Library
+  to: Folder
+  type: has_one
+  via: rootFolderId
+- from: Folder
+  to: Library
+  type: belongs_to
+  via: libraryId
+- from: Folder
+  to: Folder
+  type: belongs_to
+  via: parentId
+- from: Document
+  to: Folder
+  type: belongs_to
+  via: folderId
+- from: Image
+  to: Folder
+  type: belongs_to
+  via: folderId
+- from: Pdf
+  to: Folder
+  type: belongs_to
+  via: folderId
+- from: Link
+  to: Folder
+  type: belongs_to
+  via: folderId
+- from: Spreadsheet
+  to: Folder
+  type: belongs_to
+  via: folderId
+- from: TextElement
+  to: Folder
+  type: belongs_to
+  via: folderId
+- from: EmailElement
+  to: Folder
+  type: belongs_to
+  via: folderId
+- from: Slide
+  to: SlideDeck
+  type: belongs_to
+  via: slideDeckId
+- from: SlideElement
+  to: SlideElementDeck
+  type: belongs_to
+  via: slideElementDeckId
+- from: DataSourceItem
+  to: DataSource
+  type: belongs_to
+  via: dataSourceId
+- from: DataSourceField
+  to: DataSource
+  type: belongs_to
+  via: dataSourceId
+- from: DataSourceItemField
+  to: DataSourceField
+  type: belongs_to
+  via: dataSourceFieldId

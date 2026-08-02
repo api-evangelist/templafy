@@ -1,0 +1,22 @@
+generated: '2026-07-21'
+method: searched
+probe: false
+source: https://www.templafy.com/home/platform/security/
+note: >-
+  Templafy publishes its security and trust posture on its platform Security pages (there is no
+  trust.templafy.com subdomain — it redirects to /not-found). The certifications below were read
+  directly from the security page and its linked SOC 2 report and security-and-privacy FAQ.
+url: https://www.templafy.com/home/platform/security/
+certifications:
+- SOC 2
+- ISO 27001
+- ISO 27017
+- GDPR
+resources:
+- {label: SOC 2 report, url: https://www.templafy.com/home/platform/security/soc-2-report/}
+- {label: Security & Privacy FAQ, url: https://www.templafy.com/home/platform/security/security-and-privacy-faq/}
+- {label: Data Processing Agreement, url: https://www.templafy.com/home/platform/security/data-processing-agreement/}
+- {label: Security incident reporting, url: https://www.templafy.com/home/platform/security/security-incident/}
+- {label: Security & Trust Center Updates, url: https://support.templafy.com/hc/en-us/sections/200622682-Security-Trust-Center-Updates}
+evidence:
+- {source: https://www.templafy.com/home/platform/security/, keywords: [soc 2, iso 27001, iso 27017, gdpr, penetration test]}

@@ -1,0 +1,50 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/templafy-public-api-v3-openapi.json
+docs: https://support.templafy.com/hc/en-us/sections/360003936298-Templafy-API
+note: >-
+  Cross-cutting request/response conventions for the Templafy Public API, derived from the v3
+  OpenAPI and the Help Center API section. No idempotency-key mechanism is documented or present
+  in the spec, so no Idempotency pointer is emitted.
+authentication:
+  style: bearer
+  scheme: http-bearer
+  format: API Key
+  detail: >-
+    A key is created in the Templafy Admin Center (API Keys tab) with the scopes/permissions it is
+    allowed to use, then sent as `Authorization: Bearer <api-key>`.
+base_url:
+  template: https://{tenantId}.api.templafy.com/{version}
+  note: The tenantId subdomain is per-customer; version is a URI path segment (v1..v4, unstable).
+pagination:
+  style: page-number
+  params:
+    page_number: pageNumber
+    page_size: pageSize
+  note: List operations accept pageNumber and pageSize query parameters.
+search:
+  param: searchQuery
+  note: List operations that support text filtering accept a searchQuery query parameter.
+versioning:
+  style: uri-path
+  current: v3
+  stability_levels: [Unstable, Preview, Stable]
+  note: Each version carries a stability level; Stable is production-ready, Preview/Unstable may change.
+error_envelope:
+  format: problem-details
+  media_type: application/json
+  fields: [type, title, status, detail, instance, traceId]
+  ref: errors/templafy-problem-types.yml
+tracing:
+  field: traceId
+  note: Every Problem Details error body includes a traceId for support correlation.
+idempotency:
+  supported: false
+  note: No idempotency-key header or parameter is documented or present in the OpenAPI.
+rate_limiting:
+  documented: false
+  note: No rate-limit response headers are declared in the OpenAPI; limits (if any) are enforced server-side.
+cross_reference:
+  authentication: authentication/templafy-authentication.yml
+  errors: errors/templafy-problem-types.yml
+  lifecycle: lifecycle/templafy-lifecycle.yml

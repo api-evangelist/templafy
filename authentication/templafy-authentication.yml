@@ -1,0 +1,26 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/templafy-public-api-v3-openapi.json + https://support.templafy.com/hc/en-us/articles/360008704477-Authentication-method
+docs: https://support.templafy.com/hc/en-us/articles/4413600978577-API-Keys
+summary:
+  types:
+  - http
+  http_schemes:
+  - bearer
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: API Key
+  sources:
+  - openapi/templafy-public-api-v3-openapi.json
+  - openapi/templafy-public-api-v4-preview-openapi.json
+detail: >-
+  The Templafy Public API authenticates with an API key sent as a bearer token
+  (`Authorization: Bearer <api-key>`). Keys are created, scoped, regenerated, and revoked in the
+  Templafy Admin Center under the Account > API Keys tab. Each key is issued with the specific
+  scopes / permissions it may use, and the same API Keys surface also issues tokens for SCIM 2.0
+  user and group provisioning. There is no OAuth 2.0 / OIDC authorization-code flow — the key is a
+  static bearer credential managed per tenant.
+scopes_model: per-key scopes/permissions selected at key creation in the Admin Center
+scim: SCIM 2.0 provisioning tokens are issued from the same API Keys surface

@@ -1,0 +1,22 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Templafy Public API
+  version: 1.0.0
+extends: openapi/templafy-public-api-v3-openapi.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-21'
+    x-apievangelist-notes: >-
+      The published v3 spec omits operationIds and tags on every operation, which weakens
+      code-generation, MCP tool naming, and agent grounding. Adding stable operationIds and
+      resource tags (spaces, libraries, folders, assets, data-sources) is the single highest-value
+      spec improvement to file with Templafy.
+- target: $.info
+  update:
+    x-apievangelist-auth: API key sent as HTTP bearer token; per-key scopes set in Admin Center.
+    x-apievangelist-error-format: RFC 7807 / 9457 Problem Details (type/title/status/detail/instance/traceId)
+    x-apievangelist-pagination: page-number (pageNumber, pageSize)
+- target: $.servers[0]
+  update:
+    x-apievangelist-note: Base URL is per-tenant — https://{tenantId}.api.templafy.com/v3

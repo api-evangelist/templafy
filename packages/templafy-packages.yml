@@ -1,0 +1,39 @@
+generated: '2026-07-21'
+method: searched
+source: https://github.com/templafy
+note: >-
+  No dedicated Public API client SDK is published to npm, PyPI, NuGet, or Maven (a NuGet search for
+  "Templafy" returns 0 packages). Templafy's first-party developer libraries are published as source
+  on the github.com/templafy organization — libraries and reference implementations for building
+  Templafy connectors, delivery integrations, and document agent plugins.
+packages:
+- language: multi
+  registry: github
+  name: templafy/AppConnectorLibrary
+  url: https://github.com/templafy/AppConnectorLibrary
+  official: true
+  purpose: Library for building Templafy app connectors.
+- language: multi
+  registry: github
+  name: templafy/DeliveryConnectorLibrary
+  url: https://github.com/templafy/DeliveryConnectorLibrary
+  official: true
+  purpose: Library for building Templafy delivery connectors.
+- language: multi
+  registry: github
+  name: templafy/CustomContentConnector
+  url: https://github.com/templafy/CustomContentConnector
+  official: true
+  purpose: Reference implementation for a custom content connector API.
+- language: multi
+  registry: github
+  name: templafy/document-agent-plugins
+  url: https://github.com/templafy/document-agent-plugins
+  official: true
+  purpose: Plugins for the Templafy document agent.
+- language: multi
+  registry: github
+  name: templafy/DevConsole
+  url: https://github.com/templafy/DevConsole
+  official: true
+  purpose: Developer console tooling.

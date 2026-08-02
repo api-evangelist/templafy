@@ -1,0 +1,41 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/templafy-public-api-v3-openapi.json
+format: problem-details
+note: >-
+  The Templafy Public API returns errors as RFC 7807 / RFC 9457-style Problem Details objects
+  (schemas ConflictProblemDetails, NotFoundProblemDetails, ValidationProblemDetails,
+  DataSourceObjectLockedProblemDetails). Every problem body carries: type, title, status,
+  detail, instance, and a traceId for support correlation. Content type is application/json.
+envelope:
+  media_type: application/json
+  fields: [type, title, status, detail, instance, traceId]
+problems:
+- status: 400
+  title: Bad Request
+  schema: ValidationProblemDetails
+  description: >-
+    The request was malformed or failed validation. ValidationProblemDetails adds an `errors`
+    map of field name to validation messages.
+- status: 401
+  title: Unauthorized
+  description: The bearer API key was missing, invalid, or expired.
+- status: 403
+  title: Forbidden
+  description: The API key is authenticated but lacks the scope/permission for the operation.
+- status: 404
+  title: Not Found
+  schema: NotFoundProblemDetails
+  description: The requested resource (space, library, folder, asset, data source, item, field) does not exist.
+- status: 409
+  title: Conflict
+  schema: ConflictProblemDetails
+  description: >-
+    The request conflicts with the current state of the target. For uploads this occurs when an
+    asset with the same name already exists in the location, or the target folder is being deleted.
+- status: 423
+  title: Locked
+  schema: DataSourceObjectLockedProblemDetails
+  description: >-
+    The operation cannot proceed because the object is locked. Deleting a data source field with
+    hard dependencies fails with 423; the body reports the blocking dependencies.

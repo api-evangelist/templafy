@@ -1,0 +1,40 @@
+# Templafy
+
+> Templafy is an enterprise document-generation and content-enablement platform. Its Public API is a REST API for automating template and asset management (documents, images, PDFs, links, presentations, slides, slide elements, spreadsheets, text elements, email elements), maintaining data sources, and generating on-brand documents, presentations, spreadsheets, and text elements from templates.
+
+Authentication is an API key sent as an HTTP bearer token; keys are created and scoped in the Templafy Admin Center. Errors are RFC 7807/9457 Problem Details with a traceId. Lists paginate with pageNumber/pageSize. The base URL is per-tenant: https://{tenantId}.api.templafy.com/v3.
+
+## APIs
+- [Templafy Public API v3 (Stable)](https://templafypublicapi.blob.core.windows.net/specifications/openapi-v3.json): Current stable OpenAPI 3.0 spec — 78 operations across spaces, libraries, folders, assets, and data sources.
+- [Templafy Public API v4 (Preview)](https://templafypublicapi.blob.core.windows.net/specifications/openapi-v4.json): Preview OpenAPI 3.0 spec.
+- [Swagger UI](https://api.templafy.com/): Interactive API reference (v1-v4 + unstable).
+
+## Specs
+- [OpenAPI v3](openapi/templafy-public-api-v3-openapi.json)
+- [OpenAPI v4 preview](openapi/templafy-public-api-v4-preview-openapi.json)
+
+## Docs
+- [Developer portal](https://www.templafy.com/developers/)
+- [Document Generation API](https://www.templafy.com/home/platform/integrations/doc-gen-api/)
+- [Public API overview](https://support.templafy.com/hc/en-us/articles/9982927949341-Templafy-Public-API)
+- [Templafy API help section](https://support.templafy.com/hc/en-us/sections/360003936298-Templafy-API)
+- [Authentication method](https://support.templafy.com/hc/en-us/articles/360008704477-Authentication-method)
+- [API Keys](https://support.templafy.com/hc/en-us/articles/4413600978577-API-Keys)
+
+## Operations
+- [Status page](https://status.templafy.com/)
+- [Security & trust](https://www.templafy.com/home/platform/security/)
+- [Pricing](https://www.templafy.com/home/pricing/)
+- [Blog](https://www.templafy.com/blog/)
+- [GitHub organization](https://github.com/templafy)
+
+## Artifacts (API Evangelist enrichment)
+- [Authentication profile](authentication/templafy-authentication.yml)
+- [API conventions](conventions/templafy-conventions.yml)
+- [Error / Problem Details catalog](errors/templafy-problem-types.yml)
+- [Lifecycle & versioning](lifecycle/templafy-lifecycle.yml)
+- [Data model](data-model/templafy-data-model.yml)
+- [Conformance](conformance/templafy-conformance.yml)
+- [Trust center](security/templafy-trust-center.yml)
+- [Candidate MCP tool surface](mcp/templafy-mcp.yml)
+- [Packages](packages/templafy-packages.yml)
