@@ -1,0 +1,3318 @@
+{
+  "item": [
+    {
+      "id": "02e28367-c6be-47e0-a471-c72e42fcd2a8",
+      "name": "Folders",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5ddac603-b37f-4d20-9d5d-ee72a188cf57",
+          "name": "Returns the folder by the identifier.",
+          "request": {
+            "name": "Returns the folder by the identifier.",
+            "description": {},
+            "url": {
+              "path": [
+                "libraries",
+                ":spaceId",
+                ":libraryType",
+                "folders",
+                ":folderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "spaceId",
+                  "description": "(Required) The identifier of the space"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "libraryType",
+                  "description": "(Required) The type of the library you work with"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "folderId",
+                  "description": "(Required) The identifier of the folder to retrieve"
+                },
+                {
+                  "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                  "type": "any",
+                  "value": "{{tenantId}}",
+                  "key": "tenantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5871f00a-ea28-41c8-8ca0-8b5885d2a263",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to retrieve"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 7841,\n  \"libraryId\": 8674,\n  \"modifiedAt\": \"string\",\n  \"name\": \"string\",\n  \"navigationPath\": \"string\",\n  \"state\": \"ready\",\n  \"parentId\": 591\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03894e45-83d6-48a4-9fae-ef54ae5d7499",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to retrieve"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d783adad-b2e7-4157-a582-c8fbf1bd34f8",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to retrieve"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8c9b91f0-075f-4224-ac4c-4b56cd017cab",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to retrieve"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"NotFound\",\n  \"detail\": \"The server can not find the requested resource.\",\n  \"status\": 404,\n  \"traceId\": \"d61f7ce-cccb-4e5b-8727-3b68a61a0559\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "97407cd0-5fec-496a-a873-99aa661f8a24",
+          "name": "Updates the folder.",
+          "request": {
+            "name": "Updates the folder.",
+            "description": {
+              "content": "The root folder can not be updated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "libraries",
+                ":spaceId",
+                ":libraryType",
+                "folders",
+                ":folderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "spaceId",
+                  "description": "(Required) The identifier of the space"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "libraryType",
+                  "description": "(Required) The type of the library you work with"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "folderId",
+                  "description": "(Required) The identifier of the folder to be updated"
+                },
+                {
+                  "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                  "type": "any",
+                  "value": "{{tenantId}}",
+                  "key": "tenantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"parentFolderId\": \"<long>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "271ab1b2-56af-45a5-8392-48c70c8c34a8",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to be updated"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"parentFolderId\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "652be058-6703-492c-b44c-e2e76d503d0e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to be updated"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"parentFolderId\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 5279,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bed9f600-f75a-4385-a669-01f4d7246362",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to be updated"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"parentFolderId\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "15a02086-b493-4363-9c32-29f14441bc68",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to be updated"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"parentFolderId\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "51f3a6d0-46ec-40a9-ac22-6c670b557243",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to be updated"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"parentFolderId\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"NotFound\",\n  \"detail\": \"The server can not find the requested resource.\",\n  \"status\": 404,\n  \"traceId\": \"d61f7ce-cccb-4e5b-8727-3b68a61a0559\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28b63e0d-f4c2-476c-bb70-e0c310c8acf6",
+              "name": "The operation cannot be completed due to a conflict with the current state of the folder. This may occur if a folder with the provided name already exists, or if the destination folder is in the process of being deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to be updated"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"parentFolderId\": \"<long>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"Conflict\",\n  \"detail\": \"The request could not be completed due to a conflict with the current state of the resource.\",\n  \"status\": 409,\n  \"traceId\": \"d61f7ce-cccb-4e5b-8727-3b68a61a0559\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "312580ab-d754-4706-8dc3-4137d30d01c3",
+          "name": "Deletes the folder by the identifier",
+          "request": {
+            "name": "Deletes the folder by the identifier",
+            "description": {
+              "content": "The root folder of the library can not be deleted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "libraries",
+                ":spaceId",
+                ":libraryType",
+                "folders",
+                ":folderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "spaceId",
+                  "description": "(Required) The identifier of the space"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "libraryType",
+                  "description": "(Required) The type of the library you work with"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "folderId",
+                  "description": "(Required) The identifier of the folder to delete"
+                },
+                {
+                  "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                  "type": "any",
+                  "value": "{{tenantId}}",
+                  "key": "tenantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "641b1897-6a9c-43ee-8716-e94f2993c60c",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to delete"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eb5ce63b-3253-465b-b2db-f4e0e7d411fa",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to delete"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9a30a0e8-6ad8-4ed6-bc27-f74c966d7763",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to delete"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "94ec94e3-aeb0-42c8-8eb1-5c3fdc4e7f95",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to delete"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"NotFound\",\n  \"detail\": \"The server can not find the requested resource.\",\n  \"status\": 404,\n  \"traceId\": \"d61f7ce-cccb-4e5b-8727-3b68a61a0559\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a4698af-1cec-411d-9452-629fb35aac3d",
+              "name": "The root folder can not be deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to delete"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"Conflict\",\n  \"detail\": \"The request could not be completed due to a conflict with the current state of the resource.\",\n  \"status\": 409,\n  \"traceId\": \"d61f7ce-cccb-4e5b-8727-3b68a61a0559\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c113d5a-aaf3-4ce0-8166-e97cd9b01fea",
+          "name": "Lists all direct folders in the folder. The result does not include subfolders.",
+          "request": {
+            "name": "Lists all direct folders in the folder. The result does not include subfolders.",
+            "description": {
+              "content": "The folders from the library can be retrieved by using the root folder identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "libraries",
+                ":spaceId",
+                ":libraryType",
+                "folders",
+                ":folderId",
+                "folders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "spaceId",
+                  "description": "(Required) The identifier of the space"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "libraryType",
+                  "description": "(Required) The type of the library you work with"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "folderId",
+                  "description": "(Required) The identifier of the folder which children should be retrieved"
+                },
+                {
+                  "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                  "type": "any",
+                  "value": "{{tenantId}}",
+                  "key": "tenantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8b654d5a-6c98-4a0b-8513-431fb8a44337",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder which children should be retrieved"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 7243,\n    \"libraryId\": 7449,\n    \"modifiedAt\": \"string\",\n    \"name\": \"string\",\n    \"navigationPath\": \"string\",\n    \"state\": \"ready\",\n    \"parentId\": 249\n  },\n  {\n    \"id\": 8651,\n    \"libraryId\": 2127,\n    \"modifiedAt\": \"string\",\n    \"name\": \"string\",\n    \"navigationPath\": \"string\",\n    \"state\": \"ready\",\n    \"parentId\": 5897\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce40ad78-5f0d-46b6-8f81-f9b2f4d767bd",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder which children should be retrieved"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "192f4167-c373-4684-9193-c2d99aff4611",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder which children should be retrieved"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "00eead1f-3c56-48dc-829a-ff5c6c1632f9",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder which children should be retrieved"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"NotFound\",\n  \"detail\": \"The server can not find the requested resource.\",\n  \"status\": 404,\n  \"traceId\": \"d61f7ce-cccb-4e5b-8727-3b68a61a0559\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aa92713b-51da-4c79-af14-b97985016a1b",
+          "name": "Creates a folder inside the specified folder.",
+          "request": {
+            "name": "Creates a folder inside the specified folder.",
+            "description": {},
+            "url": {
+              "path": [
+                "libraries",
+                ":spaceId",
+                ":libraryType",
+                "folders",
+                ":folderId",
+                "folders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "spaceId",
+                  "description": "(Required) The identifier of the space"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "libraryType",
+                  "description": "(Required) The type of the library you work with"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "folderId",
+                  "description": "(Required) The identifier of the parent folder in which a new folder is created"
+                },
+                {
+                  "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                  "type": "any",
+                  "value": "{{tenantId}}",
+                  "key": "tenantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5c27213f-ad08-438f-8dd5-bf6b9ac51c34",
+              "name": "The identifier of the created folder",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the parent folder in which a new folder is created"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "3915",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d9fde4b5-485f-4b27-a86f-ea0d460dc29c",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the parent folder in which a new folder is created"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 7592,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1dab8bc-8e27-4aec-9b76-02bf339770c2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the parent folder in which a new folder is created"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "afbbac63-0f8b-4785-8fe7-57eaf4f15ade",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the parent folder in which a new folder is created"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5792b7ee-75cd-4ea9-bb64-951e6ec0be1a",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the parent folder in which a new folder is created"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"NotFound\",\n  \"detail\": \"The server can not find the requested resource.\",\n  \"status\": 404,\n  \"traceId\": \"d61f7ce-cccb-4e5b-8727-3b68a61a0559\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bfbd8a47-8472-414e-b42d-447f1ec885ea",
+              "name": "The operation cannot be completed due to a conflict with the current state of the folder. This may occur if a folder with the provided name already exists, or if the parent folder is in the process of being deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId",
+                    "folders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the parent folder in which a new folder is created"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"Conflict\",\n  \"detail\": \"The request could not be completed due to a conflict with the current state of the resource.\",\n  \"status\": 409,\n  \"traceId\": \"d61f7ce-cccb-4e5b-8727-3b68a61a0559\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "910d9491-4cee-4c7f-aeda-4a075f58efed",
+          "name": "Returns the list of users and user groups that has access to the folder",
+          "request": {
+            "name": "Returns the list of users and user groups that has access to the folder",
+            "description": {},
+            "url": {
+              "path": [
+                "libraries",
+                ":spaceId",
+                ":libraryType",
+                "folders",
+                ":folderId",
+                "security"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "spaceId",
+                  "description": "(Required) The identifier of the space"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "libraryType",
+                  "description": "(Required) The type of the library you work with"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "folderId",
+                  "description": "(Required) The identifier of the folder to retrieve"
+                },
+                {
+                  "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                  "type": "any",
+                  "value": "{{tenantId}}",
+                  "key": "tenantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0a7f1f01-12f3-466e-9011-fde879f5ec02",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId",
+                    "security"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to retrieve"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"accessStatus\": \"everyoneInTheSpace\",\n  \"userIds\": [\n    \"string\",\n    \"string\"\n  ],\n  \"userGroupIds\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62788d2d-b352-4896-8095-a301b06c2408",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId",
+                    "security"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to retrieve"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b359e0cb-f937-4c9a-87e3-976ec864632d",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId",
+                    "security"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to retrieve"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8d0e11aa-8e21-45da-a95e-f88489bc23df",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId",
+                    "security"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to retrieve"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"NotFound\",\n  \"detail\": \"The server can not find the requested resource.\",\n  \"status\": 404,\n  \"traceId\": \"d61f7ce-cccb-4e5b-8727-3b68a61a0559\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf574ebf-b365-4cb1-b97b-8b0367a6c2ac",
+          "name": "Updates the list of users and user groups that has access to folder. To make the folder available to a specific list, use the accessStatus as restricted and pass the list of users and groups that are expected. To make the folder available to everyone in the space, use the accessStatus as everyoneInTheSpace without passing any users or user groups. Please note that you can only change the access rights on folders that does not have any access rights defined on their parents. Also, if you limit the access for a parent folder, it will always overwrite it for all the folders below.",
+          "request": {
+            "name": "Updates the list of users and user groups that has access to folder. To make the folder available to a specific list, use the accessStatus as restricted and pass the list of users and groups that are expected. To make the folder available to everyone in the space, use the accessStatus as everyoneInTheSpace without passing any users or user groups. Please note that you can only change the access rights on folders that does not have any access rights defined on their parents. Also, if you limit the access for a parent folder, it will always overwrite it for all the folders below.",
+            "description": {},
+            "url": {
+              "path": [
+                "libraries",
+                ":spaceId",
+                ":libraryType",
+                "folders",
+                ":folderId",
+                "security"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "spaceId",
+                  "description": "(Required) The identifier of the space"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "libraryType",
+                  "description": "(Required) The type of the library you work with"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "folderId",
+                  "description": "(Required) The identifier of the folder to be updated"
+                },
+                {
+                  "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                  "type": "any",
+                  "value": "{{tenantId}}",
+                  "key": "tenantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accessStatus\": \"<string>\",\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"userGroupIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6dbe3a1a-137e-40d6-b70b-4fcd18b3a8b0",
+              "name": "The folder security has been updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId",
+                    "security"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to be updated"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessStatus\": \"<string>\",\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"userGroupIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4b873892-e6bf-4aa6-a59f-aad27a2739f7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId",
+                    "security"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to be updated"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessStatus\": \"<string>\",\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"userGroupIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 7592,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c4b45857-45e6-4386-8244-4c59b2e7ac40",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId",
+                    "security"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to be updated"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessStatus\": \"<string>\",\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"userGroupIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a2b2303a-552c-4afa-80ff-299b34af3b97",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId",
+                    "security"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to be updated"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessStatus\": \"<string>\",\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"userGroupIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fa9e96fd-987d-4fff-aff8-c9ef5552a754",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId",
+                    "security"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to be updated"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessStatus\": \"<string>\",\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"userGroupIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"NotFound\",\n  \"detail\": \"The server can not find the requested resource.\",\n  \"status\": 404,\n  \"traceId\": \"d61f7ce-cccb-4e5b-8727-3b68a61a0559\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6739f668-cd61-491d-a89c-812fa622016f",
+              "name": "The operation cannot be completed due to a conflict with the current state of the folder.This may occur if the security is set on a parent folder.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    ":libraryType",
+                    "folders",
+                    ":folderId",
+                    "security"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "libraryType",
+                      "description": "(Required) The type of the library you work with"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder to be updated"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accessStatus\": \"<string>\",\n  \"userIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"userGroupIds\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"Conflict\",\n  \"detail\": \"The request could not be completed due to a conflict with the current state of the resource.\",\n  \"status\": 409,\n  \"traceId\": \"d61f7ce-cccb-4e5b-8727-3b68a61a0559\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "",
+      "key": "tenantId"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tenantId}}.api.templafy.com/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a5251afd-0eb3-4c30-9aea-6372692666bb",
+    "name": "Templafy Public DataSourceFields Folders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Please refer to our [documentation](https://support.templafy.com/hc/en-us/articles/4411351240081-Public-API-Hive-) for guidelines and examples.\n\nContact Support:\n Name: Submit support ticket",
+      "type": "text/plain"
+    }
+  }
+}

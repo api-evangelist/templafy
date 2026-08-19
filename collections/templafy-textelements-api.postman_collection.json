@@ -1,0 +1,3307 @@
+{
+  "item": [
+    {
+      "id": "020c2c93-09f5-4773-973e-c2eaa68c8ef8",
+      "name": "TextElements",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "894e845d-4041-405f-95ea-3df6517940bf",
+          "name": "Generates a text element from a template and returns information about the file, which includes the download url.",
+          "request": {
+            "name": "Generates a text element from a template and returns information about the file, which includes the download url.",
+            "description": {
+              "content": "Creates a file from the template in a docx format. The file will have bindings replaced using various data sources. The url will only be valid for a short amount of time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "libraries",
+                ":spaceId",
+                "text-elements",
+                "assets",
+                ":assetId",
+                "generate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "spaceId",
+                  "description": "(Required) The identifier of the space"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "assetId",
+                  "description": "(Required) The identifier of the text element template"
+                },
+                {
+                  "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                  "type": "any",
+                  "value": "{{tenantId}}",
+                  "key": "tenantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"data\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2e503bc2-3204-43a4-b23f-ecfe20dc2805",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "assets",
+                    ":assetId",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "assetId",
+                      "description": "(Required) The identifier of the text element template"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"templafy@templafy.com\",\n  \"data\": {\n    \"Language\": \"en-us\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"checksum\": \"string\",\n  \"downloadUrl\": \"https://yMAVqucxwQeyydNDPxOo.hgxbeDk71VCao.Ath0y8uearC2yds\",\n  \"fileExtension\": \"string\",\n  \"fileSize\": 6453,\n  \"mimeType\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f2f6e17-5918-4068-b15b-9e96c133aab6",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "assets",
+                    ":assetId",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "assetId",
+                      "description": "(Required) The identifier of the text element template"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"templafy@templafy.com\",\n  \"data\": {\n    \"Language\": \"en-us\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 1577,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65bbd5f7-bccc-451a-bdb5-43c2636a79b1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "assets",
+                    ":assetId",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "assetId",
+                      "description": "(Required) The identifier of the text element template"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"templafy@templafy.com\",\n  \"data\": {\n    \"Language\": \"en-us\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b15d73c4-600e-4106-aef6-d8511f5b7cb0",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "assets",
+                    ":assetId",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "assetId",
+                      "description": "(Required) The identifier of the text element template"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"templafy@templafy.com\",\n  \"data\": {\n    \"Language\": \"en-us\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f968a660-aca0-4b3b-ace8-7917e27687e7",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "assets",
+                    ":assetId",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "assetId",
+                      "description": "(Required) The identifier of the text element template"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"templafy@templafy.com\",\n  \"data\": {\n    \"Language\": \"en-us\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"NotFound\",\n  \"detail\": \"The server can not find the requested resource.\",\n  \"status\": 404,\n  \"traceId\": \"d61f7ce-cccb-4e5b-8727-3b68a61a0559\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e6e743c1-188e-42d1-97b5-699cddb7a2b5",
+          "name": "Lists all text elements in the folder.",
+          "request": {
+            "name": "Lists all text elements in the folder.",
+            "description": {
+              "content": "The result does not include text elements from subfolders.When {searchQuery} is used the result includes text elements from subfolders. The search mode enables pagination with 1000 page size maximum.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "libraries",
+                ":spaceId",
+                "text-elements",
+                "folders",
+                ":folderId",
+                "assets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "searchQuery",
+                  "value": "<string>",
+                  "description": "Filter on text element name, description and tags"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageNumber",
+                  "value": "<integer>",
+                  "description": "Page number from the result set. Page number is set to 1 by default if {searchQuery} is passed. A value passed only for the page number and not for the page size is ignored."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>",
+                  "description": "Size of the returned page. If {searchQuery} is not set, not passing page size or having it 0 returns all the assets from the folder. Acceptable values are 0 to 1000, inclusive."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "spaceId",
+                  "description": "(Required) The identifier of the space"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "folderId",
+                  "description": "(Required) The identifier of the folder"
+                },
+                {
+                  "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                  "type": "any",
+                  "value": "{{tenantId}}",
+                  "key": "tenantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b3e46f6c-b3dc-482c-9889-8f43fa193046",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "folders",
+                    ":folderId",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchQuery",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"assetState\": \"deleting\",\n    \"checksum\": \"string\",\n    \"description\": \"string\",\n    \"fileExtension\": \"string\",\n    \"fileSize\": 2670,\n    \"folderId\": 3148,\n    \"id\": 7687,\n    \"modifiedAt\": \"string\",\n    \"name\": \"string\",\n    \"navigationPath\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"externalData\": \"string\"\n  },\n  {\n    \"assetState\": \"processing\",\n    \"checksum\": \"string\",\n    \"description\": \"string\",\n    \"fileExtension\": \"string\",\n    \"fileSize\": 6224,\n    \"folderId\": 49,\n    \"id\": 1299,\n    \"modifiedAt\": \"string\",\n    \"name\": \"strin\",\n    \"navigationPath\": \"string\",\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"externalData\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "549abde6-bf4a-4d99-8907-1abe81e6bbcc",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "folders",
+                    ":folderId",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchQuery",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2362,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9244b2a7-1dee-496f-bce9-8f4817288112",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "folders",
+                    ":folderId",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchQuery",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cf45f075-b590-481b-adcc-5525e1426414",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "folders",
+                    ":folderId",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchQuery",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "06f1be1a-1f56-43e9-8c4c-87ac734f42be",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "folders",
+                    ":folderId",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchQuery",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"NotFound\",\n  \"detail\": \"The server can not find the requested resource.\",\n  \"status\": 404,\n  \"traceId\": \"d61f7ce-cccb-4e5b-8727-3b68a61a0559\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "32a04c63-78e3-49c3-8492-6248a43bea75",
+          "name": "Uploads the text element file.",
+          "request": {
+            "name": "Uploads the text element file.",
+            "description": {
+              "content": "Only one file can be attached to the request body. The supported file format is .DOCX",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "libraries",
+                ":spaceId",
+                "text-elements",
+                "folders",
+                ":folderId",
+                "assets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "spaceId",
+                  "description": "(Required) The identifier of the space"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "folderId",
+                  "description": "(Required) The identifier of the folder"
+                },
+                {
+                  "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                  "type": "any",
+                  "value": "{{tenantId}}",
+                  "key": "tenantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "File",
+                  "type": "file",
+                  "description": "(Required) A file to be uploaded. The maximum file size is 50 mb"
+                },
+                {
+                  "key": "Name",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "The name is inferred from the file name by default. It can be overriden by providing a different value with this field"
+                },
+                {
+                  "key": "Description",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Description is used to specify the intended usage of the asset"
+                },
+                {
+                  "key": "Tags",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "type": "text",
+                  "description": "Tags should describe the content of the asset making it easier for a user to locate it"
+                },
+                {
+                  "key": "ExternalData",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "External data which can be attached for future reference"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "552d6d64-faaf-465b-9125-8b9249a216f3",
+              "name": "The identifier of the created asset",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "folders",
+                    ":folderId",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) A file to be uploaded. The maximum file size is 50 mb",
+                        "type": "text/plain"
+                      },
+                      "key": "File",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The name is inferred from the file name by default. It can be overriden by providing a different value with this field",
+                        "type": "text/plain"
+                      },
+                      "key": "Name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Description is used to specify the intended usage of the asset",
+                        "type": "text/plain"
+                      },
+                      "key": "Description",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Tags should describe the content of the asset making it easier for a user to locate it",
+                        "type": "text/plain"
+                      },
+                      "key": "Tags",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "External data which can be attached for future reference",
+                        "type": "text/plain"
+                      },
+                      "key": "ExternalData",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "9536",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8c493e0-c8da-4279-b6a5-3f45fb7d15a9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "folders",
+                    ":folderId",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) A file to be uploaded. The maximum file size is 50 mb",
+                        "type": "text/plain"
+                      },
+                      "key": "File",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The name is inferred from the file name by default. It can be overriden by providing a different value with this field",
+                        "type": "text/plain"
+                      },
+                      "key": "Name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Description is used to specify the intended usage of the asset",
+                        "type": "text/plain"
+                      },
+                      "key": "Description",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Tags should describe the content of the asset making it easier for a user to locate it",
+                        "type": "text/plain"
+                      },
+                      "key": "Tags",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "External data which can be attached for future reference",
+                        "type": "text/plain"
+                      },
+                      "key": "ExternalData",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2362,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eaf27725-ade7-45b4-8a5d-be675c192619",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "folders",
+                    ":folderId",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) A file to be uploaded. The maximum file size is 50 mb",
+                        "type": "text/plain"
+                      },
+                      "key": "File",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The name is inferred from the file name by default. It can be overriden by providing a different value with this field",
+                        "type": "text/plain"
+                      },
+                      "key": "Name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Description is used to specify the intended usage of the asset",
+                        "type": "text/plain"
+                      },
+                      "key": "Description",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Tags should describe the content of the asset making it easier for a user to locate it",
+                        "type": "text/plain"
+                      },
+                      "key": "Tags",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "External data which can be attached for future reference",
+                        "type": "text/plain"
+                      },
+                      "key": "ExternalData",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a5034e76-1a44-43b9-a0bc-96cca0ba4398",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "folders",
+                    ":folderId",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) A file to be uploaded. The maximum file size is 50 mb",
+                        "type": "text/plain"
+                      },
+                      "key": "File",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The name is inferred from the file name by default. It can be overriden by providing a different value with this field",
+                        "type": "text/plain"
+                      },
+                      "key": "Name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Description is used to specify the intended usage of the asset",
+                        "type": "text/plain"
+                      },
+                      "key": "Description",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Tags should describe the content of the asset making it easier for a user to locate it",
+                        "type": "text/plain"
+                      },
+                      "key": "Tags",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "External data which can be attached for future reference",
+                        "type": "text/plain"
+                      },
+                      "key": "ExternalData",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3bf688ac-d52e-45f8-86b0-067c251559da",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "folders",
+                    ":folderId",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) A file to be uploaded. The maximum file size is 50 mb",
+                        "type": "text/plain"
+                      },
+                      "key": "File",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The name is inferred from the file name by default. It can be overriden by providing a different value with this field",
+                        "type": "text/plain"
+                      },
+                      "key": "Name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Description is used to specify the intended usage of the asset",
+                        "type": "text/plain"
+                      },
+                      "key": "Description",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Tags should describe the content of the asset making it easier for a user to locate it",
+                        "type": "text/plain"
+                      },
+                      "key": "Tags",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "External data which can be attached for future reference",
+                        "type": "text/plain"
+                      },
+                      "key": "ExternalData",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"NotFound\",\n  \"detail\": \"The server can not find the requested resource.\",\n  \"status\": 404,\n  \"traceId\": \"d61f7ce-cccb-4e5b-8727-3b68a61a0559\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e50644b5-222b-4d86-9beb-8f30df2799ac",
+              "name": "The upload cannot proceed due to a conflict with the current state of the target location. This may occur if a text element with the same name already exists in this location, or if the folder intended for the upload is in the process of being deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "folders",
+                    ":folderId",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "folderId",
+                      "description": "(Required) The identifier of the folder"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) A file to be uploaded. The maximum file size is 50 mb",
+                        "type": "text/plain"
+                      },
+                      "key": "File",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The name is inferred from the file name by default. It can be overriden by providing a different value with this field",
+                        "type": "text/plain"
+                      },
+                      "key": "Name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Description is used to specify the intended usage of the asset",
+                        "type": "text/plain"
+                      },
+                      "key": "Description",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Tags should describe the content of the asset making it easier for a user to locate it",
+                        "type": "text/plain"
+                      },
+                      "key": "Tags",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "External data which can be attached for future reference",
+                        "type": "text/plain"
+                      },
+                      "key": "ExternalData",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"Conflict\",\n  \"detail\": \"The request could not be completed due to a conflict with the current state of the resource.\",\n  \"status\": 409,\n  \"traceId\": \"d61f7ce-cccb-4e5b-8727-3b68a61a0559\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "441b7ba1-89ec-4037-b7f7-2660fa80a5b7",
+          "name": "Returns the text element by the identifier.",
+          "request": {
+            "name": "Returns the text element by the identifier.",
+            "description": {},
+            "url": {
+              "path": [
+                "libraries",
+                ":spaceId",
+                "text-elements",
+                "assets",
+                ":assetId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "spaceId",
+                  "description": "(Required) The identifier of the space"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "assetId",
+                  "description": "(Required) The identifier of the text element to retrieve"
+                },
+                {
+                  "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                  "type": "any",
+                  "value": "{{tenantId}}",
+                  "key": "tenantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "32f3b45c-9dc6-4a27-badc-f5157cdff7f5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "assets",
+                    ":assetId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "assetId",
+                      "description": "(Required) The identifier of the text element to retrieve"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"assetState\": \"ready\",\n  \"checksum\": \"string\",\n  \"description\": \"string\",\n  \"downloadUrl\": \"http://aMncU.dks9QAJA.LahHug+qUXNORppouPvQaEXZ6E\",\n  \"fileExtension\": \"string\",\n  \"fileSize\": 1604,\n  \"folderId\": 581,\n  \"id\": 5576,\n  \"modifiedAt\": \"string\",\n  \"name\": \"string\",\n  \"navigationPath\": \"string\",\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"externalData\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc0ec9f6-5245-4733-97e9-5313a18dd0d4",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "assets",
+                    ":assetId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "assetId",
+                      "description": "(Required) The identifier of the text element to retrieve"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4da3c75d-6136-4de7-9a52-b3a2b7ba1350",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "assets",
+                    ":assetId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "assetId",
+                      "description": "(Required) The identifier of the text element to retrieve"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0fa1277a-fd65-4f5e-a72b-0ee35553ea11",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "assets",
+                    ":assetId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "assetId",
+                      "description": "(Required) The identifier of the text element to retrieve"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"NotFound\",\n  \"detail\": \"The server can not find the requested resource.\",\n  \"status\": 404,\n  \"traceId\": \"d61f7ce-cccb-4e5b-8727-3b68a61a0559\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c3aab10-a6f9-4e62-9ae1-f27bba1b997d",
+          "name": "Updates the text element asset.",
+          "request": {
+            "name": "Updates the text element asset.",
+            "description": {
+              "content": "Only one file can be attached to the request body. The supported file format is .DOCX",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "libraries",
+                ":spaceId",
+                "text-elements",
+                "assets",
+                ":assetId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "spaceId",
+                  "description": "(Required) The identifier of the space"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "assetId",
+                  "description": "(Required) The identifier of the text element"
+                },
+                {
+                  "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                  "type": "any",
+                  "value": "{{tenantId}}",
+                  "key": "tenantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "FolderId",
+                  "value": "<long>",
+                  "type": "text",
+                  "description": "The identifier of the destination folder"
+                },
+                {
+                  "key": "Name",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "A new display name of the asset"
+                },
+                {
+                  "key": "Description",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Description is used to specify the intended usage of the asset"
+                },
+                {
+                  "key": "Tags",
+                  "value": "[\"<string>\",\"<string>\"]",
+                  "type": "text",
+                  "description": "Tags should describe the content of the asset making it easier for a user to locate it"
+                },
+                {
+                  "key": "ExternalData",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "External data which can be attached for future reference"
+                },
+                {
+                  "key": "File",
+                  "type": "file",
+                  "description": "A file to be uploaded. The maximum file size is 50 mb"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8c2e6d44-77d0-46cd-abe5-befeea4cc530",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "assets",
+                    ":assetId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "assetId",
+                      "description": "(Required) The identifier of the text element"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "The identifier of the destination folder",
+                        "type": "text/plain"
+                      },
+                      "key": "FolderId",
+                      "value": "<long>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "A new display name of the asset",
+                        "type": "text/plain"
+                      },
+                      "key": "Name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Description is used to specify the intended usage of the asset",
+                        "type": "text/plain"
+                      },
+                      "key": "Description",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Tags should describe the content of the asset making it easier for a user to locate it",
+                        "type": "text/plain"
+                      },
+                      "key": "Tags",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "External data which can be attached for future reference",
+                        "type": "text/plain"
+                      },
+                      "key": "ExternalData",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "A file to be uploaded. The maximum file size is 50 mb",
+                        "type": "text/plain"
+                      },
+                      "key": "File",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "27d5678f-b334-4c96-bf0e-082cb855b3ef",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "assets",
+                    ":assetId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "assetId",
+                      "description": "(Required) The identifier of the text element"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "The identifier of the destination folder",
+                        "type": "text/plain"
+                      },
+                      "key": "FolderId",
+                      "value": "<long>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "A new display name of the asset",
+                        "type": "text/plain"
+                      },
+                      "key": "Name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Description is used to specify the intended usage of the asset",
+                        "type": "text/plain"
+                      },
+                      "key": "Description",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Tags should describe the content of the asset making it easier for a user to locate it",
+                        "type": "text/plain"
+                      },
+                      "key": "Tags",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "External data which can be attached for future reference",
+                        "type": "text/plain"
+                      },
+                      "key": "ExternalData",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "A file to be uploaded. The maximum file size is 50 mb",
+                        "type": "text/plain"
+                      },
+                      "key": "File",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"status\": 2362,\n  \"detail\": \"string\",\n  \"instance\": \"string\",\n  \"traceId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7cefa6a-7b78-4f83-9e53-21715eca64f9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "assets",
+                    ":assetId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "assetId",
+                      "description": "(Required) The identifier of the text element"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "The identifier of the destination folder",
+                        "type": "text/plain"
+                      },
+                      "key": "FolderId",
+                      "value": "<long>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "A new display name of the asset",
+                        "type": "text/plain"
+                      },
+                      "key": "Name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Description is used to specify the intended usage of the asset",
+                        "type": "text/plain"
+                      },
+                      "key": "Description",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Tags should describe the content of the asset making it easier for a user to locate it",
+                        "type": "text/plain"
+                      },
+                      "key": "Tags",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "External data which can be attached for future reference",
+                        "type": "text/plain"
+                      },
+                      "key": "ExternalData",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "A file to be uploaded. The maximum file size is 50 mb",
+                        "type": "text/plain"
+                      },
+                      "key": "File",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "74b14410-b868-4e54-a5f4-fe6cd738ce30",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "assets",
+                    ":assetId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "assetId",
+                      "description": "(Required) The identifier of the text element"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "The identifier of the destination folder",
+                        "type": "text/plain"
+                      },
+                      "key": "FolderId",
+                      "value": "<long>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "A new display name of the asset",
+                        "type": "text/plain"
+                      },
+                      "key": "Name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Description is used to specify the intended usage of the asset",
+                        "type": "text/plain"
+                      },
+                      "key": "Description",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Tags should describe the content of the asset making it easier for a user to locate it",
+                        "type": "text/plain"
+                      },
+                      "key": "Tags",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "External data which can be attached for future reference",
+                        "type": "text/plain"
+                      },
+                      "key": "ExternalData",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "A file to be uploaded. The maximum file size is 50 mb",
+                        "type": "text/plain"
+                      },
+                      "key": "File",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1353056f-cefd-4305-a87d-0b3105d8c8ea",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "assets",
+                    ":assetId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "assetId",
+                      "description": "(Required) The identifier of the text element"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "The identifier of the destination folder",
+                        "type": "text/plain"
+                      },
+                      "key": "FolderId",
+                      "value": "<long>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "A new display name of the asset",
+                        "type": "text/plain"
+                      },
+                      "key": "Name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Description is used to specify the intended usage of the asset",
+                        "type": "text/plain"
+                      },
+                      "key": "Description",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Tags should describe the content of the asset making it easier for a user to locate it",
+                        "type": "text/plain"
+                      },
+                      "key": "Tags",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "External data which can be attached for future reference",
+                        "type": "text/plain"
+                      },
+                      "key": "ExternalData",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "A file to be uploaded. The maximum file size is 50 mb",
+                        "type": "text/plain"
+                      },
+                      "key": "File",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"NotFound\",\n  \"detail\": \"The server can not find the requested resource.\",\n  \"status\": 404,\n  \"traceId\": \"d61f7ce-cccb-4e5b-8727-3b68a61a0559\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ebeec243-c553-40c7-b913-59dd5ef4ab44",
+              "name": "The update operation cannot be completed due to a conflict with the current state of the target location. This may occur if a text element with the same name already exists in the destination, or if the destination folder is in the process of being deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "assets",
+                    ":assetId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "assetId",
+                      "description": "(Required) The identifier of the text element"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "The identifier of the destination folder",
+                        "type": "text/plain"
+                      },
+                      "key": "FolderId",
+                      "value": "<long>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "A new display name of the asset",
+                        "type": "text/plain"
+                      },
+                      "key": "Name",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Description is used to specify the intended usage of the asset",
+                        "type": "text/plain"
+                      },
+                      "key": "Description",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Tags should describe the content of the asset making it easier for a user to locate it",
+                        "type": "text/plain"
+                      },
+                      "key": "Tags",
+                      "value": "[\"<string>\",\"<string>\"]",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "External data which can be attached for future reference",
+                        "type": "text/plain"
+                      },
+                      "key": "ExternalData",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "A file to be uploaded. The maximum file size is 50 mb",
+                        "type": "text/plain"
+                      },
+                      "key": "File",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"Conflict\",\n  \"detail\": \"The request could not be completed due to a conflict with the current state of the resource.\",\n  \"status\": 409,\n  \"traceId\": \"d61f7ce-cccb-4e5b-8727-3b68a61a0559\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "21b3c212-ef44-40d2-b70d-52df76fca588",
+          "name": "Deletes the text element by the identifier.",
+          "request": {
+            "name": "Deletes the text element by the identifier.",
+            "description": {},
+            "url": {
+              "path": [
+                "libraries",
+                ":spaceId",
+                "text-elements",
+                "assets",
+                ":assetId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "spaceId",
+                  "description": "(Required) The identifier of the space"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "assetId",
+                  "description": "(Required) The identifier of the text element to delete"
+                },
+                {
+                  "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                  "type": "any",
+                  "value": "{{tenantId}}",
+                  "key": "tenantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4fb4afdd-2cbd-4f91-b976-9d4f372bb78d",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "assets",
+                    ":assetId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "assetId",
+                      "description": "(Required) The identifier of the text element to delete"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d7a16b94-8944-432f-b944-6335480b12a2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "assets",
+                    ":assetId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "assetId",
+                      "description": "(Required) The identifier of the text element to delete"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d825bb1f-cc62-48fa-a585-650b018e9d70",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "assets",
+                    ":assetId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "assetId",
+                      "description": "(Required) The identifier of the text element to delete"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "089991cd-3416-400b-9a65-e94878d2dae9",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "libraries",
+                    ":spaceId",
+                    "text-elements",
+                    "assets",
+                    ":assetId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "spaceId",
+                      "description": "(Required) The identifier of the space"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "assetId",
+                      "description": "(Required) The identifier of the text element to delete"
+                    },
+                    {
+                      "description": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+                      "type": "any",
+                      "value": "{{tenantId}}",
+                      "key": "tenantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"title\": \"NotFound\",\n  \"detail\": \"The server can not find the requested resource.\",\n  \"status\": 404,\n  \"traceId\": \"d61f7ce-cccb-4e5b-8727-3b68a61a0559\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "",
+      "key": "tenantId"
+    },
+    {
+      "type": "string",
+      "value": "https://{{tenantId}}.api.templafy.com/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "70e720dd-a495-4462-be7a-54f570eb4368",
+    "name": "Templafy Public DataSourceFields TextElements API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Please refer to our [documentation](https://support.templafy.com/hc/en-us/articles/4411351240081-Public-API-Hive-) for guidelines and examples.\n\nContact Support:\n Name: Submit support ticket",
+      "type": "text/plain"
+    }
+  }
+}

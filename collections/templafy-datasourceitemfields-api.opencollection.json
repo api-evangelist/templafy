@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Templafy Public DataSourceFields DataSourceItemFields API",
+    "version": "v3"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DataSourceItemFields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Updates a single field on a data source item.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tenantId}.api.templafy.com/v3/data-sources/:dataSourceId/items/:itemId/fields/:fieldId",
+            "params": [
+              {
+                "name": "dataSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source item"
+              },
+              {
+                "name": "fieldId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source item field"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates a single field on a data source item."
+        },
+        {
+          "info": {
+            "name": "Deletes an existing field from a data source item.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tenantId}.api.templafy.com/v3/data-sources/:dataSourceId/items/:itemId/fields/:fieldId",
+            "params": [
+              {
+                "name": "dataSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source item"
+              },
+              {
+                "name": "fieldId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source item field"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes an existing field from the specified data source item contained in the specified data source."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

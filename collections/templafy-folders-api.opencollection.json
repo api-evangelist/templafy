@@ -1,0 +1,275 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Templafy Public DataSourceFields Folders API",
+    "version": "v3"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Folders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns the folder by the identifier.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenantId}.api.templafy.com/v3/libraries/:spaceId/:libraryType/folders/:folderId",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the space"
+              },
+              {
+                "name": "libraryType",
+                "value": "",
+                "type": "path",
+                "description": "The type of the library you work with"
+              },
+              {
+                "name": "folderId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the folder to retrieve"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the folder by the identifier."
+        },
+        {
+          "info": {
+            "name": "Updates the folder.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{tenantId}.api.templafy.com/v3/libraries/:spaceId/:libraryType/folders/:folderId",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the space"
+              },
+              {
+                "name": "libraryType",
+                "value": "",
+                "type": "path",
+                "description": "The type of the library you work with"
+              },
+              {
+                "name": "folderId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the folder to be updated"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "The root folder can not be updated."
+        },
+        {
+          "info": {
+            "name": "Deletes the folder by the identifier",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tenantId}.api.templafy.com/v3/libraries/:spaceId/:libraryType/folders/:folderId",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the space"
+              },
+              {
+                "name": "libraryType",
+                "value": "",
+                "type": "path",
+                "description": "The type of the library you work with"
+              },
+              {
+                "name": "folderId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the folder to delete"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "The root folder of the library can not be deleted."
+        },
+        {
+          "info": {
+            "name": "Lists all direct folders in the folder. The result does not include subfolders.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenantId}.api.templafy.com/v3/libraries/:spaceId/:libraryType/folders/:folderId/folders",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the space"
+              },
+              {
+                "name": "libraryType",
+                "value": "",
+                "type": "path",
+                "description": "The type of the library you work with"
+              },
+              {
+                "name": "folderId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the folder which children should be retrieved"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "The folders from the library can be retrieved by using the root folder identifier."
+        },
+        {
+          "info": {
+            "name": "Creates a folder inside the specified folder.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenantId}.api.templafy.com/v3/libraries/:spaceId/:libraryType/folders/:folderId/folders",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the space"
+              },
+              {
+                "name": "libraryType",
+                "value": "",
+                "type": "path",
+                "description": "The type of the library you work with"
+              },
+              {
+                "name": "folderId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the parent folder in which a new folder is created"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a folder inside the specified folder."
+        },
+        {
+          "info": {
+            "name": "Returns the list of users and user groups that has access to the folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenantId}.api.templafy.com/v3/libraries/:spaceId/:libraryType/folders/:folderId/security",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the space"
+              },
+              {
+                "name": "libraryType",
+                "value": "",
+                "type": "path",
+                "description": "The type of the library you work with"
+              },
+              {
+                "name": "folderId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the folder to retrieve"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the list of users and user groups that has access to the folder"
+        },
+        {
+          "info": {
+            "name": "Updates the list of users and user groups that has access to folder. To make the folder available to a specific list, use the accessStatus as restricted and pass the list of users and groups that are expected. To make the folder available to everyone in the space, use the accessStatus as everyoneInTheSpace without passing any users or user groups. Please note that you can only change the access rights on folders that does not have any access rights defined on their parents. Also, if you limit the access for a parent folder, it will always overwrite it for all the folders below.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{tenantId}.api.templafy.com/v3/libraries/:spaceId/:libraryType/folders/:folderId/security",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the space"
+              },
+              {
+                "name": "libraryType",
+                "value": "",
+                "type": "path",
+                "description": "The type of the library you work with"
+              },
+              {
+                "name": "folderId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the folder to be updated"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the list of users and user groups that has access to folder. To make the folder available to a specific list, use the accessStatus as restricted and pass the list of users and groups that are expected. To make the folder available to everyone in the space, use the accessStatus as everyoneInTheSpace without passing any users or user groups. Please note that you can only change the access rights on folders that does not have any access rights defined on their parents. Also, if you limit th"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

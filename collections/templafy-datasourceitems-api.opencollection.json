@@ -1,0 +1,171 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Templafy Public DataSourceFields DataSourceItems API",
+    "version": "v3"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DataSourceItems",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all existing data source items.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenantId}.api.templafy.com/v3/data-sources/:dataSourceId/items",
+            "params": [
+              {
+                "name": "dataSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "The page number to fetch. Acceptable values are 1 to 65535, inclusive."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The size of a page. Acceptable values are 1 to 1000, inclusive."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of all data source items contained within a data source. Results are paged, starting at page 1."
+        },
+        {
+          "info": {
+            "name": "Creates a new data source item.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenantId}.api.templafy.com/v3/data-sources/:dataSourceId/items",
+            "params": [
+              {
+                "name": "dataSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new data source item in the specified data source."
+        },
+        {
+          "info": {
+            "name": "Gets an existing data source item.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenantId}.api.templafy.com/v3/data-sources/:dataSourceId/items/:itemId",
+            "params": [
+              {
+                "name": "dataSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source item"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a single data source item from the specified data source."
+        },
+        {
+          "info": {
+            "name": "Updates data source item.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{tenantId}.api.templafy.com/v3/data-sources/:dataSourceId/items/:itemId",
+            "params": [
+              {
+                "name": "dataSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source item"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates data source item."
+        },
+        {
+          "info": {
+            "name": "Deletes an existing data source item.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tenantId}.api.templafy.com/v3/data-sources/:dataSourceId/items/:itemId",
+            "params": [
+              {
+                "name": "dataSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source item"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes an existing data source item from the specified data source."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

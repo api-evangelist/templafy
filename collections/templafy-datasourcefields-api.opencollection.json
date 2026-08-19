@@ -1,0 +1,136 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Templafy Public DataSourceFields API",
+    "version": "v3"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DataSourceFields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Gets an existing data source field.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenantId}.api.templafy.com/v3/data-sources/:dataSourceId/fields/:fieldId",
+            "params": [
+              {
+                "name": "dataSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source"
+              },
+              {
+                "name": "fieldId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the field on the data source"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a data source field that represents the schema of a single field of a data source."
+        },
+        {
+          "info": {
+            "name": "Updates an existing data source field.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{tenantId}.api.templafy.com/v3/data-sources/:dataSourceId/fields/:fieldId",
+            "params": [
+              {
+                "name": "dataSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source"
+              },
+              {
+                "name": "fieldId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the field on the data source"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This is a PATCH operation. Any fields not included in the request will remain unchanged on the server."
+        },
+        {
+          "info": {
+            "name": "Deletes a data source field.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tenantId}.api.templafy.com/v3/data-sources/:dataSourceId/fields/:fieldId",
+            "params": [
+              {
+                "name": "dataSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source"
+              },
+              {
+                "name": "fieldId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the field on the data source"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a data source field."
+        },
+        {
+          "info": {
+            "name": "Creates a new data source field.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenantId}.api.templafy.com/v3/data-sources/:dataSourceId/fields",
+            "params": [
+              {
+                "name": "dataSourceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source to extend"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Extends a data source by adding a new field."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

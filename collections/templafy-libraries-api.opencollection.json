@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Templafy Public DataSourceFields Libraries API",
+    "version": "v3"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Libraries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all libraries from all spaces.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenantId}.api.templafy.com/v3/libraries",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Lists all libraries from all spaces."
+        },
+        {
+          "info": {
+            "name": "Returns the library by the space identifier and library type.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenantId}.api.templafy.com/v3/libraries/:spaceId/:libraryType",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the space"
+              },
+              {
+                "name": "libraryType",
+                "value": "",
+                "type": "path",
+                "description": "Type of the library to return"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "The response has a root folder unique identifier that can be used to request the content of the library."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

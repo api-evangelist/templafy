@@ -1,0 +1,125 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Templafy Public DataSourceFields DataSources API",
+    "version": "v3"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DataSources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all existing data sources.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenantId}.api.templafy.com/v3/data-sources",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of all data sources and the schema of their fields."
+        },
+        {
+          "info": {
+            "name": "Creates a new data source.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenantId}.api.templafy.com/v3/data-sources",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new data source to contain data source items to represent your data."
+        },
+        {
+          "info": {
+            "name": "Gets an existing data source.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenantId}.api.templafy.com/v3/data-sources/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a single data source and the schema of its fields."
+        },
+        {
+          "info": {
+            "name": "Updates an existing data source.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{tenantId}.api.templafy.com/v3/data-sources/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This is a PATCH operation. Any fields not included in the request will remain unchanged on the server."
+        },
+        {
+          "info": {
+            "name": "Deletes an existing data source.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tenantId}.api.templafy.com/v3/data-sources/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the data source"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes an existing data source."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

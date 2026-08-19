@@ -1,0 +1,246 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Templafy Public DataSourceFields SlideElements API",
+    "version": "v3"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SlideElements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lists all slide element decks along with slide elements in the folder.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenantId}.api.templafy.com/v3/libraries/:spaceId/slide-elements/folders/:folderId/assets",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the space"
+              },
+              {
+                "name": "folderId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the folder"
+              },
+              {
+                "name": "searchQuery",
+                "value": "",
+                "type": "query",
+                "description": "Filter on slide element deck/slide element name, description and tags"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "Page number from the result set. Page number is set to 1 by default if {searchQuery} is passed. A value passed only for the page number and not for the page size is ignored."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Size of the returned page. If {searchQuery} is not set, not passing page size or having it 0 returns all the assets from the folder. Acceptable values are 0 to 1000, inclusive."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "The result does not include slide element decks or slide elements from subfolders. When {searchQuery} is used the result includes decks/slide elements from subfolders. The search mode enables pagination with 1000 page size maximum."
+        },
+        {
+          "info": {
+            "name": "Uploads the slide element file.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenantId}.api.templafy.com/v3/libraries/:spaceId/slide-elements/folders/:folderId/assets",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the space"
+              },
+              {
+                "name": "folderId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the folder"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "File",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "Name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "Description",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "Tags",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "ExternalData",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Only one file can be attached to the request body. The supported file format is .PPTX"
+        },
+        {
+          "info": {
+            "name": "Returns the slide element deck or slide element by the identifier.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenantId}.api.templafy.com/v3/libraries/:spaceId/slide-elements/assets/:assetId",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the space"
+              },
+              {
+                "name": "assetId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the slide element deck or slide element to retrieve"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the slide element deck or slide element by the identifier."
+        },
+        {
+          "info": {
+            "name": "Updates the slide element asset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{tenantId}.api.templafy.com/v3/libraries/:spaceId/slide-elements/assets/:assetId",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the space"
+              },
+              {
+                "name": "assetId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the slide element deck or slide element"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "FolderId",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "Name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "Description",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "Tags",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "ExternalData",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "File",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Only one file can be attached to the request body. The supported file format is .PPTX. Slide elements are limited to the following properties that can be updated: Name, Tags, ExternalData"
+        },
+        {
+          "info": {
+            "name": "Deletes the slide element deck by the identifier.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tenantId}.api.templafy.com/v3/libraries/:spaceId/slide-elements/assets/:assetId",
+            "params": [
+              {
+                "name": "spaceId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the space"
+              },
+              {
+                "name": "assetId",
+                "value": "",
+                "type": "path",
+                "description": "The identifier of the slide element deck to delete"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Slide elements can only be deleted along with the slide element deck."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
