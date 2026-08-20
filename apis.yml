@@ -41,6 +41,16 @@ tags:
 - Document Automation
 - Productivity
 - Enterprise
+- Software-as-a-Service
+tags_raw:
+- Company
+- Document Generation
+- Templates
+- Content Management
+- Digital Asset Management
+- Document Automation
+- Productivity
+- Enterprise
 - SaaS
 apis:
 - aid: templafy:templafy-datasourcefields-api
@@ -79,6 +89,8 @@ apis:
   humanURL: https://api.templafy.com/
   baseURL: https://api.templafy.com/v3
   tags:
+  - Data Sources
+  tags_raw:
   - DataSources
   properties:
   - type: OpenAPI
@@ -119,6 +131,8 @@ apis:
   humanURL: https://api.templafy.com/
   baseURL: https://api.templafy.com/v3
   tags:
+  - Image
+  tags_raw:
   - Images
   properties:
   - type: OpenAPI
@@ -149,6 +163,8 @@ apis:
   humanURL: https://api.templafy.com/
   baseURL: https://api.templafy.com/v3
   tags:
+  - PDFs
+  tags_raw:
   - Pdfs
   properties:
   - type: OpenAPI
