@@ -101,7 +101,7 @@ apis:
   humanURL: https://api.templafy.com/
   baseURL: https://api.templafy.com/v3
   tags:
-  - Data Sources
+  - DataSources
   tags_raw:
   - DataSources
   properties:
@@ -175,7 +175,7 @@ apis:
   humanURL: https://api.templafy.com/
   baseURL: https://api.templafy.com/v3
   tags:
-  - PDFs
+  - Pdfs
   tags_raw:
   - Pdfs
   properties:
