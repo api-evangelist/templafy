@@ -218,6 +218,16 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/templafy-textelements-api-openapi.yml
+- aid: templafy:templafy-pdfs-api
+  name: Templafy Pdfs API
+  description: The Pdfs API from Templafy — 2 operation(s) for pdfs.
+  humanURL: https://api.templafy.com/
+  baseURL: https://api.templafy.com/v3
+  tags:
+  - Pdfs
+  properties:
+  - type: OpenAPI
+    url: openapi/templafy-pdfs-api-openapi.yml
 - aid: templafy:templafy-data-sources-api
   name: Templafy Data Sources API
   description: The Data Sources API from Templafy — 2 operation(s) for data sources.
@@ -228,16 +238,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/templafy-data-sources-api-openapi.yml
-- aid: templafy:templafy-pd-fs-api
-  name: Templafy PD Fs API
-  description: The PD Fs API from Templafy — 2 operation(s) for pd fs.
-  humanURL: https://api.templafy.com/
-  baseURL: https://api.templafy.com/v3
-  tags:
-  - PD Fs
-  properties:
-  - type: OpenAPI
-    url: openapi/templafy-pd-fs-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
