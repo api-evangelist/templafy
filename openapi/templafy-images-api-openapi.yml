@@ -1,18 +1,18 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   contact:
     url: https://support.templafy.com/hc/en-us/requests/new
     name: Submit support ticket
-  description: Please refer to our [documentation](https://support.templafy.com/hc/en-us/articles/4411351240081-Public-API-Hive-) for guidelines and examples.
-  title: Templafy Public DataSourceFields Images API
-  version: v3
+  description: Please refer to our documentation for guidelines and examples.
+  title: Templafy Public Images API
+  version: v4
   termsOfService: https://www.templafy.com/templafy-saas-agreement/
 servers:
 - variables:
     tenantId:
       default: ''
       description: Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com
-  url: https://{tenantId}.api.templafy.com/v3
+  url: https://{tenantId}.api.templafy.com/v4
 tags:
 - name: Images
 paths:
@@ -20,7 +20,7 @@ paths:
     get:
       tags:
       - Images
-      summary: Lists all image assets in the folder.
+      summary: Lists all image assets in the folder
       description: The result does not include images from subfolders. When {searchQuery} is used the result includes images from subfolders. The search mode enables pagination with 1000 page size maximum.
       parameters:
       - name: spaceId
@@ -87,10 +87,12 @@ paths:
       - bearerAuth:
         - library.read
         - library.readwrite
+      operationId: getLibrariesBySpaceIdImagesFoldersByFolderIdAssets
+      x-operation-id-source: derived
     post:
       tags:
       - Images
-      summary: Uploads the image file.
+      summary: Uploads the image file
       description: Only one file can be attached to the request body. The supported file formats are .JPG/.JPEG, .PNG, .GIF and .SVG
       parameters:
       - name: spaceId
@@ -177,11 +179,13 @@ paths:
       security:
       - bearerAuth:
         - library.readwrite
+      operationId: postLibrariesBySpaceIdImagesFoldersByFolderIdAssets
+      x-operation-id-source: derived
   /libraries/{spaceId}/images/assets/{assetId}:
     get:
       tags:
       - Images
-      summary: Returns the image by the identifier.
+      summary: Returns the image by the identifier
       parameters:
       - name: spaceId
         in: path
@@ -218,10 +222,12 @@ paths:
       - bearerAuth:
         - library.read
         - library.readwrite
+      operationId: getLibrariesBySpaceIdImagesAssetsByAssetId
+      x-operation-id-source: derived
     patch:
       tags:
       - Images
-      summary: Updates the image asset.
+      summary: Updates the image asset
       description: Only one file can be attached to the request body. The supported file formats are .JPG/.JPEG, .PNG, .GIF and .SVG
       parameters:
       - name: spaceId
@@ -314,10 +320,12 @@ paths:
       security:
       - bearerAuth:
         - library.readwrite
+      operationId: patchLibrariesBySpaceIdImagesAssetsByAssetId
+      x-operation-id-source: derived
     delete:
       tags:
       - Images
-      summary: Deletes the image by the identifier.
+      summary: Deletes the image by the identifier
       parameters:
       - name: spaceId
         in: path
@@ -349,49 +357,38 @@ paths:
       security:
       - bearerAuth:
         - library.readwrite
+      operationId: deleteLibrariesBySpaceIdImagesAssetsByAssetId
+      x-operation-id-source: derived
 components:
   schemas:
-    Dimensions:
-      required:
-      - height
-      - width
-      type: object
-      properties:
-        height:
-          type: integer
-          description: Height of the asset in pixels
-          format: int32
-        width:
-          type: integer
-          description: Width of the asset in pixels
-          format: int32
-        aspectRatio:
-          type: string
-          nullable: true
-      additionalProperties: false
-      description: Asset dimensions
     NotFoundProblemDetails:
       type: object
       properties:
         type:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         title:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         status:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         detail:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         instance:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         traceId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
       example:
         title: NotFound
@@ -408,6 +405,104 @@ components:
       - deleting
       type: string
       description: The current state of the asset
+    Dimensions:
+      required:
+      - height
+      - width
+      type: object
+      properties:
+        height:
+          type: integer
+          description: Height of the asset in pixels
+          format: int32
+        width:
+          type: integer
+          description: Width of the asset in pixels
+          format: int32
+        aspectRatio:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      description: Asset dimensions
+    ConflictProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        title: Conflict
+        detail: The request could not be completed due to a conflict with the current state of the resource.
+        status: 409
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    ValidationProblemDetails:
+      type: object
+      properties:
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        errors:
+        - name: The name field is required
+        - data: The input was invalid
+        title: One or more validation errors occurred.
+        status: 400
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
     Image:
       required:
       - assetState
@@ -459,13 +554,15 @@ components:
           type: string
           description: Suffix to the name of the file
         smallPreviewLink:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Link to the image with the maximum width 400px
-          nullable: true
         largePreviewLink:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Link to the image with the maximum width 1500px
-          nullable: true
         dimensions:
           $ref: '#/components/schemas/Dimensions'
         mimeType:
@@ -483,9 +580,10 @@ components:
           description: Hierarchical path in lowercase based on the location of an image. E.g. "folder-a/folder-b/_my-image" when the location is "Folder A > Folder B > My Image"
         externalData:
           maxLength: 100
-          type: string
+          type:
+          - string
+          - 'null'
           description: External data which can be attached for future reference
-          nullable: true
         modifiedAt:
           minLength: 1
           type: string
@@ -493,71 +591,6 @@ components:
         assetState:
           $ref: '#/components/schemas/AssetFileStateWithPreviews'
       additionalProperties: false
-    ValidationProblemDetails:
-      type: object
-      properties:
-        errors:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-          nullable: true
-        type:
-          type: string
-          nullable: true
-        title:
-          type: string
-          nullable: true
-        status:
-          type: integer
-          format: int32
-          nullable: true
-        detail:
-          type: string
-          nullable: true
-        instance:
-          type: string
-          nullable: true
-        traceId:
-          type: string
-          nullable: true
-      additionalProperties: false
-      example:
-        errors:
-        - name: The name field is required
-        - data: The input was invalid
-        title: One or more validation errors occurred.
-        status: 400
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    ConflictProblemDetails:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        title:
-          type: string
-          nullable: true
-        status:
-          type: integer
-          format: int32
-          nullable: true
-        detail:
-          type: string
-          nullable: true
-        instance:
-          type: string
-          nullable: true
-        traceId:
-          type: string
-          nullable: true
-      additionalProperties: false
-      example:
-        title: Conflict
-        detail: The request could not be completed due to a conflict with the current state of the resource.
-        status: 409
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
     ImageDetails:
       required:
       - assetState
@@ -610,13 +643,15 @@ components:
           type: string
           description: Suffix to the name of the file
         smallPreviewLink:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Link to the image with the maximum width 400px
-          nullable: true
         largePreviewLink:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Link to the image with the maximum width 1500px
-          nullable: true
         dimensions:
           $ref: '#/components/schemas/Dimensions'
         mimeType:
@@ -638,9 +673,10 @@ components:
           description: Hierarchical path in lowercase based on the location of an image. E.g. "folder-a/folder-b/_my-image" when the location is "Folder A > Folder B > My Image"
         externalData:
           maxLength: 100
-          type: string
+          type:
+          - string
+          - 'null'
           description: External data which can be attached for future reference
-          nullable: true
         modifiedAt:
           minLength: 1
           type: string

@@ -1,18 +1,18 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   contact:
     url: https://support.templafy.com/hc/en-us/requests/new
     name: Submit support ticket
-  description: Please refer to our [documentation](https://support.templafy.com/hc/en-us/articles/4411351240081-Public-API-Hive-) for guidelines and examples.
-  title: Templafy Public DataSourceFields Libraries API
-  version: v3
+  description: Please refer to our documentation for guidelines and examples.
+  title: Templafy Public Libraries API
+  version: v4
   termsOfService: https://www.templafy.com/templafy-saas-agreement/
 servers:
 - variables:
     tenantId:
       default: ''
       description: Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com
-  url: https://{tenantId}.api.templafy.com/v3
+  url: https://{tenantId}.api.templafy.com/v4
 tags:
 - name: Libraries
 paths:
@@ -20,7 +20,7 @@ paths:
     get:
       tags:
       - Libraries
-      summary: Lists all libraries from all spaces.
+      summary: Lists all libraries from all spaces
       responses:
         '200':
           description: OK
@@ -38,11 +38,13 @@ paths:
       - bearerAuth:
         - library.read
         - library.readwrite
+      operationId: getLibraries
+      x-operation-id-source: derived
   /libraries/{spaceId}/{libraryType}:
     get:
       tags:
       - Libraries
-      summary: Returns the library by the space identifier and library type.
+      summary: Returns the library by the space identifier and library type
       description: The response has a root folder unique identifier that can be used to request the content of the library.
       parameters:
       - name: spaceId
@@ -79,6 +81,8 @@ paths:
       - bearerAuth:
         - library.read
         - library.readwrite
+      operationId: getLibrariesBySpaceIdByLibraryType
+      x-operation-id-source: derived
 components:
   schemas:
     LibraryType:
@@ -95,7 +99,41 @@ components:
       - email-elements
       type: string
       description: Type of the assets that can be stored in the library
-    Library:
+    NotFoundProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        title: NotFound
+        detail: The server can not find the requested resource.
+        status: 404
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    LibraryDetails:
       required:
       - id
       - libraryType
@@ -124,35 +162,7 @@ components:
           description: Unique identifier of the root folder of the library
           format: int64
       additionalProperties: false
-    NotFoundProblemDetails:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        title:
-          type: string
-          nullable: true
-        status:
-          type: integer
-          format: int32
-          nullable: true
-        detail:
-          type: string
-          nullable: true
-        instance:
-          type: string
-          nullable: true
-        traceId:
-          type: string
-          nullable: true
-      additionalProperties: false
-      example:
-        title: NotFound
-        detail: The server can not find the requested resource.
-        status: 404
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    LibraryDetails:
+    Library:
       required:
       - id
       - libraryType

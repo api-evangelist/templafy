@@ -1,18 +1,18 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   contact:
     url: https://support.templafy.com/hc/en-us/requests/new
     name: Submit support ticket
-  description: Please refer to our [documentation](https://support.templafy.com/hc/en-us/articles/4411351240081-Public-API-Hive-) for guidelines and examples.
-  title: Templafy Public DataSourceFields Folders API
-  version: v3
+  description: Please refer to our documentation for guidelines and examples.
+  title: Templafy Public Folders API
+  version: v4
   termsOfService: https://www.templafy.com/templafy-saas-agreement/
 servers:
 - variables:
     tenantId:
       default: ''
       description: Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com
-  url: https://{tenantId}.api.templafy.com/v3
+  url: https://{tenantId}.api.templafy.com/v4
 tags:
 - name: Folders
 paths:
@@ -20,7 +20,7 @@ paths:
     get:
       tags:
       - Folders
-      summary: Returns the folder by the identifier.
+      summary: Returns the folder by the identifier
       parameters:
       - name: spaceId
         in: path
@@ -63,10 +63,12 @@ paths:
       - bearerAuth:
         - library.read
         - library.readwrite
+      operationId: getLibrariesBySpaceIdByLibraryTypeFoldersByFolderId
+      x-operation-id-source: derived
     patch:
       tags:
       - Folders
-      summary: Updates the folder.
+      summary: Updates the folder
       description: The root folder can not be updated.
       parameters:
       - name: spaceId
@@ -131,6 +133,8 @@ paths:
       security:
       - bearerAuth:
         - library.readwrite
+      operationId: patchLibrariesBySpaceIdByLibraryTypeFoldersByFolderId
+      x-operation-id-source: derived
     delete:
       tags:
       - Folders
@@ -179,11 +183,13 @@ paths:
       security:
       - bearerAuth:
         - library.readwrite
+      operationId: deleteLibrariesBySpaceIdByLibraryTypeFoldersByFolderId
+      x-operation-id-source: derived
   /libraries/{spaceId}/{libraryType}/folders/{folderId}/folders:
     get:
       tags:
       - Folders
-      summary: Lists all direct folders in the folder. The result does not include subfolders.
+      summary: Lists all direct folders in the folder. The result does not include subfolders
       description: The folders from the library can be retrieved by using the root folder identifier.
       parameters:
       - name: spaceId
@@ -229,10 +235,12 @@ paths:
       - bearerAuth:
         - library.read
         - library.readwrite
+      operationId: getLibrariesBySpaceIdByLibraryTypeFoldersByFolderIdFolders
+      x-operation-id-source: derived
     post:
       tags:
       - Folders
-      summary: Creates a folder inside the specified folder.
+      summary: Creates a folder inside the specified folder
       parameters:
       - name: spaceId
         in: path
@@ -301,6 +309,8 @@ paths:
       security:
       - bearerAuth:
         - library.readwrite
+      operationId: postLibrariesBySpaceIdByLibraryTypeFoldersByFolderIdFolders
+      x-operation-id-source: derived
   /libraries/{spaceId}/{libraryType}/folders/{folderId}/security:
     get:
       tags:
@@ -348,10 +358,12 @@ paths:
       - bearerAuth:
         - library.read
         - library.readwrite
+      operationId: getLibrariesBySpaceIdByLibraryTypeFoldersByFolderIdSecurity
+      x-operation-id-source: derived
     put:
       tags:
       - Folders
-      summary: Updates the list of users and user groups that has access to folder. To make the folder available to a specific list, use the accessStatus as restricted and pass the list of users and groups that are expected. To make the folder available to everyone in the space, use the accessStatus as everyoneInTheSpace without passing any users or user groups. Please note that you can only change the access rights on folders that does not have any access rights defined on their parents. Also, if you limit the access for a parent folder, it will always overwrite it for all the folders below.
+      summary: Updates the list of users and user groups that has access to folder.
       parameters:
       - name: spaceId
         in: path
@@ -415,8 +427,72 @@ paths:
       security:
       - bearerAuth:
         - library.readwrite
+      operationId: putLibrariesBySpaceIdByLibraryTypeFoldersByFolderIdSecurity
+      x-operation-id-source: derived
 components:
   schemas:
+    FolderState:
+      enum:
+      - ready
+      - deleting
+      type: string
+      description: The current state of the folder
+    FolderSecurityResponse:
+      required:
+      - accessStatus
+      type: object
+      properties:
+        accessStatus:
+          $ref: '#/components/schemas/ResponseFolderAccessStatus'
+        userIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of users who has access to the folder
+        userGroupIds:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: List of user groups which has access to the folder
+      additionalProperties: false
+    NotFoundProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        title: NotFound
+        detail: The server can not find the requested resource.
+        status: 404
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
     UpdateFolderSecurityRequest:
       type: object
       properties:
@@ -424,48 +500,34 @@ components:
           $ref: '#/components/schemas/RequestFolderAccessStatus'
         userIds:
           maxItems: 150
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
           description: List of users who has access to the folder
-          nullable: true
         userGroupIds:
           maxItems: 50
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
           description: List of user groups which has access to the folder
-          nullable: true
       additionalProperties: false
       description: The request model to update security of a folder
-    NotFoundProblemDetails:
+    CreateFolderRequest:
+      required:
+      - name
       type: object
       properties:
-        type:
+        name:
+          maxLength: 100
+          minLength: 1
           type: string
-          nullable: true
-        title:
-          type: string
-          nullable: true
-        status:
-          type: integer
-          format: int32
-          nullable: true
-        detail:
-          type: string
-          nullable: true
-        instance:
-          type: string
-          nullable: true
-        traceId:
-          type: string
-          nullable: true
+          description: Display name
       additionalProperties: false
-      example:
-        title: NotFound
-        detail: The server can not find the requested resource.
-        status: 404
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+      description: The request model to create a folder
     Folder:
       required:
       - id
@@ -490,10 +552,11 @@ components:
           type: string
           description: Display name
         parentId:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Unique identifier for the parent folder. The root folder does not have a parent folder identifier
           format: int64
-          nullable: true
         navigationPath:
           maxLength: 700
           minLength: 1
@@ -506,26 +569,6 @@ components:
         state:
           $ref: '#/components/schemas/FolderState'
       additionalProperties: false
-    FolderSecurityResponse:
-      required:
-      - accessStatus
-      type: object
-      properties:
-        accessStatus:
-          $ref: '#/components/schemas/ResponseFolderAccessStatus'
-        userIds:
-          type: array
-          items:
-            type: string
-          description: List of users who has access to the folder
-          nullable: true
-        userGroupIds:
-          type: array
-          items:
-            type: string
-          description: List of user groups which has access to the folder
-          nullable: true
-      additionalProperties: false
     ResponseFolderAccessStatus:
       enum:
       - inheritedLocked
@@ -533,18 +576,63 @@ components:
       - everyoneInTheSpace
       type: string
       description: The status of the folder access. It is either available to everyone in the space, restricted directly to a list of users and user groups or via a parent folder.
-    CreateFolderRequest:
-      required:
-      - name
+    UpdateFolderRequest:
       type: object
       properties:
         name:
           maxLength: 100
-          minLength: 1
-          type: string
+          type:
+          - string
+          - 'null'
           description: Display name
+        parentFolderId:
+          type:
+          - integer
+          - 'null'
+          description: The identifier of a folder that current folder should be moved to
+          format: int64
       additionalProperties: false
-      description: The request model to create a folder
+      description: The request model to update the folder
+    ConflictProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        title: Conflict
+        detail: The request could not be completed due to a conflict with the current state of the resource.
+        status: 409
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    RequestFolderAccessStatus:
+      enum:
+      - restricted
+      - everyoneInTheSpace
+      type: string
+      description: The status of the folder access. It is either available to everyone in the space or restricted to a limited list of users and user groups.
     LibraryType:
       enum:
       - documents
@@ -559,41 +647,42 @@ components:
       - email-elements
       type: string
       description: Type of the assets that can be stored in the library
-    FolderState:
-      enum:
-      - ready
-      - deleting
-      type: string
-      description: The current state of the folder
     ValidationProblemDetails:
       type: object
       properties:
         errors:
-          type: object
+          type:
+          - object
+          - 'null'
           additionalProperties:
             type: array
             items:
               type: string
-          nullable: true
         type:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         title:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         status:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         detail:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         instance:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         traceId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
       example:
         errors:
@@ -602,12 +691,6 @@ components:
         title: One or more validation errors occurred.
         status: 400
         traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    RequestFolderAccessStatus:
-      enum:
-      - restricted
-      - everyoneInTheSpace
-      type: string
-      description: The status of the folder access. It is either available to everyone in the space or restricted to a limited list of users and user groups.
     FolderDetails:
       required:
       - id
@@ -632,10 +715,11 @@ components:
           type: string
           description: Display name
         parentId:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Unique identifier for the parent folder. The root folder does not have a parent folder identifier
           format: int64
-          nullable: true
         navigationPath:
           maxLength: 700
           minLength: 1
@@ -648,49 +732,6 @@ components:
         state:
           $ref: '#/components/schemas/FolderState'
       additionalProperties: false
-    UpdateFolderRequest:
-      type: object
-      properties:
-        name:
-          maxLength: 100
-          type: string
-          description: Display name
-          nullable: true
-        parentFolderId:
-          type: integer
-          description: The identifier of a folder that current folder should be moved to
-          format: int64
-          nullable: true
-      additionalProperties: false
-      description: The request model to update the folder
-    ConflictProblemDetails:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        title:
-          type: string
-          nullable: true
-        status:
-          type: integer
-          format: int32
-          nullable: true
-        detail:
-          type: string
-          nullable: true
-        instance:
-          type: string
-          nullable: true
-        traceId:
-          type: string
-          nullable: true
-      additionalProperties: false
-      example:
-        title: Conflict
-        detail: The request could not be completed due to a conflict with the current state of the resource.
-        status: 409
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
   securitySchemes:
     bearerAuth:
       type: http

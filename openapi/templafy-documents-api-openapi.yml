@@ -1,18 +1,18 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   contact:
     url: https://support.templafy.com/hc/en-us/requests/new
     name: Submit support ticket
-  description: Please refer to our [documentation](https://support.templafy.com/hc/en-us/articles/4411351240081-Public-API-Hive-) for guidelines and examples.
-  title: Templafy Public DataSourceFields Documents API
-  version: v3
+  description: Please refer to our documentation for guidelines and examples.
+  title: Templafy Public Documents API
+  version: v4
   termsOfService: https://www.templafy.com/templafy-saas-agreement/
 servers:
 - variables:
     tenantId:
       default: ''
       description: Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com
-  url: https://{tenantId}.api.templafy.com/v3
+  url: https://{tenantId}.api.templafy.com/v4
 tags:
 - name: Documents
 paths:
@@ -20,7 +20,7 @@ paths:
     post:
       tags:
       - Documents
-      summary: Generates a document from a template and returns information about the file, which includes the download url.
+      summary: Generates a document from a template and returns information about the file…
       description: Creates a file from the template in a docx format. The file will have bindings replaced using various data sources. The url will only be valid for a short amount of time. When a PDF is included in the response, its download URL may briefly be unavailable on receipt; clients should retry the download with a short backoff before treating an initial failure as final.
       parameters:
       - name: spaceId
@@ -68,11 +68,13 @@ paths:
       security:
       - bearerAuth:
         - library.generate
+      operationId: postLibrariesBySpaceIdDocumentsAssetsByAssetIdGenerate
+      x-operation-id-source: derived
   /libraries/{spaceId}/documents/folders/{folderId}/assets:
     get:
       tags:
       - Documents
-      summary: Lists all document templates in the folder.
+      summary: Lists all document templates in the folder
       description: The result does not include document templates from subfolders. When {searchQuery} is used the result includes document templates from subfolders. The search mode enables pagination with 1000 page size maximum.
       parameters:
       - name: spaceId
@@ -139,10 +141,12 @@ paths:
       - bearerAuth:
         - library.read
         - library.readwrite
+      operationId: getLibrariesBySpaceIdDocumentsFoldersByFolderIdAssets
+      x-operation-id-source: derived
     post:
       tags:
       - Documents
-      summary: Uploads the document template.
+      summary: Uploads the document template
       description: Only one file can be attached to the request body. The supported file format is .DOCX
       parameters:
       - name: spaceId
@@ -229,11 +233,13 @@ paths:
       security:
       - bearerAuth:
         - library.readwrite
+      operationId: postLibrariesBySpaceIdDocumentsFoldersByFolderIdAssets
+      x-operation-id-source: derived
   /libraries/{spaceId}/documents/assets/{assetId}:
     get:
       tags:
       - Documents
-      summary: Returns the document template by the identifier.
+      summary: Returns the document template by the identifier
       parameters:
       - name: spaceId
         in: path
@@ -272,10 +278,12 @@ paths:
       - bearerAuth:
         - library.read
         - library.readwrite
+      operationId: getLibrariesBySpaceIdDocumentsAssetsByAssetId
+      x-operation-id-source: derived
     patch:
       tags:
       - Documents
-      summary: Updates the document template.
+      summary: Updates the document template
       description: Only one file can be attached to the request body. The supported file format is .DOCX
       parameters:
       - name: spaceId
@@ -361,10 +369,12 @@ paths:
       security:
       - bearerAuth:
         - library.readwrite
+      operationId: patchLibrariesBySpaceIdDocumentsAssetsByAssetId
+      x-operation-id-source: derived
     delete:
       tags:
       - Documents
-      summary: Deletes the document template by the identifier.
+      summary: Deletes the document template by the identifier
       parameters:
       - name: spaceId
         in: path
@@ -396,160 +406,10 @@ paths:
       security:
       - bearerAuth:
         - library.readwrite
+      operationId: deleteLibrariesBySpaceIdDocumentsAssetsByAssetId
+      x-operation-id-source: derived
 components:
   schemas:
-    NotFoundProblemDetails:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        title:
-          type: string
-          nullable: true
-        status:
-          type: integer
-          format: int32
-          nullable: true
-        detail:
-          type: string
-          nullable: true
-        instance:
-          type: string
-          nullable: true
-        traceId:
-          type: string
-          nullable: true
-      additionalProperties: false
-      example:
-        title: NotFound
-        detail: The server can not find the requested resource.
-        status: 404
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    GenerateFileRequest:
-      required:
-      - email
-      type: object
-      properties:
-        email:
-          minLength: 1
-          type: string
-          description: Email to be used for identification.
-          format: email
-        data:
-          description: Data to be used during the file generation.
-          nullable: true
-        includePdf:
-          type: boolean
-          description: Specifies whether a PDF export of the file should be included in the response.
-      additionalProperties: false
-      description: The request model to generate a file.
-      example:
-        email: templafy@templafy.com
-        data:
-          Language: en-us
-        includePdf: true
-    Document:
-      required:
-      - assetState
-      - checksum
-      - description
-      - fileExtension
-      - fileSize
-      - folderId
-      - id
-      - modifiedAt
-      - name
-      - navigationPath
-      - tags
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique asset identifier
-          format: int64
-        folderId:
-          type: integer
-          description: Unique folder identifier
-          format: int64
-        name:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: Display name
-        description:
-          maxLength: 250
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        fileSize:
-          type: integer
-          description: File size in bytes
-          format: int64
-        checksum:
-          minLength: 1
-          type: string
-          description: MD5 checksum of the bytes
-        fileExtension:
-          minLength: 1
-          type: string
-          description: Suffix to the name of the file
-        navigationPath:
-          maxLength: 700
-          minLength: 1
-          type: string
-          description: Hierarchical path in lowercase based on the location of a document. E.g. "folder-a/folder-b/_my-document" when the location is "Folder A > Folder B > My Document"
-        externalData:
-          maxLength: 100
-          type: string
-          description: External data which can be attached for future reference
-          nullable: true
-        modifiedAt:
-          minLength: 1
-          type: string
-          description: Date and time in ISO 8601 format of when the asset was last modified
-        assetState:
-          $ref: '#/components/schemas/AssetFileStateWithoutPreviews'
-      additionalProperties: false
-    ValidationProblemDetails:
-      type: object
-      properties:
-        errors:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-          nullable: true
-        type:
-          type: string
-          nullable: true
-        title:
-          type: string
-          nullable: true
-        status:
-          type: integer
-          format: int32
-          nullable: true
-        detail:
-          type: string
-          nullable: true
-        instance:
-          type: string
-          nullable: true
-        traceId:
-          type: string
-          nullable: true
-      additionalProperties: false
-      example:
-        errors:
-        - name: The name field is required
-        - data: The input was invalid
-        title: One or more validation errors occurred.
-        status: 400
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
     AssetFileStateWithoutPreviews:
       enum:
       - ready
@@ -617,9 +477,131 @@ components:
           description: Hierarchical path in lowercase based on the location of a document. E.g. "folder-a/folder-b/_my-document" when the location is "Folder A > Folder B > My Document"
         externalData:
           maxLength: 100
-          type: string
+          type:
+          - string
+          - 'null'
           description: External data which can be attached for future reference
-          nullable: true
+        modifiedAt:
+          minLength: 1
+          type: string
+          description: Date and time in ISO 8601 format of when the asset was last modified
+        assetState:
+          $ref: '#/components/schemas/AssetFileStateWithoutPreviews'
+      additionalProperties: false
+    NotFoundProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        title: NotFound
+        detail: The server can not find the requested resource.
+        status: 404
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    GenerateFileRequest:
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          minLength: 1
+          type: string
+          description: Email to be used for identification.
+          format: email
+        data:
+          description: Data to be used during the file generation.
+        includePdf:
+          type: boolean
+          description: Specifies whether a PDF export of the file should be included in the response.
+      additionalProperties: false
+      description: The request model to generate a file.
+      example:
+        email: templafy@templafy.com
+        data:
+          Language: en-us
+        includePdf: true
+    Document:
+      required:
+      - assetState
+      - checksum
+      - description
+      - fileExtension
+      - fileSize
+      - folderId
+      - id
+      - modifiedAt
+      - name
+      - navigationPath
+      - tags
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique asset identifier
+          format: int64
+        folderId:
+          type: integer
+          description: Unique folder identifier
+          format: int64
+        name:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Display name
+        description:
+          maxLength: 250
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        fileSize:
+          type: integer
+          description: File size in bytes
+          format: int64
+        checksum:
+          minLength: 1
+          type: string
+          description: MD5 checksum of the bytes
+        fileExtension:
+          minLength: 1
+          type: string
+          description: Suffix to the name of the file
+        navigationPath:
+          maxLength: 700
+          minLength: 1
+          type: string
+          description: Hierarchical path in lowercase based on the location of a document. E.g. "folder-a/folder-b/_my-document" when the location is "Folder A > Folder B > My Document"
+        externalData:
+          maxLength: 100
+          type:
+          - string
+          - 'null'
+          description: External data which can be attached for future reference
         modifiedAt:
           minLength: 1
           type: string
@@ -631,24 +613,30 @@ components:
       type: object
       properties:
         type:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         title:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         status:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         detail:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         instance:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         traceId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
       example:
         title: Conflict
@@ -686,11 +674,56 @@ components:
           type: string
           description: Suffix to the name of the file.
         pdfDownloadUrl:
-          type: string
+          type:
+          - string
+          - 'null'
           description: 'Temporary access URL for generated PDF file. Only available if the file was converted to PDF. The URL is short-lived and may not be immediately fetchable on receipt; clients should retry the download with a short backoff before treating an initial failure as final. '
-          nullable: true
       additionalProperties: false
       description: The generated file response model.
+    ValidationProblemDetails:
+      type: object
+      properties:
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        errors:
+        - name: The name field is required
+        - data: The input was invalid
+        title: One or more validation errors occurred.
+        status: 400
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
   securitySchemes:
     bearerAuth:
       type: http

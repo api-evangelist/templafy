@@ -1,18 +1,18 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   contact:
     url: https://support.templafy.com/hc/en-us/requests/new
     name: Submit support ticket
-  description: Please refer to our [documentation](https://support.templafy.com/hc/en-us/articles/4411351240081-Public-API-Hive-) for guidelines and examples.
-  title: Templafy Public DataSourceFields Spaces API
-  version: v3
+  description: Please refer to our documentation for guidelines and examples.
+  title: Templafy Public Spaces API
+  version: v4
   termsOfService: https://www.templafy.com/templafy-saas-agreement/
 servers:
 - variables:
     tenantId:
       default: ''
       description: Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com
-  url: https://{tenantId}.api.templafy.com/v3
+  url: https://{tenantId}.api.templafy.com/v4
 tags:
 - name: Spaces
 paths:
@@ -20,7 +20,7 @@ paths:
     get:
       tags:
       - Spaces
-      summary: Lists all existing active spaces.
+      summary: Lists all existing active spaces
       description: Returns a list of all active spaces.
       responses:
         '200':
@@ -38,6 +38,8 @@ paths:
       security:
       - bearerAuth:
         - spaces.read
+      operationId: getSpaces
+      x-operation-id-source: derived
 components:
   schemas:
     Space:

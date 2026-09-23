@@ -1,23 +1,7 @@
 {
   "provider": "templafy",
   "sources": [
-    "templafy-datasourcefields-api-openapi.yml",
-    "templafy-datasourceitemfields-api-openapi.yml",
-    "templafy-datasourceitems-api-openapi.yml",
-    "templafy-datasources-api-openapi.yml",
-    "templafy-documents-api-openapi.yml",
-    "templafy-emailelements-api-openapi.yml",
-    "templafy-folders-api-openapi.yml",
-    "templafy-images-api-openapi.yml",
-    "templafy-libraries-api-openapi.yml",
-    "templafy-links-api-openapi.yml",
-    "templafy-pdfs-api-openapi.yml",
-    "templafy-presentations-api-openapi.yml",
-    "templafy-slideelements-api-openapi.yml",
-    "templafy-slides-api-openapi.yml",
-    "templafy-spaces-api-openapi.yml",
-    "templafy-spreadsheets-api-openapi.yml",
-    "templafy-textelements-api-openapi.yml"
+    "_original/templafy-public-api-v4-preview-openapi.json"
   ],
   "outputs": [
     "templafy-datasourcefields-api-openapi.yml",
@@ -38,9 +22,53 @@
     "templafy-spreadsheets-api-openapi.yml",
     "templafy-textelements-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 2 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "templafy-public-api-v4-preview-openapi.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "templafy-public-api-v4-preview-openapi.json: declared missing tag: DataSourceFields",
+    "templafy-public-api-v4-preview-openapi.json: declared missing tag: DataSourceItemFields",
+    "templafy-public-api-v4-preview-openapi.json: declared missing tag: DataSourceItems",
+    "templafy-public-api-v4-preview-openapi.json: declared missing tag: DataSources",
+    "templafy-public-api-v4-preview-openapi.json: declared missing tag: Documents",
+    "templafy-public-api-v4-preview-openapi.json: declared missing tag: EmailElements",
+    "templafy-public-api-v4-preview-openapi.json: declared missing tag: Folders",
+    "templafy-public-api-v4-preview-openapi.json: declared missing tag: Images",
+    "templafy-public-api-v4-preview-openapi.json: declared missing tag: Libraries",
+    "templafy-public-api-v4-preview-openapi.json: declared missing tag: Links",
+    "templafy-public-api-v4-preview-openapi.json: declared missing tag: Pdfs",
+    "templafy-public-api-v4-preview-openapi.json: declared missing tag: Presentations",
+    "templafy-public-api-v4-preview-openapi.json: declared missing tag: SlideElements",
+    "templafy-public-api-v4-preview-openapi.json: declared missing tag: Slides",
+    "templafy-public-api-v4-preview-openapi.json: declared missing tag: Spaces",
+    "templafy-public-api-v4-preview-openapi.json: declared missing tag: Spreadsheets",
+    "templafy-public-api-v4-preview-openapi.json: declared missing tag: TextElements",
+    "superseded outputs removed: templafy-data-sources-api-openapi.yml, templafy-pd-fs-api-openapi.yml",
+    "apis.yml register: written (+2 apis, 17 total)"
+  ],
+  "skipped": [
+    "_original/templafy-public-api-v3-openapi.json: archived document superseded by a larger archived document",
+    "templafy-data-sources-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "templafy-datasourcefields-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "templafy-datasourceitemfields-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "templafy-datasourceitems-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "templafy-documents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "templafy-emailelements-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "templafy-folders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "templafy-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "templafy-libraries-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "templafy-links-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "templafy-pd-fs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "templafy-presentations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "templafy-slideelements-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "templafy-slides-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "templafy-spaces-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "templafy-spreadsheets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "templafy-textelements-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

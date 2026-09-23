@@ -1,18 +1,18 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   contact:
     url: https://support.templafy.com/hc/en-us/requests/new
     name: Submit support ticket
-  description: Please refer to our [documentation](https://support.templafy.com/hc/en-us/articles/4411351240081-Public-API-Hive-) for guidelines and examples.
-  title: Templafy Public DataSourceFields Presentations API
-  version: v3
+  description: Please refer to our documentation for guidelines and examples.
+  title: Templafy Public Presentations API
+  version: v4
   termsOfService: https://www.templafy.com/templafy-saas-agreement/
 servers:
 - variables:
     tenantId:
       default: ''
       description: Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com
-  url: https://{tenantId}.api.templafy.com/v3
+  url: https://{tenantId}.api.templafy.com/v4
 tags:
 - name: Presentations
 paths:
@@ -20,7 +20,7 @@ paths:
     post:
       tags:
       - Presentations
-      summary: Generates a presentation from a template and returns information about the file, which includes the download url.
+      summary: Generates a presentation from a template and returns information about the…
       description: Creates a file from the template in a pptx format. The file will have bindings replaced using various data sources. The url will only be valid for a short amount of time. When a PDF is included in the response, its download URL may briefly be unavailable on receipt; clients should retry the download with a short backoff before treating an initial failure as final.
       parameters:
       - name: spaceId
@@ -68,11 +68,13 @@ paths:
       security:
       - bearerAuth:
         - library.generate
+      operationId: postLibrariesBySpaceIdPresentationsAssetsByAssetIdGenerate
+      x-operation-id-source: derived
   /libraries/{spaceId}/presentations/folders/{folderId}/assets:
     get:
       tags:
       - Presentations
-      summary: Lists all presentation templates along with their slides in the folder.
+      summary: Lists all presentation templates along with their slides in the folder
       description: The result does not include presentation templates or slides from subfolders. When {searchQuery} is used the result includes presentation templates/slides from subfolders. The search mode enables pagination with 1000 page size maximum.
       parameters:
       - name: spaceId
@@ -141,10 +143,12 @@ paths:
       - bearerAuth:
         - library.read
         - library.readwrite
+      operationId: getLibrariesBySpaceIdPresentationsFoldersByFolderIdAssets
+      x-operation-id-source: derived
     post:
       tags:
       - Presentations
-      summary: Uploads the presentation template.
+      summary: Uploads the presentation template
       description: Only one file can be attached to the request body. The supported file format is .PPTX
       parameters:
       - name: spaceId
@@ -231,11 +235,13 @@ paths:
       security:
       - bearerAuth:
         - library.readwrite
+      operationId: postLibrariesBySpaceIdPresentationsFoldersByFolderIdAssets
+      x-operation-id-source: derived
   /libraries/{spaceId}/presentations/assets/{assetId}:
     get:
       tags:
       - Presentations
-      summary: Returns the presentation template or presentation slide by the identifier.
+      summary: Returns the presentation template or presentation slide by the identifier
       parameters:
       - name: spaceId
         in: path
@@ -274,10 +280,12 @@ paths:
       - bearerAuth:
         - library.read
         - library.readwrite
+      operationId: getLibrariesBySpaceIdPresentationsAssetsByAssetId
+      x-operation-id-source: derived
     patch:
       tags:
       - Presentations
-      summary: Updates the presentation template.
+      summary: Updates the presentation template
       description: 'Only one file can be attached to the request body. The supported file format is .PPTX. Slides are limited to the following properties that can be updated: Name, Tags, ExternalData'
       parameters:
       - name: spaceId
@@ -363,10 +371,12 @@ paths:
       security:
       - bearerAuth:
         - library.readwrite
+      operationId: patchLibrariesBySpaceIdPresentationsAssetsByAssetId
+      x-operation-id-source: derived
     delete:
       tags:
       - Presentations
-      summary: Deletes the presentation template by the identifier.
+      summary: Deletes the presentation template by the identifier
       description: Slides can only be deleted along with the presentation.
       parameters:
       - name: spaceId
@@ -405,261 +415,10 @@ paths:
       security:
       - bearerAuth:
         - library.readwrite
+      operationId: deleteLibrariesBySpaceIdPresentationsAssetsByAssetId
+      x-operation-id-source: derived
 components:
   schemas:
-    Dimensions:
-      required:
-      - height
-      - width
-      type: object
-      properties:
-        height:
-          type: integer
-          description: Height of the asset in pixels
-          format: int32
-        width:
-          type: integer
-          description: Width of the asset in pixels
-          format: int32
-        aspectRatio:
-          type: string
-          nullable: true
-      additionalProperties: false
-      description: Asset dimensions
-    PresentationDetails:
-      required:
-      - assetType
-      - childrenAssetIds
-      - description
-      - downloadUrl
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/PresentationDetailsBase'
-      properties:
-        assetType:
-          minLength: 1
-          type: string
-          description: Type of the asset. It is always Presentation for this schema
-        childrenAssetIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-          description: The array of the identifiers of slides included in the presentation
-        description:
-          maxLength: 250
-          type: string
-        downloadUrl:
-          type: string
-          description: Generated temporary access URL for content downloading with 302 response code
-          format: uri
-      additionalProperties: false
-    NotFoundProblemDetails:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        title:
-          type: string
-          nullable: true
-        status:
-          type: integer
-          format: int32
-          nullable: true
-        detail:
-          type: string
-          nullable: true
-        instance:
-          type: string
-          nullable: true
-        traceId:
-          type: string
-          nullable: true
-      additionalProperties: false
-      example:
-        title: NotFound
-        detail: The server can not find the requested resource.
-        status: 404
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    GenerateFileRequest:
-      required:
-      - email
-      type: object
-      properties:
-        email:
-          minLength: 1
-          type: string
-          description: Email to be used for identification.
-          format: email
-        data:
-          description: Data to be used during the file generation.
-          nullable: true
-        includePdf:
-          type: boolean
-          description: Specifies whether a PDF export of the file should be included in the response.
-      additionalProperties: false
-      description: The request model to generate a file.
-      example:
-        email: templafy@templafy.com
-        data:
-          Language: en-us
-        includePdf: true
-    AssetFileStateWithPreviews:
-      enum:
-      - ready
-      - processing
-      - processingFailed
-      - generatingPreviews
-      - generatingPreviewsFailed
-      - deleting
-      type: string
-      description: The current state of the asset
-    PresentationSlide:
-      required:
-      - assetType
-      - presentationId
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/PresentationBase'
-      properties:
-        assetType:
-          minLength: 1
-          type: string
-          description: Type of the asset. It is always Slide for this schema
-        presentationId:
-          type: integer
-          description: The identifier of the presentation to which a slide belongs
-          format: int64
-      additionalProperties: false
-    Presentation:
-      required:
-      - assetType
-      - description
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/PresentationBase'
-      properties:
-        assetType:
-          minLength: 1
-          type: string
-          description: Type of the asset. It is always Presentation for this schema
-        description:
-          maxLength: 250
-          type: string
-      additionalProperties: false
-    ValidationProblemDetails:
-      type: object
-      properties:
-        errors:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-          nullable: true
-        type:
-          type: string
-          nullable: true
-        title:
-          type: string
-          nullable: true
-        status:
-          type: integer
-          format: int32
-          nullable: true
-        detail:
-          type: string
-          nullable: true
-        instance:
-          type: string
-          nullable: true
-        traceId:
-          type: string
-          nullable: true
-      additionalProperties: false
-      example:
-        errors:
-        - name: The name field is required
-        - data: The input was invalid
-        title: One or more validation errors occurred.
-        status: 400
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    PresentationDetailsBase:
-      required:
-      - assetState
-      - assetType
-      - checksum
-      - dimensions
-      - fileExtension
-      - fileSize
-      - folderId
-      - id
-      - modifiedAt
-      - name
-      - navigationPath
-      - tags
-      type: object
-      properties:
-        assetType:
-          minLength: 1
-          type: string
-        assetState:
-          $ref: '#/components/schemas/AssetFileStateWithPreviews'
-        dimensions:
-          $ref: '#/components/schemas/Dimensions'
-        id:
-          type: integer
-          description: Unique asset identifier
-          format: int64
-        folderId:
-          type: integer
-          description: Unique folder identifier
-          format: int64
-        name:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: Display name
-        tags:
-          type: array
-          items:
-            type: string
-        fileSize:
-          type: integer
-          description: File size in bytes
-          format: int64
-        checksum:
-          minLength: 1
-          type: string
-          description: MD5 checksum of the bytes
-        fileExtension:
-          minLength: 1
-          type: string
-          description: Suffix to the name of the file
-        navigationPath:
-          maxLength: 700
-          minLength: 1
-          type: string
-          description: Hierarchical path in lowercase based on the location of a presentation. E.g. "folder-a/folder-b/_my-presentation" when the location is "Folder A > Folder B > My Presentation"
-        externalData:
-          maxLength: 100
-          type: string
-          description: External data which can be attached for future reference
-          nullable: true
-        modifiedAt:
-          minLength: 1
-          type: string
-          description: Date and time in ISO 8601 format of when the asset was last modified
-        smallPreviewLink:
-          type: string
-          description: Link to the asset with the maximum width 400px
-          nullable: true
-        largePreviewLink:
-          type: string
-          description: Link to the asset with the maximum width 1500px
-          nullable: true
-      additionalProperties: false
     PresentationBase:
       required:
       - assetState
@@ -719,22 +478,222 @@ components:
           description: Hierarchical path in lowercase based on the location of a presentation. E.g. "folder-a/folder-b/_my-presentation" when the location is "Folder A > Folder B > My Presentation"
         externalData:
           maxLength: 100
-          type: string
+          type:
+          - string
+          - 'null'
           description: External data which can be attached for future reference
-          nullable: true
         modifiedAt:
           minLength: 1
           type: string
           description: Date and time in ISO 8601 format of when the asset was last modified
         smallPreviewLink:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Link to the asset with the maximum width 400px
-          nullable: true
         largePreviewLink:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Link to the asset with the maximum width 1500px
-          nullable: true
       additionalProperties: false
+    GenerateFileRequest:
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          minLength: 1
+          type: string
+          description: Email to be used for identification.
+          format: email
+        data:
+          description: Data to be used during the file generation.
+        includePdf:
+          type: boolean
+          description: Specifies whether a PDF export of the file should be included in the response.
+      additionalProperties: false
+      description: The request model to generate a file.
+      example:
+        email: templafy@templafy.com
+        data:
+          Language: en-us
+        includePdf: true
+    PresentationSlide:
+      required:
+      - assetType
+      - presentationId
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/PresentationBase'
+      properties:
+        assetType:
+          minLength: 1
+          type: string
+          description: Type of the asset. It is always Slide for this schema
+        presentationId:
+          type: integer
+          description: The identifier of the presentation to which a slide belongs
+          format: int64
+      additionalProperties: false
+    Presentation:
+      required:
+      - assetType
+      - description
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/PresentationBase'
+      properties:
+        assetType:
+          minLength: 1
+          type: string
+          description: Type of the asset. It is always Presentation for this schema
+        description:
+          maxLength: 250
+          type: string
+      additionalProperties: false
+    PresentationDetailsBase:
+      required:
+      - assetState
+      - assetType
+      - checksum
+      - dimensions
+      - fileExtension
+      - fileSize
+      - folderId
+      - id
+      - modifiedAt
+      - name
+      - navigationPath
+      - tags
+      type: object
+      properties:
+        assetType:
+          minLength: 1
+          type: string
+        assetState:
+          $ref: '#/components/schemas/AssetFileStateWithPreviews'
+        dimensions:
+          $ref: '#/components/schemas/Dimensions'
+        id:
+          type: integer
+          description: Unique asset identifier
+          format: int64
+        folderId:
+          type: integer
+          description: Unique folder identifier
+          format: int64
+        name:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Display name
+        tags:
+          type: array
+          items:
+            type: string
+        fileSize:
+          type: integer
+          description: File size in bytes
+          format: int64
+        checksum:
+          minLength: 1
+          type: string
+          description: MD5 checksum of the bytes
+        fileExtension:
+          minLength: 1
+          type: string
+          description: Suffix to the name of the file
+        navigationPath:
+          maxLength: 700
+          minLength: 1
+          type: string
+          description: Hierarchical path in lowercase based on the location of a presentation. E.g. "folder-a/folder-b/_my-presentation" when the location is "Folder A > Folder B > My Presentation"
+        externalData:
+          maxLength: 100
+          type:
+          - string
+          - 'null'
+          description: External data which can be attached for future reference
+        modifiedAt:
+          minLength: 1
+          type: string
+          description: Date and time in ISO 8601 format of when the asset was last modified
+        smallPreviewLink:
+          type:
+          - string
+          - 'null'
+          description: Link to the asset with the maximum width 400px
+        largePreviewLink:
+          type:
+          - string
+          - 'null'
+          description: Link to the asset with the maximum width 1500px
+      additionalProperties: false
+    NotFoundProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        title: NotFound
+        detail: The server can not find the requested resource.
+        status: 404
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    AssetFileStateWithPreviews:
+      enum:
+      - ready
+      - processing
+      - processingFailed
+      - generatingPreviews
+      - generatingPreviewsFailed
+      - deleting
+      type: string
+      description: The current state of the asset
+    Dimensions:
+      required:
+      - height
+      - width
+      type: object
+      properties:
+        height:
+          type: integer
+          description: Height of the asset in pixels
+          format: int32
+        width:
+          type: integer
+          description: Width of the asset in pixels
+          format: int32
+        aspectRatio:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      description: Asset dimensions
     PresentationSlideDetails:
       required:
       - assetType
@@ -752,28 +711,62 @@ components:
           description: The identifier of the presentation to which a slide belongs
           format: int64
       additionalProperties: false
+    PresentationDetails:
+      required:
+      - assetType
+      - childrenAssetIds
+      - description
+      - downloadUrl
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/PresentationDetailsBase'
+      properties:
+        assetType:
+          minLength: 1
+          type: string
+          description: Type of the asset. It is always Presentation for this schema
+        childrenAssetIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: The array of the identifiers of slides included in the presentation
+        description:
+          maxLength: 250
+          type: string
+        downloadUrl:
+          type: string
+          description: Generated temporary access URL for content downloading with 302 response code
+          format: uri
+      additionalProperties: false
     ConflictProblemDetails:
       type: object
       properties:
         type:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         title:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         status:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         detail:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         instance:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         traceId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
       example:
         title: Conflict
@@ -811,11 +804,56 @@ components:
           type: string
           description: Suffix to the name of the file.
         pdfDownloadUrl:
-          type: string
+          type:
+          - string
+          - 'null'
           description: 'Temporary access URL for generated PDF file. Only available if the file was converted to PDF. The URL is short-lived and may not be immediately fetchable on receipt; clients should retry the download with a short backoff before treating an initial failure as final. '
-          nullable: true
       additionalProperties: false
       description: The generated file response model.
+    ValidationProblemDetails:
+      type: object
+      properties:
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        errors:
+        - name: The name field is required
+        - data: The input was invalid
+        title: One or more validation errors occurred.
+        status: 400
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
   securitySchemes:
     bearerAuth:
       type: http

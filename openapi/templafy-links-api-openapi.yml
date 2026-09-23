@@ -1,18 +1,18 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   contact:
     url: https://support.templafy.com/hc/en-us/requests/new
     name: Submit support ticket
-  description: Please refer to our [documentation](https://support.templafy.com/hc/en-us/articles/4411351240081-Public-API-Hive-) for guidelines and examples.
-  title: Templafy Public DataSourceFields Links API
-  version: v3
+  description: Please refer to our documentation for guidelines and examples.
+  title: Templafy Public Links API
+  version: v4
   termsOfService: https://www.templafy.com/templafy-saas-agreement/
 servers:
 - variables:
     tenantId:
       default: ''
       description: Your Templafy subdomain, i.e., https://{TenantId}.api.templafy.com
-  url: https://{tenantId}.api.templafy.com/v3
+  url: https://{tenantId}.api.templafy.com/v4
 tags:
 - name: Links
 paths:
@@ -20,7 +20,7 @@ paths:
     get:
       tags:
       - Links
-      summary: Lists all link assets in the folder.
+      summary: Lists all link assets in the folder
       description: The result does not include links from subfolders. When {searchQuery} is used the result includes links from subfolders. The search mode enables pagination with 1000 page size maximum.
       parameters:
       - name: spaceId
@@ -87,10 +87,12 @@ paths:
       - bearerAuth:
         - library.read
         - library.readwrite
+      operationId: getLibrariesBySpaceIdLinksFoldersByFolderIdAssets
+      x-operation-id-source: derived
     post:
       tags:
       - Links
-      summary: Creates the link asset.
+      summary: Creates the link asset
       parameters:
       - name: spaceId
         in: path
@@ -153,11 +155,13 @@ paths:
       security:
       - bearerAuth:
         - library.readwrite
+      operationId: postLibrariesBySpaceIdLinksFoldersByFolderIdAssets
+      x-operation-id-source: derived
   /libraries/{spaceId}/links/assets/{assetId}:
     get:
       tags:
       - Links
-      summary: Returns the link asset by the identifier.
+      summary: Returns the link asset by the identifier
       parameters:
       - name: spaceId
         in: path
@@ -194,10 +198,12 @@ paths:
       - bearerAuth:
         - library.read
         - library.readwrite
+      operationId: getLibrariesBySpaceIdLinksAssetsByAssetId
+      x-operation-id-source: derived
     patch:
       tags:
       - Links
-      summary: Updates the link asset.
+      summary: Updates the link asset
       parameters:
       - name: spaceId
         in: path
@@ -255,10 +261,12 @@ paths:
       security:
       - bearerAuth:
         - library.readwrite
+      operationId: patchLibrariesBySpaceIdLinksAssetsByAssetId
+      x-operation-id-source: derived
     delete:
       tags:
       - Links
-      summary: Deletes the link by the identifier.
+      summary: Deletes the link by the identifier
       parameters:
       - name: spaceId
         in: path
@@ -290,30 +298,81 @@ paths:
       security:
       - bearerAuth:
         - library.readwrite
+      operationId: deleteLibrariesBySpaceIdLinksAssetsByAssetId
+      x-operation-id-source: derived
 components:
   schemas:
+    UpdateLinkRequest:
+      type: object
+      properties:
+        folderId:
+          type:
+          - integer
+          - 'null'
+          description: The identifier of the destination folder
+          format: int64
+        name:
+          maxLength: 100
+          type:
+          - string
+          - 'null'
+          description: A new display name of the asset
+        description:
+          maxLength: 250
+          type:
+          - string
+          - 'null'
+          description: Description is used to specify the intended usage of the asset
+        tags:
+          type:
+          - array
+          - 'null'
+          items:
+            maxLength: 1024
+            minLength: 2
+            type: string
+          description: Tags should describe the content of the asset making it easier for a user to locate it
+        url:
+          maxLength: 2048
+          type:
+          - string
+          - 'null'
+          description: A reference to the web resource. HTTP and HTTPS are supported
+        externalData:
+          maxLength: 100
+          type:
+          - string
+          - 'null'
+          description: External data which can be attached for future reference
+      additionalProperties: false
     NotFoundProblemDetails:
       type: object
       properties:
         type:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         title:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         status:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
         detail:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         instance:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         traceId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       additionalProperties: false
       example:
         title: NotFound
@@ -332,130 +391,36 @@ components:
           description: Display name
         description:
           maxLength: 250
-          type: string
+          type:
+          - string
+          - 'null'
           description: Describing intended usage of the asset
-          nullable: true
         tags:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             maxLength: 1024
             minLength: 2
             type: string
           description: Tags should describe the content of the asset making it easier for a user to locate it
-          nullable: true
         externalData:
           maxLength: 100
-          type: string
+          type:
+          - string
+          - 'null'
           description: External data which can be attached for future reference
-          nullable: true
         url:
           maxLength: 2048
           type: string
           description: A reference to the web resource. HTTP and HTTPS are supported
       additionalProperties: false
       description: The request model to create a link asset
-    ValidationProblemDetails:
-      type: object
-      properties:
-        errors:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-          nullable: true
-        type:
-          type: string
-          nullable: true
-        title:
-          type: string
-          nullable: true
-        status:
-          type: integer
-          format: int32
-          nullable: true
-        detail:
-          type: string
-          nullable: true
-        instance:
-          type: string
-          nullable: true
-        traceId:
-          type: string
-          nullable: true
-      additionalProperties: false
-      example:
-        errors:
-        - name: The name field is required
-        - data: The input was invalid
-        title: One or more validation errors occurred.
-        status: 400
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    ConflictProblemDetails:
-      type: object
-      properties:
-        type:
-          type: string
-          nullable: true
-        title:
-          type: string
-          nullable: true
-        status:
-          type: integer
-          format: int32
-          nullable: true
-        detail:
-          type: string
-          nullable: true
-        instance:
-          type: string
-          nullable: true
-        traceId:
-          type: string
-          nullable: true
-      additionalProperties: false
-      example:
-        title: Conflict
-        detail: The request could not be completed due to a conflict with the current state of the resource.
-        status: 409
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    UpdateLinkRequest:
-      type: object
-      properties:
-        folderId:
-          type: integer
-          description: The identifier of the destination folder
-          format: int64
-          nullable: true
-        name:
-          maxLength: 100
-          type: string
-          description: A new display name of the asset
-          nullable: true
-        description:
-          maxLength: 250
-          type: string
-          description: Description is used to specify the intended usage of the asset
-          nullable: true
-        tags:
-          type: array
-          items:
-            maxLength: 1024
-            minLength: 2
-            type: string
-          description: Tags should describe the content of the asset making it easier for a user to locate it
-          nullable: true
-        url:
-          maxLength: 2048
-          type: string
-          description: A reference to the web resource. HTTP and HTTPS are supported
-          nullable: true
-        externalData:
-          maxLength: 100
-          type: string
-          description: External data which can be attached for future reference
-          nullable: true
-      additionalProperties: false
+    AssetStateWithoutFile:
+      enum:
+      - ready
+      type: string
+      description: The current state of the asset
     Link:
       required:
       - assetState
@@ -500,9 +465,10 @@ components:
           description: Hierarchical path in lowercase based on the location of a link. E.g. "folder-a/folder-b/_my-link" when the location is "Folder A > Folder B > My Link"
         externalData:
           maxLength: 100
-          type: string
+          type:
+          - string
+          - 'null'
           description: External data which can be attached for future reference
-          nullable: true
         modifiedAt:
           minLength: 1
           type: string
@@ -510,11 +476,6 @@ components:
         assetState:
           $ref: '#/components/schemas/AssetStateWithoutFile'
       additionalProperties: false
-    AssetStateWithoutFile:
-      enum:
-      - ready
-      type: string
-      description: The current state of the asset
     LinkDetails:
       required:
       - assetState
@@ -559,9 +520,10 @@ components:
           description: Hierarchical path in lowercase based on the location of a link. E.g. "folder-a/folder-b/_my-link" when the location is "Folder A > Folder B > My Link"
         externalData:
           maxLength: 100
-          type: string
+          type:
+          - string
+          - 'null'
           description: External data which can be attached for future reference
-          nullable: true
         modifiedAt:
           minLength: 1
           type: string
@@ -569,6 +531,84 @@ components:
         assetState:
           $ref: '#/components/schemas/AssetStateWithoutFile'
       additionalProperties: false
+    ConflictProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        title: Conflict
+        detail: The request could not be completed due to a conflict with the current state of the resource.
+        status: 409
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    ValidationProblemDetails:
+      type: object
+      properties:
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        errors:
+        - name: The name field is required
+        - data: The input was invalid
+        title: One or more validation errors occurred.
+        status: 400
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
   securitySchemes:
     bearerAuth:
       type: http
