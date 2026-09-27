@@ -431,12 +431,97 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    FolderState:
+    RequestFolderAccessStatus:
       enum:
-      - ready
-      - deleting
+      - restricted
+      - everyoneInTheSpace
       type: string
-      description: The current state of the folder
+      description: The status of the folder access. It is either available to everyone in the space or restricted to a limited list of users and user groups.
+    Folder:
+      required:
+      - id
+      - libraryId
+      - modifiedAt
+      - name
+      - navigationPath
+      - state
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique folder identifier
+          format: int64
+        libraryId:
+          type: integer
+          description: Unique library identifier
+          format: int64
+        name:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Display name
+        parentId:
+          type:
+          - integer
+          - 'null'
+          description: Unique identifier for the parent folder. The root folder does not have a parent folder identifier
+          format: int64
+        navigationPath:
+          maxLength: 700
+          minLength: 1
+          type: string
+          description: Hierarchical path in lowercase based on the location of a folder. E.g. "folder-a/folder-b" when the location is "Folder A > Folder B"
+        modifiedAt:
+          minLength: 1
+          type: string
+          description: Date and time in ISO 8601 format of when the folder was last modified
+        state:
+          $ref: '#/components/schemas/FolderState'
+      additionalProperties: false
+    ValidationProblemDetails:
+      type: object
+      properties:
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        errors:
+        - name: The name field is required
+        - data: The input was invalid
+        title: One or more validation errors occurred.
+        status: 400
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
     FolderSecurityResponse:
       required:
       - accessStatus
@@ -493,6 +578,67 @@ components:
         detail: The server can not find the requested resource.
         status: 404
         traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    ResponseFolderAccessStatus:
+      enum:
+      - inheritedLocked
+      - restricted
+      - everyoneInTheSpace
+      type: string
+      description: The status of the folder access. It is either available to everyone in the space, restricted directly to a list of users and user groups or via a parent folder.
+    ConflictProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        title: Conflict
+        detail: The request could not be completed due to a conflict with the current state of the resource.
+        status: 409
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    LibraryType:
+      enum:
+      - documents
+      - presentations
+      - spreadsheets
+      - slides
+      - slide-elements
+      - text-elements
+      - images
+      - pdfs
+      - links
+      - email-elements
+      type: string
+      description: Type of the assets that can be stored in the library
+    FolderState:
+      enum:
+      - ready
+      - deleting
+      type: string
+      description: The current state of the folder
     UpdateFolderSecurityRequest:
       type: object
       properties:
@@ -528,169 +674,6 @@ components:
           description: Display name
       additionalProperties: false
       description: The request model to create a folder
-    Folder:
-      required:
-      - id
-      - libraryId
-      - modifiedAt
-      - name
-      - navigationPath
-      - state
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique folder identifier
-          format: int64
-        libraryId:
-          type: integer
-          description: Unique library identifier
-          format: int64
-        name:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: Display name
-        parentId:
-          type:
-          - integer
-          - 'null'
-          description: Unique identifier for the parent folder. The root folder does not have a parent folder identifier
-          format: int64
-        navigationPath:
-          maxLength: 700
-          minLength: 1
-          type: string
-          description: Hierarchical path in lowercase based on the location of a folder. E.g. "folder-a/folder-b" when the location is "Folder A > Folder B"
-        modifiedAt:
-          minLength: 1
-          type: string
-          description: Date and time in ISO 8601 format of when the folder was last modified
-        state:
-          $ref: '#/components/schemas/FolderState'
-      additionalProperties: false
-    ResponseFolderAccessStatus:
-      enum:
-      - inheritedLocked
-      - restricted
-      - everyoneInTheSpace
-      type: string
-      description: The status of the folder access. It is either available to everyone in the space, restricted directly to a list of users and user groups or via a parent folder.
-    UpdateFolderRequest:
-      type: object
-      properties:
-        name:
-          maxLength: 100
-          type:
-          - string
-          - 'null'
-          description: Display name
-        parentFolderId:
-          type:
-          - integer
-          - 'null'
-          description: The identifier of a folder that current folder should be moved to
-          format: int64
-      additionalProperties: false
-      description: The request model to update the folder
-    ConflictProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        traceId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      example:
-        title: Conflict
-        detail: The request could not be completed due to a conflict with the current state of the resource.
-        status: 409
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    RequestFolderAccessStatus:
-      enum:
-      - restricted
-      - everyoneInTheSpace
-      type: string
-      description: The status of the folder access. It is either available to everyone in the space or restricted to a limited list of users and user groups.
-    LibraryType:
-      enum:
-      - documents
-      - presentations
-      - spreadsheets
-      - slides
-      - slide-elements
-      - text-elements
-      - images
-      - pdfs
-      - links
-      - email-elements
-      type: string
-      description: Type of the assets that can be stored in the library
-    ValidationProblemDetails:
-      type: object
-      properties:
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        traceId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      example:
-        errors:
-        - name: The name field is required
-        - data: The input was invalid
-        title: One or more validation errors occurred.
-        status: 400
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
     FolderDetails:
       required:
       - id
@@ -732,6 +715,23 @@ components:
         state:
           $ref: '#/components/schemas/FolderState'
       additionalProperties: false
+    UpdateFolderRequest:
+      type: object
+      properties:
+        name:
+          maxLength: 100
+          type:
+          - string
+          - 'null'
+          description: Display name
+        parentFolderId:
+          type:
+          - integer
+          - 'null'
+          description: The identifier of a folder that current folder should be moved to
+          format: int64
+      additionalProperties: false
+      description: The request model to update the folder
   securitySchemes:
     bearerAuth:
       type: http

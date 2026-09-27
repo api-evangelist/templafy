@@ -419,6 +419,60 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ValidationProblemDetails:
+      type: object
+      properties:
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        errors:
+        - name: The name field is required
+        - data: The input was invalid
+        title: One or more validation errors occurred.
+        status: 400
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    AssetFileStateWithPreviews:
+      enum:
+      - ready
+      - processing
+      - processingFailed
+      - generatingPreviews
+      - generatingPreviewsFailed
+      - deleting
+      type: string
+      description: The current state of the asset
     PresentationBase:
       required:
       - assetState
@@ -497,6 +551,107 @@ components:
           - 'null'
           description: Link to the asset with the maximum width 1500px
       additionalProperties: false
+    PresentationSlideDetails:
+      required:
+      - assetType
+      - presentationId
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/PresentationDetailsBase'
+      properties:
+        assetType:
+          minLength: 1
+          type: string
+          description: Type of the asset. It is always Slide for this schema
+        presentationId:
+          type: integer
+          description: The identifier of the presentation to which a slide belongs
+          format: int64
+      additionalProperties: false
+    NotFoundProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        title: NotFound
+        detail: The server can not find the requested resource.
+        status: 404
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    ConflictProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        title: Conflict
+        detail: The request could not be completed due to a conflict with the current state of the resource.
+        status: 409
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    Presentation:
+      required:
+      - assetType
+      - description
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/PresentationBase'
+      properties:
+        assetType:
+          minLength: 1
+          type: string
+          description: Type of the asset. It is always Presentation for this schema
+        description:
+          maxLength: 250
+          type: string
+      additionalProperties: false
     GenerateFileRequest:
       required:
       - email
@@ -519,6 +674,71 @@ components:
         data:
           Language: en-us
         includePdf: true
+    PresentationDetails:
+      required:
+      - assetType
+      - childrenAssetIds
+      - description
+      - downloadUrl
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/PresentationDetailsBase'
+      properties:
+        assetType:
+          minLength: 1
+          type: string
+          description: Type of the asset. It is always Presentation for this schema
+        childrenAssetIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: The array of the identifiers of slides included in the presentation
+        description:
+          maxLength: 250
+          type: string
+        downloadUrl:
+          type: string
+          description: Generated temporary access URL for content downloading with 302 response code
+          format: uri
+      additionalProperties: false
+    GeneratedFile:
+      required:
+      - checksum
+      - downloadUrl
+      - fileExtension
+      - fileSize
+      - mimeType
+      type: object
+      properties:
+        downloadUrl:
+          minLength: 1
+          type: string
+          description: Temporary access URL for generated file.
+          format: uri
+        fileSize:
+          type: integer
+          description: File size in bytes.
+          format: int64
+        checksum:
+          minLength: 1
+          type: string
+          description: MD5 checksum of the bytes.
+        mimeType:
+          minLength: 1
+          type: string
+          description: Mime type of the generated file.
+        fileExtension:
+          minLength: 1
+          type: string
+          description: Suffix to the name of the file.
+        pdfDownloadUrl:
+          type:
+          - string
+          - 'null'
+          description: 'Temporary access URL for generated PDF file. Only available if the file was converted to PDF. The URL is short-lived and may not be immediately fetchable on receipt; clients should retry the download with a short backoff before treating an initial failure as final. '
+      additionalProperties: false
+      description: The generated file response model.
     PresentationSlide:
       required:
       - assetType
@@ -536,22 +756,26 @@ components:
           description: The identifier of the presentation to which a slide belongs
           format: int64
       additionalProperties: false
-    Presentation:
+    Dimensions:
       required:
-      - assetType
-      - description
+      - height
+      - width
       type: object
-      allOf:
-      - $ref: '#/components/schemas/PresentationBase'
       properties:
-        assetType:
-          minLength: 1
-          type: string
-          description: Type of the asset. It is always Presentation for this schema
-        description:
-          maxLength: 250
-          type: string
+        height:
+          type: integer
+          description: Height of the asset in pixels
+          format: int32
+        width:
+          type: integer
+          description: Width of the asset in pixels
+          format: int32
+        aspectRatio:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
+      description: Asset dimensions
     PresentationDetailsBase:
       required:
       - assetState
@@ -630,230 +854,6 @@ components:
           - 'null'
           description: Link to the asset with the maximum width 1500px
       additionalProperties: false
-    NotFoundProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        traceId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      example:
-        title: NotFound
-        detail: The server can not find the requested resource.
-        status: 404
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    AssetFileStateWithPreviews:
-      enum:
-      - ready
-      - processing
-      - processingFailed
-      - generatingPreviews
-      - generatingPreviewsFailed
-      - deleting
-      type: string
-      description: The current state of the asset
-    Dimensions:
-      required:
-      - height
-      - width
-      type: object
-      properties:
-        height:
-          type: integer
-          description: Height of the asset in pixels
-          format: int32
-        width:
-          type: integer
-          description: Width of the asset in pixels
-          format: int32
-        aspectRatio:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      description: Asset dimensions
-    PresentationSlideDetails:
-      required:
-      - assetType
-      - presentationId
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/PresentationDetailsBase'
-      properties:
-        assetType:
-          minLength: 1
-          type: string
-          description: Type of the asset. It is always Slide for this schema
-        presentationId:
-          type: integer
-          description: The identifier of the presentation to which a slide belongs
-          format: int64
-      additionalProperties: false
-    PresentationDetails:
-      required:
-      - assetType
-      - childrenAssetIds
-      - description
-      - downloadUrl
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/PresentationDetailsBase'
-      properties:
-        assetType:
-          minLength: 1
-          type: string
-          description: Type of the asset. It is always Presentation for this schema
-        childrenAssetIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-          description: The array of the identifiers of slides included in the presentation
-        description:
-          maxLength: 250
-          type: string
-        downloadUrl:
-          type: string
-          description: Generated temporary access URL for content downloading with 302 response code
-          format: uri
-      additionalProperties: false
-    ConflictProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        traceId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      example:
-        title: Conflict
-        detail: The request could not be completed due to a conflict with the current state of the resource.
-        status: 409
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    GeneratedFile:
-      required:
-      - checksum
-      - downloadUrl
-      - fileExtension
-      - fileSize
-      - mimeType
-      type: object
-      properties:
-        downloadUrl:
-          minLength: 1
-          type: string
-          description: Temporary access URL for generated file.
-          format: uri
-        fileSize:
-          type: integer
-          description: File size in bytes.
-          format: int64
-        checksum:
-          minLength: 1
-          type: string
-          description: MD5 checksum of the bytes.
-        mimeType:
-          minLength: 1
-          type: string
-          description: Mime type of the generated file.
-        fileExtension:
-          minLength: 1
-          type: string
-          description: Suffix to the name of the file.
-        pdfDownloadUrl:
-          type:
-          - string
-          - 'null'
-          description: 'Temporary access URL for generated PDF file. Only available if the file was converted to PDF. The URL is short-lived and may not be immediately fetchable on receipt; clients should retry the download with a short backoff before treating an initial failure as final. '
-      additionalProperties: false
-      description: The generated file response model.
-    ValidationProblemDetails:
-      type: object
-      properties:
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        traceId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      example:
-        errors:
-        - name: The name field is required
-        - data: The input was invalid
-        title: One or more validation errors occurred.
-        status: 400
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
   securitySchemes:
     bearerAuth:
       type: http

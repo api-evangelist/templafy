@@ -23,7 +23,7 @@
     "templafy-textelements-api-openapi.yml"
   ],
   "archived": [
-    "deleted 2 superseded output(s) from the previous generation"
+    "deleted 1 superseded output(s) from the previous generation"
   ],
   "errors": [],
   "warnings": [],
@@ -48,8 +48,8 @@
     "templafy-public-api-v4-preview-openapi.json: declared missing tag: Spaces",
     "templafy-public-api-v4-preview-openapi.json: declared missing tag: Spreadsheets",
     "templafy-public-api-v4-preview-openapi.json: declared missing tag: TextElements",
-    "superseded outputs removed: templafy-data-sources-api-openapi.yml, templafy-pd-fs-api-openapi.yml",
-    "apis.yml register: written (+2 apis, 17 total)"
+    "superseded outputs removed: templafy-data-sources-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 17 total)"
   ],
   "skipped": [
     "_original/templafy-public-api-v3-openapi.json: archived document superseded by a larger archived document",
@@ -63,7 +63,7 @@
     "templafy-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "templafy-libraries-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "templafy-links-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "templafy-pd-fs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "templafy-pdfs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "templafy-presentations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "templafy-slideelements-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "templafy-slides-api-openapi.yml: previously refined output, superseded by openapi/_original/",

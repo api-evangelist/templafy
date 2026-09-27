@@ -365,244 +365,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    NotFoundProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        traceId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      example:
-        title: NotFound
-        detail: The server can not find the requested resource.
-        status: 404
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    AssetFileStateWithPreviews:
-      enum:
-      - ready
-      - processing
-      - processingFailed
-      - generatingPreviews
-      - generatingPreviewsFailed
-      - deleting
-      type: string
-      description: The current state of the asset
-    Dimensions:
-      required:
-      - height
-      - width
-      type: object
-      properties:
-        height:
-          type: integer
-          description: Height of the asset in pixels
-          format: int32
-        width:
-          type: integer
-          description: Width of the asset in pixels
-          format: int32
-        aspectRatio:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      description: Asset dimensions
-    SlideDetailsBase:
-      required:
-      - assetState
-      - assetType
-      - checksum
-      - dimensions
-      - fileExtension
-      - fileSize
-      - folderId
-      - id
-      - modifiedAt
-      - name
-      - navigationPath
-      - tags
-      type: object
-      properties:
-        assetType:
-          minLength: 1
-          type: string
-        assetState:
-          $ref: '#/components/schemas/AssetFileStateWithPreviews'
-        dimensions:
-          $ref: '#/components/schemas/Dimensions'
-        id:
-          type: integer
-          description: Unique asset identifier
-          format: int64
-        folderId:
-          type: integer
-          description: Unique folder identifier
-          format: int64
-        name:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: Display name
-        tags:
-          type: array
-          items:
-            type: string
-        fileSize:
-          type: integer
-          description: File size in bytes
-          format: int64
-        checksum:
-          minLength: 1
-          type: string
-          description: MD5 checksum of the bytes
-        fileExtension:
-          minLength: 1
-          type: string
-          description: Suffix to the name of the file
-        navigationPath:
-          maxLength: 700
-          minLength: 1
-          type: string
-          description: Hierarchical path in lowercase based on the location of a slide. E.g. "folder-a/folder-b/_my-slide" when the location is "Folder A > Folder B > My Slide"
-        externalData:
-          maxLength: 100
-          type:
-          - string
-          - 'null'
-          description: External data which can be attached for future reference
-        modifiedAt:
-          minLength: 1
-          type: string
-          description: Date and time in ISO 8601 format of when the asset was last modified
-        smallPreviewLink:
-          type:
-          - string
-          - 'null'
-          description: Link to the asset with the maximum width 400px
-        largePreviewLink:
-          type:
-          - string
-          - 'null'
-          description: Link to the asset with the maximum width 1500px
-      additionalProperties: false
-    Slide:
-      required:
-      - assetType
-      - slideDeckId
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/SlideBase'
-      properties:
-        assetType:
-          minLength: 1
-          type: string
-          description: Type of the asset. It is always Slide for this schema
-        slideDeckId:
-          type: integer
-          description: The identifier of the slide deck to which a slide belongs
-          format: int64
-      additionalProperties: false
-    ConflictProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        traceId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      example:
-        title: Conflict
-        detail: The request could not be completed due to a conflict with the current state of the resource.
-        status: 409
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    SlideDetails:
-      required:
-      - assetType
-      - slideDeckId
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/SlideDetailsBase'
-      properties:
-        assetType:
-          minLength: 1
-          type: string
-          description: Type of the asset. It is always Slide for this schema
-        slideDeckId:
-          type: integer
-          description: The identifier of the slide deck to which a slide belongs
-          format: int64
-      additionalProperties: false
-    SlideDeckDetails:
-      required:
-      - assetType
-      - childrenAssetIds
-      - description
-      - downloadUrl
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/SlideDetailsBase'
-      properties:
-        assetType:
-          minLength: 1
-          type: string
-          description: Type of the asset. It is always SlideDeck for this schema
-        childrenAssetIds:
-          type: array
-          items:
-            type: integer
-            format: int64
-          description: The array of the identifiers of slides included in the slide deck
-        description:
-          maxLength: 250
-          type: string
-        downloadUrl:
-          type: string
-          description: Generated temporary access URL for content downloading with 302 response code
-          format: uri
-      additionalProperties: false
     ValidationProblemDetails:
       type: object
       properties:
@@ -647,6 +409,16 @@ components:
         title: One or more validation errors occurred.
         status: 400
         traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    AssetFileStateWithPreviews:
+      enum:
+      - ready
+      - processing
+      - processingFailed
+      - generatingPreviews
+      - generatingPreviewsFailed
+      - deleting
+      type: string
+      description: The current state of the asset
     SlideBase:
       required:
       - assetState
@@ -740,6 +512,234 @@ components:
         description:
           maxLength: 250
           type: string
+      additionalProperties: false
+    NotFoundProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        title: NotFound
+        detail: The server can not find the requested resource.
+        status: 404
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    ConflictProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        title: Conflict
+        detail: The request could not be completed due to a conflict with the current state of the resource.
+        status: 409
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    SlideDeckDetails:
+      required:
+      - assetType
+      - childrenAssetIds
+      - description
+      - downloadUrl
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/SlideDetailsBase'
+      properties:
+        assetType:
+          minLength: 1
+          type: string
+          description: Type of the asset. It is always SlideDeck for this schema
+        childrenAssetIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+          description: The array of the identifiers of slides included in the slide deck
+        description:
+          maxLength: 250
+          type: string
+        downloadUrl:
+          type: string
+          description: Generated temporary access URL for content downloading with 302 response code
+          format: uri
+      additionalProperties: false
+    Dimensions:
+      required:
+      - height
+      - width
+      type: object
+      properties:
+        height:
+          type: integer
+          description: Height of the asset in pixels
+          format: int32
+        width:
+          type: integer
+          description: Width of the asset in pixels
+          format: int32
+        aspectRatio:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      description: Asset dimensions
+    Slide:
+      required:
+      - assetType
+      - slideDeckId
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/SlideBase'
+      properties:
+        assetType:
+          minLength: 1
+          type: string
+          description: Type of the asset. It is always Slide for this schema
+        slideDeckId:
+          type: integer
+          description: The identifier of the slide deck to which a slide belongs
+          format: int64
+      additionalProperties: false
+    SlideDetails:
+      required:
+      - assetType
+      - slideDeckId
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/SlideDetailsBase'
+      properties:
+        assetType:
+          minLength: 1
+          type: string
+          description: Type of the asset. It is always Slide for this schema
+        slideDeckId:
+          type: integer
+          description: The identifier of the slide deck to which a slide belongs
+          format: int64
+      additionalProperties: false
+    SlideDetailsBase:
+      required:
+      - assetState
+      - assetType
+      - checksum
+      - dimensions
+      - fileExtension
+      - fileSize
+      - folderId
+      - id
+      - modifiedAt
+      - name
+      - navigationPath
+      - tags
+      type: object
+      properties:
+        assetType:
+          minLength: 1
+          type: string
+        assetState:
+          $ref: '#/components/schemas/AssetFileStateWithPreviews'
+        dimensions:
+          $ref: '#/components/schemas/Dimensions'
+        id:
+          type: integer
+          description: Unique asset identifier
+          format: int64
+        folderId:
+          type: integer
+          description: Unique folder identifier
+          format: int64
+        name:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Display name
+        tags:
+          type: array
+          items:
+            type: string
+        fileSize:
+          type: integer
+          description: File size in bytes
+          format: int64
+        checksum:
+          minLength: 1
+          type: string
+          description: MD5 checksum of the bytes
+        fileExtension:
+          minLength: 1
+          type: string
+          description: Suffix to the name of the file
+        navigationPath:
+          maxLength: 700
+          minLength: 1
+          type: string
+          description: Hierarchical path in lowercase based on the location of a slide. E.g. "folder-a/folder-b/_my-slide" when the location is "Folder A > Folder B > My Slide"
+        externalData:
+          maxLength: 100
+          type:
+          - string
+          - 'null'
+          description: External data which can be attached for future reference
+        modifiedAt:
+          minLength: 1
+          type: string
+          description: Date and time in ISO 8601 format of when the asset was last modified
+        smallPreviewLink:
+          type:
+          - string
+          - 'null'
+          description: Link to the asset with the maximum width 400px
+        largePreviewLink:
+          type:
+          - string
+          - 'null'
+          description: Link to the asset with the maximum width 1500px
       additionalProperties: false
   securitySchemes:
     bearerAuth:

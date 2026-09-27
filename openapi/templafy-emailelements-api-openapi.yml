@@ -354,14 +354,115 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    AssetFileStateWithoutPreviews:
-      enum:
-      - ready
-      - processing
-      - processingFailed
-      - deleting
-      type: string
-      description: The current state of the asset
+    ValidationProblemDetails:
+      type: object
+      properties:
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        errors:
+        - name: The name field is required
+        - data: The input was invalid
+        title: One or more validation errors occurred.
+        status: 400
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    EmailElement:
+      required:
+      - assetState
+      - checksum
+      - description
+      - fileExtension
+      - fileSize
+      - folderId
+      - id
+      - modifiedAt
+      - name
+      - navigationPath
+      - tags
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique asset identifier
+          format: int64
+        folderId:
+          type: integer
+          description: Unique folder identifier
+          format: int64
+        name:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Display name
+        description:
+          maxLength: 250
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        fileSize:
+          type: integer
+          description: File size in bytes
+          format: int64
+        checksum:
+          minLength: 1
+          type: string
+          description: MD5 checksum of the bytes
+        fileExtension:
+          minLength: 1
+          type: string
+          description: Suffix to the name of the file
+        navigationPath:
+          maxLength: 700
+          minLength: 1
+          type: string
+          description: Hierarchical path in lowercase based on the location of a email element. E.g. "folder-a/folder-b/_my-email-element" when the location is "Folder A > Folder B > My Email Element"
+        externalData:
+          maxLength: 100
+          type:
+          - string
+          - 'null'
+          description: External data which can be attached for future reference
+        modifiedAt:
+          minLength: 1
+          type: string
+          description: Date and time in ISO 8601 format of when the asset was last modified
+        assetState:
+          $ref: '#/components/schemas/AssetFileStateWithoutPreviews'
+      additionalProperties: false
     NotFoundProblemDetails:
       type: object
       properties:
@@ -430,50 +531,14 @@ components:
         detail: The request could not be completed due to a conflict with the current state of the resource.
         status: 409
         traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    ValidationProblemDetails:
-      type: object
-      properties:
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        traceId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      example:
-        errors:
-        - name: The name field is required
-        - data: The input was invalid
-        title: One or more validation errors occurred.
-        status: 400
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    AssetFileStateWithoutPreviews:
+      enum:
+      - ready
+      - processing
+      - processingFailed
+      - deleting
+      type: string
+      description: The current state of the asset
     EmailElementDetails:
       required:
       - assetState
@@ -526,71 +591,6 @@ components:
           type: string
           description: Generated temporary access URL for content downloading with 302 response code
           format: uri
-        navigationPath:
-          maxLength: 700
-          minLength: 1
-          type: string
-          description: Hierarchical path in lowercase based on the location of a email element. E.g. "folder-a/folder-b/_my-email-element" when the location is "Folder A > Folder B > My Email Element"
-        externalData:
-          maxLength: 100
-          type:
-          - string
-          - 'null'
-          description: External data which can be attached for future reference
-        modifiedAt:
-          minLength: 1
-          type: string
-          description: Date and time in ISO 8601 format of when the asset was last modified
-        assetState:
-          $ref: '#/components/schemas/AssetFileStateWithoutPreviews'
-      additionalProperties: false
-    EmailElement:
-      required:
-      - assetState
-      - checksum
-      - description
-      - fileExtension
-      - fileSize
-      - folderId
-      - id
-      - modifiedAt
-      - name
-      - navigationPath
-      - tags
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique asset identifier
-          format: int64
-        folderId:
-          type: integer
-          description: Unique folder identifier
-          format: int64
-        name:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: Display name
-        description:
-          maxLength: 250
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        fileSize:
-          type: integer
-          description: File size in bytes
-          format: int64
-        checksum:
-          minLength: 1
-          type: string
-          description: MD5 checksum of the bytes
-        fileExtension:
-          minLength: 1
-          type: string
-          description: Suffix to the name of the file
         navigationPath:
           maxLength: 700
           minLength: 1

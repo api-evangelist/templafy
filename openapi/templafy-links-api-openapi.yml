@@ -302,6 +302,50 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ValidationProblemDetails:
+      type: object
+      properties:
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        errors:
+        - name: The name field is required
+        - data: The input was invalid
+        title: One or more validation errors occurred.
+        status: 400
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
     UpdateLinkRequest:
       type: object
       properties:
@@ -379,43 +423,40 @@ components:
         detail: The server can not find the requested resource.
         status: 404
         traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    CreateLinkRequest:
-      required:
-      - name
-      - url
+    ConflictProblemDetails:
       type: object
       properties:
-        name:
-          maxLength: 100
-          type: string
-          description: Display name
-        description:
-          maxLength: 250
+        type:
           type:
           - string
           - 'null'
-          description: Describing intended usage of the asset
-        tags:
-          type:
-          - array
-          - 'null'
-          items:
-            maxLength: 1024
-            minLength: 2
-            type: string
-          description: Tags should describe the content of the asset making it easier for a user to locate it
-        externalData:
-          maxLength: 100
+        title:
           type:
           - string
           - 'null'
-          description: External data which can be attached for future reference
-        url:
-          maxLength: 2048
-          type: string
-          description: A reference to the web resource. HTTP and HTTPS are supported
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-      description: The request model to create a link asset
+      example:
+        title: Conflict
+        detail: The request could not be completed due to a conflict with the current state of the resource.
+        status: 409
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
     AssetStateWithoutFile:
       enum:
       - ready
@@ -476,6 +517,43 @@ components:
         assetState:
           $ref: '#/components/schemas/AssetStateWithoutFile'
       additionalProperties: false
+    CreateLinkRequest:
+      required:
+      - name
+      - url
+      type: object
+      properties:
+        name:
+          maxLength: 100
+          type: string
+          description: Display name
+        description:
+          maxLength: 250
+          type:
+          - string
+          - 'null'
+          description: Describing intended usage of the asset
+        tags:
+          type:
+          - array
+          - 'null'
+          items:
+            maxLength: 1024
+            minLength: 2
+            type: string
+          description: Tags should describe the content of the asset making it easier for a user to locate it
+        externalData:
+          maxLength: 100
+          type:
+          - string
+          - 'null'
+          description: External data which can be attached for future reference
+        url:
+          maxLength: 2048
+          type: string
+          description: A reference to the web resource. HTTP and HTTPS are supported
+      additionalProperties: false
+      description: The request model to create a link asset
     LinkDetails:
       required:
       - assetState
@@ -531,84 +609,6 @@ components:
         assetState:
           $ref: '#/components/schemas/AssetStateWithoutFile'
       additionalProperties: false
-    ConflictProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        traceId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      example:
-        title: Conflict
-        detail: The request could not be completed due to a conflict with the current state of the resource.
-        status: 409
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    ValidationProblemDetails:
-      type: object
-      properties:
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        traceId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      example:
-        errors:
-        - name: The name field is required
-        - data: The input was invalid
-        title: One or more validation errors occurred.
-        status: 400
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
   securitySchemes:
     bearerAuth:
       type: http
