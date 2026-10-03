@@ -354,17 +354,9 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ValidationProblemDetails:
+    NotFoundProblemDetails:
       type: object
       properties:
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
         type:
           type:
           - string
@@ -392,11 +384,9 @@ components:
           - 'null'
       additionalProperties: false
       example:
-        errors:
-        - name: The name field is required
-        - data: The input was invalid
-        title: One or more validation errors occurred.
-        status: 400
+        title: NotFound
+        detail: The server can not find the requested resource.
+        status: 404
         traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
     EmailElement:
       required:
@@ -463,9 +453,17 @@ components:
         assetState:
           $ref: '#/components/schemas/AssetFileStateWithoutPreviews'
       additionalProperties: false
-    NotFoundProblemDetails:
+    ValidationProblemDetails:
       type: object
       properties:
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
         type:
           type:
           - string
@@ -493,9 +491,11 @@ components:
           - 'null'
       additionalProperties: false
       example:
-        title: NotFound
-        detail: The server can not find the requested resource.
-        status: 404
+        errors:
+        - name: The name field is required
+        - data: The input was invalid
+        title: One or more validation errors occurred.
+        status: 400
         traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
     ConflictProblemDetails:
       type: object
@@ -531,14 +531,6 @@ components:
         detail: The request could not be completed due to a conflict with the current state of the resource.
         status: 409
         traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    AssetFileStateWithoutPreviews:
-      enum:
-      - ready
-      - processing
-      - processingFailed
-      - deleting
-      type: string
-      description: The current state of the asset
     EmailElementDetails:
       required:
       - assetState
@@ -609,6 +601,14 @@ components:
         assetState:
           $ref: '#/components/schemas/AssetFileStateWithoutPreviews'
       additionalProperties: false
+    AssetFileStateWithoutPreviews:
+      enum:
+      - ready
+      - processing
+      - processingFailed
+      - deleting
+      type: string
+      description: The current state of the asset
   securitySchemes:
     bearerAuth:
       type: http

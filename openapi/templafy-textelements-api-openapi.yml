@@ -408,150 +408,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ValidationProblemDetails:
-      type: object
-      properties:
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        traceId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      example:
-        errors:
-        - name: The name field is required
-        - data: The input was invalid
-        title: One or more validation errors occurred.
-        status: 400
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    GeneratedTextElementFile:
-      required:
-      - checksum
-      - downloadUrl
-      - fileExtension
-      - fileSize
-      - mimeType
-      type: object
-      properties:
-        downloadUrl:
-          minLength: 1
-          type: string
-          description: Temporary access URL for generated file.
-          format: uri
-        fileSize:
-          type: integer
-          description: File size in bytes.
-          format: int64
-        checksum:
-          minLength: 1
-          type: string
-          description: MD5 checksum of the bytes.
-        mimeType:
-          minLength: 1
-          type: string
-          description: Mime type of the generated file.
-        fileExtension:
-          minLength: 1
-          type: string
-          description: Suffix to the name of the file.
-      additionalProperties: false
-      description: The generated text element file response model.
-    NotFoundProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        traceId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      example:
-        title: NotFound
-        detail: The server can not find the requested resource.
-        status: 404
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    ConflictProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        traceId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      example:
-        title: Conflict
-        detail: The request could not be completed due to a conflict with the current state of the resource.
-        status: 409
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
     TextElement:
       required:
       - assetState
@@ -617,6 +473,136 @@ components:
         assetState:
           $ref: '#/components/schemas/AssetFileStateWithoutPreviews'
       additionalProperties: false
+    NotFoundProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        title: NotFound
+        detail: The server can not find the requested resource.
+        status: 404
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    GenerateTextElementFileRequest:
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          minLength: 1
+          type: string
+          description: Email to be used for identification.
+          format: email
+        data:
+          description: Data to be used during the file generation.
+      additionalProperties: false
+      description: The request model to generate a text element file.
+      example:
+        email: templafy@templafy.com
+        data:
+          Language: en-us
+    ValidationProblemDetails:
+      type: object
+      properties:
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        errors:
+        - name: The name field is required
+        - data: The input was invalid
+        title: One or more validation errors occurred.
+        status: 400
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    ConflictProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        title: Conflict
+        detail: The request could not be completed due to a conflict with the current state of the resource.
+        status: 409
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
     AssetFileStateWithoutPreviews:
       enum:
       - ready
@@ -625,6 +611,38 @@ components:
       - deleting
       type: string
       description: The current state of the asset
+    GeneratedTextElementFile:
+      required:
+      - checksum
+      - downloadUrl
+      - fileExtension
+      - fileSize
+      - mimeType
+      type: object
+      properties:
+        downloadUrl:
+          minLength: 1
+          type: string
+          description: Temporary access URL for generated file.
+          format: uri
+        fileSize:
+          type: integer
+          description: File size in bytes.
+          format: int64
+        checksum:
+          minLength: 1
+          type: string
+          description: MD5 checksum of the bytes.
+        mimeType:
+          minLength: 1
+          type: string
+          description: Mime type of the generated file.
+        fileExtension:
+          minLength: 1
+          type: string
+          description: Suffix to the name of the file.
+      additionalProperties: false
+      description: The generated text element file response model.
     TextElementDetails:
       required:
       - assetState
@@ -695,24 +713,6 @@ components:
         assetState:
           $ref: '#/components/schemas/AssetFileStateWithoutPreviews'
       additionalProperties: false
-    GenerateTextElementFileRequest:
-      required:
-      - email
-      type: object
-      properties:
-        email:
-          minLength: 1
-          type: string
-          description: Email to be used for identification.
-          format: email
-        data:
-          description: Data to be used during the file generation.
-      additionalProperties: false
-      description: The request model to generate a text element file.
-      example:
-        email: templafy@templafy.com
-        data:
-          Language: en-us
   securitySchemes:
     bearerAuth:
       type: http
