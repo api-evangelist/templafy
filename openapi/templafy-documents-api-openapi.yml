@@ -410,6 +410,82 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    AssetFileStateWithoutPreviews:
+      enum:
+      - ready
+      - processing
+      - processingFailed
+      - deleting
+      type: string
+      description: The current state of the asset
+    ConflictProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        title: Conflict
+        detail: The request could not be completed due to a conflict with the current state of the resource.
+        status: 409
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    NotFoundProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        title: NotFound
+        detail: The server can not find the requested resource.
+        status: 404
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
     Document:
       required:
       - assetState
@@ -475,62 +551,6 @@ components:
         assetState:
           $ref: '#/components/schemas/AssetFileStateWithoutPreviews'
       additionalProperties: false
-    NotFoundProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        traceId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      example:
-        title: NotFound
-        detail: The server can not find the requested resource.
-        status: 404
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    GenerateFileRequest:
-      required:
-      - email
-      type: object
-      properties:
-        email:
-          minLength: 1
-          type: string
-          description: Email to be used for identification.
-          format: email
-        data:
-          description: Data to be used during the file generation.
-        includePdf:
-          type: boolean
-          description: Specifies whether a PDF export of the file should be included in the response.
-      additionalProperties: false
-      description: The request model to generate a file.
-      example:
-        email: templafy@templafy.com
-        data:
-          Language: en-us
-        includePdf: true
     ValidationProblemDetails:
       type: object
       properties:
@@ -575,85 +595,6 @@ components:
         title: One or more validation errors occurred.
         status: 400
         traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    ConflictProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        traceId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      example:
-        title: Conflict
-        detail: The request could not be completed due to a conflict with the current state of the resource.
-        status: 409
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    GeneratedFile:
-      required:
-      - checksum
-      - downloadUrl
-      - fileExtension
-      - fileSize
-      - mimeType
-      type: object
-      properties:
-        downloadUrl:
-          minLength: 1
-          type: string
-          description: Temporary access URL for generated file.
-          format: uri
-        fileSize:
-          type: integer
-          description: File size in bytes.
-          format: int64
-        checksum:
-          minLength: 1
-          type: string
-          description: MD5 checksum of the bytes.
-        mimeType:
-          minLength: 1
-          type: string
-          description: Mime type of the generated file.
-        fileExtension:
-          minLength: 1
-          type: string
-          description: Suffix to the name of the file.
-        pdfDownloadUrl:
-          type:
-          - string
-          - 'null'
-          description: 'Temporary access URL for generated PDF file. Only available if the file was converted to PDF. The URL is short-lived and may not be immediately fetchable on receipt; clients should retry the download with a short backoff before treating an initial failure as final. '
-      additionalProperties: false
-      description: The generated file response model.
-    AssetFileStateWithoutPreviews:
-      enum:
-      - ready
-      - processing
-      - processingFailed
-      - deleting
-      type: string
-      description: The current state of the asset
     DocumentDetails:
       required:
       - assetState
@@ -724,6 +665,65 @@ components:
         assetState:
           $ref: '#/components/schemas/AssetFileStateWithoutPreviews'
       additionalProperties: false
+    GenerateFileRequest:
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          minLength: 1
+          type: string
+          description: Email to be used for identification.
+          format: email
+        data:
+          description: Data to be used during the file generation.
+        includePdf:
+          type: boolean
+          description: Specifies whether a PDF export of the file should be included in the response.
+      additionalProperties: false
+      description: The request model to generate a file.
+      example:
+        email: templafy@templafy.com
+        data:
+          Language: en-us
+        includePdf: true
+    GeneratedFile:
+      required:
+      - checksum
+      - downloadUrl
+      - fileExtension
+      - fileSize
+      - mimeType
+      type: object
+      properties:
+        downloadUrl:
+          minLength: 1
+          type: string
+          description: Temporary access URL for generated file.
+          format: uri
+        fileSize:
+          type: integer
+          description: File size in bytes.
+          format: int64
+        checksum:
+          minLength: 1
+          type: string
+          description: MD5 checksum of the bytes.
+        mimeType:
+          minLength: 1
+          type: string
+          description: Mime type of the generated file.
+        fileExtension:
+          minLength: 1
+          type: string
+          description: Suffix to the name of the file.
+        pdfDownloadUrl:
+          type:
+          - string
+          - 'null'
+          description: 'Temporary access URL for generated PDF file. Only available if the file was converted to PDF. The URL is short-lived and may not be immediately fetchable on receipt; clients should retry the download with a short backoff before treating an initial failure as final. '
+      additionalProperties: false
+      description: The generated file response model.
   securitySchemes:
     bearerAuth:
       type: http

@@ -164,29 +164,33 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    UpdateDataSourceItemFieldRequest:
-      required:
-      - type
-      type: object
-      properties:
-        type:
-          minLength: 1
-          type: string
-          description: Data source item field type.
-          readOnly: true
-      additionalProperties: false
-      discriminator:
-        propertyName: type
-        mapping:
-          Text: '#/components/schemas/UpdateTextDataSourceItemFieldRequest'
-          Number: '#/components/schemas/UpdateNumberDataSourceItemFieldRequest'
-          ColorTheme: '#/components/schemas/UpdateColorThemeDataSourceItemFieldRequest'
-          Reference: '#/components/schemas/UpdateReferenceDataSourceItemFieldRequest'
-          Image: '#/components/schemas/UpdateImageDataSourceItemFieldRequest'
-          Font: '#/components/schemas/UpdateFontDataSourceItemFieldRequest'
+    UpdateImageDataSourceItemFieldRequest:
+      allOf:
+      - $ref: '#/components/schemas/UpdateDataSourceItemFieldRequest'
+      - required:
+        - fileName
+        type: object
+        properties:
+          fileName:
+            minLength: 1
+            type: string
+            description: The name of the file.
+          fileUrl:
+            type:
+            - string
+            - 'null'
+            description: 'The file size must be under 2MB, and it should be in one of these formats: .png, .jpg, .jpeg, .gif, .bmp, .emf, .wmf, .svg.'
+            format: uri
+          content:
+            type:
+            - string
+            - 'null'
+            description: 'The base64 content size must be under 2MB, and it should be in one of these formats: .png, .jpg, .jpeg, .gif, .bmp, .emf, .wmf, .svg.'
+        additionalProperties: false
       example:
-        type: text
-        value: An updated value
+        type: image
+        fileName: Cat
+        fileUrl: https://en.wikipedia.org/wiki/Cat#/media/File:Cat_August_2010-4.jpg
     NotFoundProblemDetails:
       type: object
       properties:
@@ -281,22 +285,21 @@ components:
       example:
         type: text
         value: An updated value
-    UpdateColorThemeDataSourceItemFieldRequest:
+    UpdateReferenceDataSourceItemFieldRequest:
       allOf:
       - $ref: '#/components/schemas/UpdateDataSourceItemFieldRequest'
       - required:
-        - xmlValue
+        - dataSourceItemId
         type: object
         properties:
-          xmlValue:
-            maxLength: 3500
-            minLength: 1
-            type: string
-            description: The value of the field based on the schema http://schemas.openxmlformats.org/drawingml/2006/main. Max length is 3500 characters.
+          dataSourceItemId:
+            type: integer
+            description: The identifier of the data source item to be referenced.
+            format: int64
         additionalProperties: false
       example:
-        type: colorTheme
-        xmlValue: <a:clrScheme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="Templafy_New"><a:dk1><a:srgbClr val="0078FF"/></a:dk1><a:lt1><a:sysClr val="window" lastClr="FFFFFF"/></a:lt1><a:dk2><a:srgbClr val="000000"/></a:dk2><a:lt2><a:srgbClr val="E5E5E5"/></a:lt2><a:accent1><a:srgbClr val="0078FF"/></a:accent1><a:accent2><a:srgbClr val="575757"/></a:accent2><a:accent3><a:srgbClr val="12AA96"/></a:accent3><a:accent4><a:srgbClr val="15436B"/></a:accent4><a:accent5><a:srgbClr val="D44849"/></a:accent5><a:accent6><a:srgbClr val="7F7F7F"/></a:accent6><a:hlink><a:srgbClr val="0078FF"/></a:hlink><a:folHlink><a:srgbClr val="55CBFF"/></a:folHlink></a:clrScheme>
+        type: reference
+        dataSourceItemId: '638247997437572264'
     UpdateNumberDataSourceItemFieldRequest:
       allOf:
       - $ref: '#/components/schemas/UpdateDataSourceItemFieldRequest'
@@ -339,48 +342,45 @@ components:
         type: font
         fileName: best-font
         fileUrl: https://allfonts.com/best-font
-    UpdateImageDataSourceItemFieldRequest:
+    UpdateDataSourceItemFieldRequest:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          minLength: 1
+          type: string
+          description: Data source item field type.
+          readOnly: true
+      additionalProperties: false
+      discriminator:
+        propertyName: type
+        mapping:
+          Text: '#/components/schemas/UpdateTextDataSourceItemFieldRequest'
+          Number: '#/components/schemas/UpdateNumberDataSourceItemFieldRequest'
+          ColorTheme: '#/components/schemas/UpdateColorThemeDataSourceItemFieldRequest'
+          Reference: '#/components/schemas/UpdateReferenceDataSourceItemFieldRequest'
+          Image: '#/components/schemas/UpdateImageDataSourceItemFieldRequest'
+          Font: '#/components/schemas/UpdateFontDataSourceItemFieldRequest'
+      example:
+        type: text
+        value: An updated value
+    UpdateColorThemeDataSourceItemFieldRequest:
       allOf:
       - $ref: '#/components/schemas/UpdateDataSourceItemFieldRequest'
       - required:
-        - fileName
+        - xmlValue
         type: object
         properties:
-          fileName:
+          xmlValue:
+            maxLength: 3500
             minLength: 1
             type: string
-            description: The name of the file.
-          fileUrl:
-            type:
-            - string
-            - 'null'
-            description: 'The file size must be under 2MB, and it should be in one of these formats: .png, .jpg, .jpeg, .gif, .bmp, .emf, .wmf, .svg.'
-            format: uri
-          content:
-            type:
-            - string
-            - 'null'
-            description: 'The base64 content size must be under 2MB, and it should be in one of these formats: .png, .jpg, .jpeg, .gif, .bmp, .emf, .wmf, .svg.'
+            description: The value of the field based on the schema http://schemas.openxmlformats.org/drawingml/2006/main. Max length is 3500 characters.
         additionalProperties: false
       example:
-        type: image
-        fileName: Cat
-        fileUrl: https://en.wikipedia.org/wiki/Cat#/media/File:Cat_August_2010-4.jpg
-    UpdateReferenceDataSourceItemFieldRequest:
-      allOf:
-      - $ref: '#/components/schemas/UpdateDataSourceItemFieldRequest'
-      - required:
-        - dataSourceItemId
-        type: object
-        properties:
-          dataSourceItemId:
-            type: integer
-            description: The identifier of the data source item to be referenced.
-            format: int64
-        additionalProperties: false
-      example:
-        type: reference
-        dataSourceItemId: '638247997437572264'
+        type: colorTheme
+        xmlValue: <a:clrScheme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="Templafy_New"><a:dk1><a:srgbClr val="0078FF"/></a:dk1><a:lt1><a:sysClr val="window" lastClr="FFFFFF"/></a:lt1><a:dk2><a:srgbClr val="000000"/></a:dk2><a:lt2><a:srgbClr val="E5E5E5"/></a:lt2><a:accent1><a:srgbClr val="0078FF"/></a:accent1><a:accent2><a:srgbClr val="575757"/></a:accent2><a:accent3><a:srgbClr val="12AA96"/></a:accent3><a:accent4><a:srgbClr val="15436B"/></a:accent4><a:accent5><a:srgbClr val="D44849"/></a:accent5><a:accent6><a:srgbClr val="7F7F7F"/></a:accent6><a:hlink><a:srgbClr val="0078FF"/></a:hlink><a:folHlink><a:srgbClr val="55CBFF"/></a:folHlink></a:clrScheme>
   securitySchemes:
     bearerAuth:
       type: http

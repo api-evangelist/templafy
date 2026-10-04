@@ -85,20 +85,35 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    LibraryType:
-      enum:
-      - documents
-      - presentations
-      - spreadsheets
-      - slides
-      - slide-elements
-      - text-elements
-      - images
-      - pdfs
-      - links
-      - email-elements
-      type: string
-      description: Type of the assets that can be stored in the library
+    Library:
+      required:
+      - id
+      - libraryType
+      - name
+      - rootFolderId
+      - spaceId
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique library identifier
+          format: int64
+        name:
+          maxLength: 25
+          minLength: 1
+          type: string
+          description: Display name of the library
+        libraryType:
+          $ref: '#/components/schemas/LibraryType'
+        spaceId:
+          type: integer
+          description: Unique identifier of the space to which the library belongs
+          format: int64
+        rootFolderId:
+          type: integer
+          description: Unique identifier of the root folder of the library
+          format: int64
+      additionalProperties: false
     NotFoundProblemDetails:
       type: object
       properties:
@@ -133,36 +148,21 @@ components:
         detail: The server can not find the requested resource.
         status: 404
         traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    LibraryType:
+      enum:
+      - documents
+      - presentations
+      - spreadsheets
+      - slides
+      - slide-elements
+      - text-elements
+      - images
+      - pdfs
+      - links
+      - email-elements
+      type: string
+      description: Type of the assets that can be stored in the library
     LibraryDetails:
-      required:
-      - id
-      - libraryType
-      - name
-      - rootFolderId
-      - spaceId
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique library identifier
-          format: int64
-        name:
-          maxLength: 25
-          minLength: 1
-          type: string
-          description: Display name of the library
-        libraryType:
-          $ref: '#/components/schemas/LibraryType'
-        spaceId:
-          type: integer
-          description: Unique identifier of the space to which the library belongs
-          format: int64
-        rootFolderId:
-          type: integer
-          description: Unique identifier of the root folder of the library
-          format: int64
-      additionalProperties: false
-    Library:
       required:
       - id
       - libraryType

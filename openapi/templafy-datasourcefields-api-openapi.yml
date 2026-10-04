@@ -273,6 +273,99 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    LanguageFieldSchema:
+      allOf:
+      - $ref: '#/components/schemas/DataSourceFieldSchema'
+      - type: object
+        properties:
+          defaultValue:
+            type:
+            - string
+            - 'null'
+            description: The default value of the field. If specified, the field will be pre-filled with this value when creating a data source item.
+        additionalProperties: false
+      example:
+        id: 4
+        name: PreferredLanguage
+        type: language
+        isRequired: false
+        isLocked: false
+        defaultValue: German
+    CreateDataSourceFieldSchemaRequest:
+      required:
+      - name
+      - type
+      type: object
+      properties:
+        type:
+          minLength: 1
+          type: string
+          description: Data source field schema type.
+        name:
+          minLength: 1
+          pattern: ^[A-Z][a-zA-Z0-9_-]*$
+          type: string
+          description: The name of the field. It must be unique within the data source.
+        isRequired:
+          type: boolean
+          description: Whether the field is required. If true, the field must be filled in when creating a data source item.
+      additionalProperties: false
+      discriminator:
+        propertyName: type
+        mapping:
+          Text: '#/components/schemas/CreateTextFieldSchemaRequest'
+          Number: '#/components/schemas/CreateNumberFieldSchemaRequest'
+          Image: '#/components/schemas/CreateImageFieldSchemaRequest'
+          Reference: '#/components/schemas/CreateReferenceFieldSchemaRequest'
+      example:
+        name: History
+        type: text
+        isMultipleLines: true
+        defaultValue: The city was established in the year 1652 by Dutch explorers...
+        isRequired: false
+    DataSourceFieldSchema:
+      required:
+      - id
+      - isLocked
+      - isRequired
+      - name
+      - type
+      type: object
+      properties:
+        type:
+          minLength: 1
+          type: string
+          description: Data source field schema type.
+          readOnly: true
+        id:
+          type: integer
+          description: Unique data source field schema identifier
+          format: int32
+          readOnly: true
+        name:
+          minLength: 1
+          type: string
+          description: Data source field schema name. It must be unique within the data source.
+          readOnly: true
+        isLocked:
+          type: boolean
+          description: Value indicating whether data source schema is locked. If true, the field cannot be deleted or modified.
+          readOnly: true
+        isRequired:
+          type: boolean
+          description: Whether the field is required. If true, the field must be filled in when creating a data source item.
+          readOnly: true
+      additionalProperties: false
+      discriminator:
+        propertyName: type
+        mapping:
+          Text: '#/components/schemas/TextFieldSchema'
+          Number: '#/components/schemas/NumberFieldSchema'
+          Reference: '#/components/schemas/ReferenceFieldSchema'
+          Image: '#/components/schemas/ImageFieldSchema'
+          Language: '#/components/schemas/LanguageFieldSchema'
+          Font: '#/components/schemas/FontFieldSchema'
+          ColorTheme: '#/components/schemas/ColorThemeFieldSchema'
     NotFoundProblemDetails:
       type: object
       properties:
@@ -307,72 +400,26 @@ components:
         detail: The server can not find the requested resource.
         status: 404
         traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    CreateDataSourceFieldSchemaRequest:
-      required:
-      - name
-      - type
-      type: object
-      properties:
-        type:
-          minLength: 1
-          type: string
-          description: Data source field schema type.
-        name:
-          minLength: 1
-          pattern: ^[A-Z][a-zA-Z0-9_-]*$
-          type: string
-          description: The name of the field. It must be unique within the data source.
-        isRequired:
-          type: boolean
-          description: Whether the field is required. If true, the field must be filled in when creating a data source item.
-      additionalProperties: false
-      discriminator:
-        propertyName: type
-        mapping:
-          Text: '#/components/schemas/CreateTextFieldSchemaRequest'
-          Number: '#/components/schemas/CreateNumberFieldSchemaRequest'
-          Image: '#/components/schemas/CreateImageFieldSchemaRequest'
-          Reference: '#/components/schemas/CreateReferenceFieldSchemaRequest'
-      example:
-        name: History
-        type: text
-        isMultipleLines: true
-        defaultValue: The city was established in the year 1652 by Dutch explorers...
-        isRequired: false
-    FontFieldSchema:
+    ColorThemeFieldSchema:
       allOf:
       - $ref: '#/components/schemas/DataSourceFieldSchema'
       - type: object
         additionalProperties: false
       example:
-        id: 5
-        name: PreferredFont
-        type: font
+        id: 6
+        name: PreferredColourTheme
+        type: colorTheme
         isRequired: false
         isLocked: false
-    CreateNumberFieldSchemaRequest:
+    CreateImageFieldSchemaRequest:
       allOf:
       - $ref: '#/components/schemas/CreateDataSourceFieldSchemaRequest'
       - type: object
-        properties:
-          defaultValue:
-            type:
-            - number
-            - 'null'
-            description: The default value of the field. If specified, the field will be pre-filled with this value when creating a data source item.
-            format: double
         additionalProperties: false
       example:
-        name: Population
-        type: number
-        defaultValue: 100222
+        name: Flag
+        type: image
         isRequired: true
-    SourceEntityType:
-      enum:
-      - dataSource
-      - dataSourceItem
-      - other
-      type: string
     PatchDataSourceFieldRequest:
       type: object
       properties:
@@ -403,43 +450,79 @@ components:
         name: Population
         isRequired: true
         defaultValue: 130000
-    NumberFieldSchema:
+    ReferenceFieldSchema:
       allOf:
       - $ref: '#/components/schemas/DataSourceFieldSchema'
-      - type: object
+      - required:
+        - referenceDataSourceId
+        type: object
         properties:
+          referenceDataSourceId:
+            type: integer
+            description: The id of the data source that the field references.
+            format: int64
           defaultValue:
             type:
-            - number
+            - integer
             - 'null'
             description: The default value of the field. If specified, the field will be pre-filled with this value when creating a data source item.
-            format: double
+            format: int64
         additionalProperties: false
       example:
-        id: 1
-        name: NumberOfOffices
-        type: number
+        id: 3
+        name: Region
+        type: reference
         isRequired: true
         isLocked: false
-        defaultValue: 1
-    LanguageFieldSchema:
+        defaultValue: '638247997437572266'
+        referenceDataSourceId: '638247997437572264'
+    LockReason:
+      enum:
+      - hardDependency
+      - restrictedAccess
+      type: string
+      description: The reason the resource is locked. It is either because the resource is depended upon by another resource or the resource has restricted access and cannot be modified.
+    Dependency:
+      type: object
+      properties:
+        sourceEntityType:
+          $ref: '#/components/schemas/SourceEntityType'
+        sourceEntityId:
+          type:
+          - string
+          - 'null'
+          description: The id of the dependency source.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Human readable description of the source type.
+      additionalProperties: false
+      description: The model describing a dependency.
+    CreateReferenceFieldSchemaRequest:
       allOf:
-      - $ref: '#/components/schemas/DataSourceFieldSchema'
-      - type: object
+      - $ref: '#/components/schemas/CreateDataSourceFieldSchemaRequest'
+      - required:
+        - referenceDataSourceId
+        type: object
         properties:
-          defaultValue:
+          referenceDataSourceId:
+            type: integer
+            description: The id of the data source that the field references.
+            format: int64
+          defaultReferencedItemId:
             type:
-            - string
+            - integer
             - 'null'
             description: The default value of the field. If specified, the field will be pre-filled with this value when creating a data source item.
+            format: int64
         additionalProperties: false
       example:
-        id: 4
-        name: PreferredLanguage
-        type: language
-        isRequired: false
-        isLocked: false
-        defaultValue: German
+        name: Country
+        type: reference
+        referenceDataSourceId: '637989101951089955'
+        defaultReferencedItemId: '638249311425155568'
+        isRequired: true
     ValidationProblemDetails:
       type: object
       properties:
@@ -484,47 +567,62 @@ components:
         title: One or more validation errors occurred.
         status: 400
         traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    CreateReferenceFieldSchemaRequest:
+    CreateTextFieldSchemaRequest:
       allOf:
       - $ref: '#/components/schemas/CreateDataSourceFieldSchemaRequest'
-      - required:
-        - referenceDataSourceId
-        type: object
+      - type: object
         properties:
-          referenceDataSourceId:
-            type: integer
-            description: The id of the data source that the field references.
-            format: int64
-          defaultReferencedItemId:
+          isMultipleLines:
+            type: boolean
+            description: Whether the field is multiple lines. If true, the field will be rendered as a text area.
+          defaultValue:
             type:
-            - integer
+            - string
             - 'null'
             description: The default value of the field. If specified, the field will be pre-filled with this value when creating a data source item.
-            format: int64
         additionalProperties: false
       example:
-        name: Country
-        type: reference
-        referenceDataSourceId: '637989101951089955'
-        defaultReferencedItemId: '638249311425155568'
+        name: History
+        type: text
+        isMultipleLines: true
+        defaultValue: The city was established in the year 1652 by Dutch explorers...
+        isRequired: false
+    SourceEntityType:
+      enum:
+      - dataSource
+      - dataSourceItem
+      - other
+      type: string
+    NumberFieldSchema:
+      allOf:
+      - $ref: '#/components/schemas/DataSourceFieldSchema'
+      - type: object
+        properties:
+          defaultValue:
+            type:
+            - number
+            - 'null'
+            description: The default value of the field. If specified, the field will be pre-filled with this value when creating a data source item.
+            format: double
+        additionalProperties: false
+      example:
+        id: 1
+        name: NumberOfOffices
+        type: number
         isRequired: true
-    Dependency:
-      type: object
-      properties:
-        sourceEntityType:
-          $ref: '#/components/schemas/SourceEntityType'
-        sourceEntityId:
-          type:
-          - string
-          - 'null'
-          description: The id of the dependency source.
-        description:
-          type:
-          - string
-          - 'null'
-          description: Human readable description of the source type.
-      additionalProperties: false
-      description: The model describing a dependency.
+        isLocked: false
+        defaultValue: 1
+    ImageFieldSchema:
+      allOf:
+      - $ref: '#/components/schemas/DataSourceFieldSchema'
+      - type: object
+        additionalProperties: false
+      example:
+        id: 2
+        name: Logo
+        type: image
+        isRequired: false
+        isLocked: false
     DataSourceObjectLockedProblemDetails:
       type: object
       properties:
@@ -573,23 +671,34 @@ components:
         - sourceEntityType: dataSourceItem
           sourceEntityId: '1031936131644784655'
           description: There is a dependency from 'DataSourceItem'.
-    LockReason:
-      enum:
-      - hardDependency
-      - restrictedAccess
-      type: string
-      description: The reason the resource is locked. It is either because the resource is depended upon by another resource or the resource has restricted access and cannot be modified.
-    ColorThemeFieldSchema:
+    FontFieldSchema:
       allOf:
       - $ref: '#/components/schemas/DataSourceFieldSchema'
       - type: object
         additionalProperties: false
       example:
-        id: 6
-        name: PreferredColourTheme
-        type: colorTheme
+        id: 5
+        name: PreferredFont
+        type: font
         isRequired: false
         isLocked: false
+    CreateNumberFieldSchemaRequest:
+      allOf:
+      - $ref: '#/components/schemas/CreateDataSourceFieldSchemaRequest'
+      - type: object
+        properties:
+          defaultValue:
+            type:
+            - number
+            - 'null'
+            description: The default value of the field. If specified, the field will be pre-filled with this value when creating a data source item.
+            format: double
+        additionalProperties: false
+      example:
+        name: Population
+        type: number
+        defaultValue: 100222
+        isRequired: true
     TextFieldSchema:
       allOf:
       - $ref: '#/components/schemas/DataSourceFieldSchema'
@@ -614,115 +723,6 @@ components:
         isLocked: false
         isMultipleLines: false
         defaultValue: The city was established in the year 1652 by Dutch explorers...
-    DataSourceFieldSchema:
-      required:
-      - id
-      - isLocked
-      - isRequired
-      - name
-      - type
-      type: object
-      properties:
-        type:
-          minLength: 1
-          type: string
-          description: Data source field schema type.
-          readOnly: true
-        id:
-          type: integer
-          description: Unique data source field schema identifier
-          format: int32
-          readOnly: true
-        name:
-          minLength: 1
-          type: string
-          description: Data source field schema name. It must be unique within the data source.
-          readOnly: true
-        isLocked:
-          type: boolean
-          description: Value indicating whether data source schema is locked. If true, the field cannot be deleted or modified.
-          readOnly: true
-        isRequired:
-          type: boolean
-          description: Whether the field is required. If true, the field must be filled in when creating a data source item.
-          readOnly: true
-      additionalProperties: false
-      discriminator:
-        propertyName: type
-        mapping:
-          Text: '#/components/schemas/TextFieldSchema'
-          Number: '#/components/schemas/NumberFieldSchema'
-          Reference: '#/components/schemas/ReferenceFieldSchema'
-          Image: '#/components/schemas/ImageFieldSchema'
-          Language: '#/components/schemas/LanguageFieldSchema'
-          Font: '#/components/schemas/FontFieldSchema'
-          ColorTheme: '#/components/schemas/ColorThemeFieldSchema'
-    CreateTextFieldSchemaRequest:
-      allOf:
-      - $ref: '#/components/schemas/CreateDataSourceFieldSchemaRequest'
-      - type: object
-        properties:
-          isMultipleLines:
-            type: boolean
-            description: Whether the field is multiple lines. If true, the field will be rendered as a text area.
-          defaultValue:
-            type:
-            - string
-            - 'null'
-            description: The default value of the field. If specified, the field will be pre-filled with this value when creating a data source item.
-        additionalProperties: false
-      example:
-        name: History
-        type: text
-        isMultipleLines: true
-        defaultValue: The city was established in the year 1652 by Dutch explorers...
-        isRequired: false
-    ImageFieldSchema:
-      allOf:
-      - $ref: '#/components/schemas/DataSourceFieldSchema'
-      - type: object
-        additionalProperties: false
-      example:
-        id: 2
-        name: Logo
-        type: image
-        isRequired: false
-        isLocked: false
-    CreateImageFieldSchemaRequest:
-      allOf:
-      - $ref: '#/components/schemas/CreateDataSourceFieldSchemaRequest'
-      - type: object
-        additionalProperties: false
-      example:
-        name: Flag
-        type: image
-        isRequired: true
-    ReferenceFieldSchema:
-      allOf:
-      - $ref: '#/components/schemas/DataSourceFieldSchema'
-      - required:
-        - referenceDataSourceId
-        type: object
-        properties:
-          referenceDataSourceId:
-            type: integer
-            description: The id of the data source that the field references.
-            format: int64
-          defaultValue:
-            type:
-            - integer
-            - 'null'
-            description: The default value of the field. If specified, the field will be pre-filled with this value when creating a data source item.
-            format: int64
-        additionalProperties: false
-      example:
-        id: 3
-        name: Region
-        type: reference
-        isRequired: true
-        isLocked: false
-        defaultValue: '638247997437572266'
-        referenceDataSourceId: '638247997437572264'
   securitySchemes:
     bearerAuth:
       type: http

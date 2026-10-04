@@ -302,6 +302,98 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    CreateLinkRequest:
+      required:
+      - name
+      - url
+      type: object
+      properties:
+        name:
+          maxLength: 100
+          type: string
+          description: Display name
+        description:
+          maxLength: 250
+          type:
+          - string
+          - 'null'
+          description: Describing intended usage of the asset
+        tags:
+          type:
+          - array
+          - 'null'
+          items:
+            maxLength: 1024
+            minLength: 2
+            type: string
+          description: Tags should describe the content of the asset making it easier for a user to locate it
+        externalData:
+          maxLength: 100
+          type:
+          - string
+          - 'null'
+          description: External data which can be attached for future reference
+        url:
+          maxLength: 2048
+          type: string
+          description: A reference to the web resource. HTTP and HTTPS are supported
+      additionalProperties: false
+      description: The request model to create a link asset
+    LinkDetails:
+      required:
+      - assetState
+      - description
+      - folderId
+      - id
+      - modifiedAt
+      - name
+      - navigationPath
+      - tags
+      - url
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique asset identifier
+          format: int64
+        folderId:
+          type: integer
+          description: Unique folder identifier
+          format: int64
+        name:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Display name
+        description:
+          maxLength: 250
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        url:
+          maxLength: 2048
+          minLength: 1
+          type: string
+        navigationPath:
+          maxLength: 700
+          minLength: 1
+          type: string
+          description: Hierarchical path in lowercase based on the location of a link. E.g. "folder-a/folder-b/_my-link" when the location is "Folder A > Folder B > My Link"
+        externalData:
+          maxLength: 100
+          type:
+          - string
+          - 'null'
+          description: External data which can be attached for future reference
+        modifiedAt:
+          minLength: 1
+          type: string
+          description: Date and time in ISO 8601 format of when the asset was last modified
+        assetState:
+          $ref: '#/components/schemas/AssetStateWithoutFile'
+      additionalProperties: false
     NotFoundProblemDetails:
       type: object
       properties:
@@ -336,11 +428,40 @@ components:
         detail: The server can not find the requested resource.
         status: 404
         traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    AssetStateWithoutFile:
-      enum:
-      - ready
-      type: string
-      description: The current state of the asset
+    ConflictProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        title: Conflict
+        detail: The request could not be completed due to a conflict with the current state of the resource.
+        status: 409
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
     ValidationProblemDetails:
       type: object
       properties:
@@ -483,132 +604,11 @@ components:
         assetState:
           $ref: '#/components/schemas/AssetStateWithoutFile'
       additionalProperties: false
-    CreateLinkRequest:
-      required:
-      - name
-      - url
-      type: object
-      properties:
-        name:
-          maxLength: 100
-          type: string
-          description: Display name
-        description:
-          maxLength: 250
-          type:
-          - string
-          - 'null'
-          description: Describing intended usage of the asset
-        tags:
-          type:
-          - array
-          - 'null'
-          items:
-            maxLength: 1024
-            minLength: 2
-            type: string
-          description: Tags should describe the content of the asset making it easier for a user to locate it
-        externalData:
-          maxLength: 100
-          type:
-          - string
-          - 'null'
-          description: External data which can be attached for future reference
-        url:
-          maxLength: 2048
-          type: string
-          description: A reference to the web resource. HTTP and HTTPS are supported
-      additionalProperties: false
-      description: The request model to create a link asset
-    ConflictProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        traceId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      example:
-        title: Conflict
-        detail: The request could not be completed due to a conflict with the current state of the resource.
-        status: 409
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    LinkDetails:
-      required:
-      - assetState
-      - description
-      - folderId
-      - id
-      - modifiedAt
-      - name
-      - navigationPath
-      - tags
-      - url
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique asset identifier
-          format: int64
-        folderId:
-          type: integer
-          description: Unique folder identifier
-          format: int64
-        name:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: Display name
-        description:
-          maxLength: 250
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        url:
-          maxLength: 2048
-          minLength: 1
-          type: string
-        navigationPath:
-          maxLength: 700
-          minLength: 1
-          type: string
-          description: Hierarchical path in lowercase based on the location of a link. E.g. "folder-a/folder-b/_my-link" when the location is "Folder A > Folder B > My Link"
-        externalData:
-          maxLength: 100
-          type:
-          - string
-          - 'null'
-          description: External data which can be attached for future reference
-        modifiedAt:
-          minLength: 1
-          type: string
-          description: Date and time in ISO 8601 format of when the asset was last modified
-        assetState:
-          $ref: '#/components/schemas/AssetStateWithoutFile'
-      additionalProperties: false
+    AssetStateWithoutFile:
+      enum:
+      - ready
+      type: string
+      description: The current state of the asset
   securitySchemes:
     bearerAuth:
       type: http
