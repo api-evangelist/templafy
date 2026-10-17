@@ -354,14 +354,71 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    AssetFileStateWithoutPreviews:
-      enum:
-      - ready
-      - processing
-      - processingFailed
-      - deleting
-      type: string
-      description: The current state of the asset
+    Pdf:
+      required:
+      - assetState
+      - checksum
+      - description
+      - fileExtension
+      - fileSize
+      - folderId
+      - id
+      - modifiedAt
+      - name
+      - navigationPath
+      - tags
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique asset identifier
+          format: int64
+        folderId:
+          type: integer
+          description: Unique folder identifier
+          format: int64
+        name:
+          maxLength: 100
+          minLength: 1
+          type: string
+          description: Display name
+        description:
+          maxLength: 250
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        fileSize:
+          type: integer
+          description: File size in bytes
+          format: int64
+        checksum:
+          minLength: 1
+          type: string
+          description: MD5 checksum of the bytes
+        fileExtension:
+          minLength: 1
+          type: string
+          description: Suffix to the name of the file
+        navigationPath:
+          maxLength: 700
+          minLength: 1
+          type: string
+          description: Hierarchical path in lowercase based on the location of a pdf. E.g. "folder-a/folder-b/_my-pdf" when the location is "Folder A > Folder B > My Pdf"
+        externalData:
+          maxLength: 100
+          type:
+          - string
+          - 'null'
+          description: External data which can be attached for future reference
+        modifiedAt:
+          minLength: 1
+          type: string
+          description: Date and time in ISO 8601 format of when the asset was last modified
+        assetState:
+          $ref: '#/components/schemas/AssetFileStateWithoutPreviews'
+      additionalProperties: false
     ConflictProblemDetails:
       type: object
       properties:
@@ -396,9 +453,25 @@ components:
         detail: The request could not be completed due to a conflict with the current state of the resource.
         status: 409
         traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    NotFoundProblemDetails:
+    AssetFileStateWithoutPreviews:
+      enum:
+      - ready
+      - processing
+      - processingFailed
+      - deleting
+      type: string
+      description: The current state of the asset
+    ValidationProblemDetails:
       type: object
       properties:
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
         type:
           type:
           - string
@@ -426,9 +499,11 @@ components:
           - 'null'
       additionalProperties: false
       example:
-        title: NotFound
-        detail: The server can not find the requested resource.
-        status: 404
+        errors:
+        - name: The name field is required
+        - data: The input was invalid
+        title: One or more validation errors occurred.
+        status: 400
         traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
     PdfDetails:
       required:
@@ -500,17 +575,9 @@ components:
         assetState:
           $ref: '#/components/schemas/AssetFileStateWithoutPreviews'
       additionalProperties: false
-    ValidationProblemDetails:
+    NotFoundProblemDetails:
       type: object
       properties:
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
         type:
           type:
           - string
@@ -538,77 +605,10 @@ components:
           - 'null'
       additionalProperties: false
       example:
-        errors:
-        - name: The name field is required
-        - data: The input was invalid
-        title: One or more validation errors occurred.
-        status: 400
+        title: NotFound
+        detail: The server can not find the requested resource.
+        status: 404
         traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    Pdf:
-      required:
-      - assetState
-      - checksum
-      - description
-      - fileExtension
-      - fileSize
-      - folderId
-      - id
-      - modifiedAt
-      - name
-      - navigationPath
-      - tags
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique asset identifier
-          format: int64
-        folderId:
-          type: integer
-          description: Unique folder identifier
-          format: int64
-        name:
-          maxLength: 100
-          minLength: 1
-          type: string
-          description: Display name
-        description:
-          maxLength: 250
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        fileSize:
-          type: integer
-          description: File size in bytes
-          format: int64
-        checksum:
-          minLength: 1
-          type: string
-          description: MD5 checksum of the bytes
-        fileExtension:
-          minLength: 1
-          type: string
-          description: Suffix to the name of the file
-        navigationPath:
-          maxLength: 700
-          minLength: 1
-          type: string
-          description: Hierarchical path in lowercase based on the location of a pdf. E.g. "folder-a/folder-b/_my-pdf" when the location is "Folder A > Folder B > My Pdf"
-        externalData:
-          maxLength: 100
-          type:
-          - string
-          - 'null'
-          description: External data which can be attached for future reference
-        modifiedAt:
-          minLength: 1
-          type: string
-          description: Date and time in ISO 8601 format of when the asset was last modified
-        assetState:
-          $ref: '#/components/schemas/AssetFileStateWithoutPreviews'
-      additionalProperties: false
   securitySchemes:
     bearerAuth:
       type: http

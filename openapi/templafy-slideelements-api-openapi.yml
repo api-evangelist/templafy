@@ -365,6 +365,32 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    AssetFileStateWithPreviews:
+      enum:
+      - ready
+      - processing
+      - processingFailed
+      - generatingPreviews
+      - generatingPreviewsFailed
+      - deleting
+      type: string
+      description: The current state of the asset
+    SlideElementDeck:
+      required:
+      - assetType
+      - description
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/SlideElementBase'
+      properties:
+        assetType:
+          minLength: 1
+          type: string
+          description: Type of the asset. It is always SlideElementDeck for this schema
+        description:
+          maxLength: 250
+          type: string
+      additionalProperties: false
     SlideElementDetailsBase:
       required:
       - assetState
@@ -474,57 +500,6 @@ components:
         detail: The request could not be completed due to a conflict with the current state of the resource.
         status: 409
         traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    NotFoundProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        traceId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      example:
-        title: NotFound
-        detail: The server can not find the requested resource.
-        status: 404
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    SlideElement:
-      required:
-      - assetType
-      - slideElementDeckId
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/SlideElementBase'
-      properties:
-        assetType:
-          minLength: 1
-          type: string
-          description: Type of the asset. It is always SlideElement for this schema
-        slideElementDeckId:
-          type: integer
-          description: The identifier of the slide element deck to which a slide element belongs
-          format: int64
-      additionalProperties: false
     ValidationProblemDetails:
       type: object
       properties:
@@ -644,6 +619,40 @@ components:
           - 'null'
           description: Link to the asset with the maximum width 1500px
       additionalProperties: false
+    SlideElement:
+      required:
+      - assetType
+      - slideElementDeckId
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/SlideElementBase'
+      properties:
+        assetType:
+          minLength: 1
+          type: string
+          description: Type of the asset. It is always SlideElement for this schema
+        slideElementDeckId:
+          type: integer
+          description: The identifier of the slide element deck to which a slide element belongs
+          format: int64
+      additionalProperties: false
+    SlideElementDetails:
+      required:
+      - assetType
+      - slideElementDeckId
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/SlideElementDetailsBase'
+      properties:
+        assetType:
+          minLength: 1
+          type: string
+          description: Type of the asset. It is always SlideElement for this schema
+        slideElementDeckId:
+          type: integer
+          description: The identifier of the slide element deck to which a slide element belongs
+          format: int64
+      additionalProperties: false
     SlideElementDeckDetails:
       required:
       - assetType
@@ -672,49 +681,40 @@ components:
           description: Generated temporary access URL for content downloading with 302 response code
           format: uri
       additionalProperties: false
-    AssetFileStateWithPreviews:
-      enum:
-      - ready
-      - processing
-      - processingFailed
-      - generatingPreviews
-      - generatingPreviewsFailed
-      - deleting
-      type: string
-      description: The current state of the asset
-    SlideElementDeck:
-      required:
-      - assetType
-      - description
+    NotFoundProblemDetails:
       type: object
-      allOf:
-      - $ref: '#/components/schemas/SlideElementBase'
       properties:
-        assetType:
-          minLength: 1
-          type: string
-          description: Type of the asset. It is always SlideElementDeck for this schema
-        description:
-          maxLength: 250
-          type: string
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    SlideElementDetails:
-      required:
-      - assetType
-      - slideElementDeckId
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/SlideElementDetailsBase'
-      properties:
-        assetType:
-          minLength: 1
-          type: string
-          description: Type of the asset. It is always SlideElement for this schema
-        slideElementDeckId:
-          type: integer
-          description: The identifier of the slide element deck to which a slide element belongs
-          format: int64
-      additionalProperties: false
+      example:
+        title: NotFound
+        detail: The server can not find the requested resource.
+        status: 404
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
   securitySchemes:
     bearerAuth:
       type: http

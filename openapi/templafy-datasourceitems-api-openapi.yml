@@ -281,199 +281,32 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    CreateTextDataSourceItemFieldRequest:
+    DataSourceColorThemeItemField:
       allOf:
-      - $ref: '#/components/schemas/CreateDataSourceItemFieldRequest'
+      - $ref: '#/components/schemas/DataSourceItemField'
       - type: object
         properties:
-          value:
-            maxLength: 8000
+          xmlValue:
             type:
             - string
             - 'null'
-            description: Text data source item field value. Max length is 8000 characters.
+            description: The value of the field based on the schema http://schemas.openxmlformats.org/drawingml/2006/main.
         additionalProperties: false
       example:
-        type: text
-        dataSourceFieldId: 0
-        value: Sample text
-    DataSourceItemField:
-      required:
-      - type
+        dataSourceFieldId: 5
+        type: colorTheme
+        xmlValue: <a:clrScheme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="Templafy_New"><a:dk1><a:srgbClr val="0078FF"/></a:dk1><a:lt1><a:sysClr val="window" lastClr="FFFFFF"/></a:lt1><a:dk2><a:srgbClr val="000000"/></a:dk2><a:lt2><a:srgbClr val="E5E5E5"/></a:lt2><a:accent1><a:srgbClr val="0078FF"/></a:accent1><a:accent2><a:srgbClr val="575757"/></a:accent2><a:accent3><a:srgbClr val="12AA96"/></a:accent3><a:accent4><a:srgbClr val="15436B"/></a:accent4><a:accent5><a:srgbClr val="D44849"/></a:accent5><a:accent6><a:srgbClr val="7F7F7F"/></a:accent6><a:hlink><a:srgbClr val="0078FF"/></a:hlink><a:folHlink><a:srgbClr val="55CBFF"/></a:folHlink></a:clrScheme>
+    DataSourceObjectLockedProblemDetails:
       type: object
       properties:
-        type:
+        lockReason:
+          $ref: '#/components/schemas/LockReason'
+        dependencies:
           type:
-          - string
+          - array
           - 'null'
-          description: Data source item field type.
-          readOnly: true
-        dataSourceFieldId:
-          type: integer
-          description: Unique data source field identifier.
-          format: int32
-          readOnly: true
-      additionalProperties: false
-      discriminator:
-        propertyName: type
-        mapping:
-          Text: '#/components/schemas/DataSourceTextItemField'
-          Number: '#/components/schemas/DataSourceNumberItemField'
-          Reference: '#/components/schemas/DataSourceReferenceItemField'
-          Image: '#/components/schemas/DataSourceImageItemField'
-          Language: '#/components/schemas/DataSourceLanguageItemField'
-          Font: '#/components/schemas/DataSourceFontItemField'
-          ColorTheme: '#/components/schemas/DataSourceColorThemeItemField'
-    DataSourceImageItemField:
-      allOf:
-      - $ref: '#/components/schemas/DataSourceItemField'
-      - type: object
-        properties:
-          fileName:
-            type:
-            - string
-            - 'null'
-            description: The name of the file.
-          fileUrl:
-            type:
-            - string
-            - 'null'
-            description: 'The file size must be under 2MB, and it should be in one of these formats: .png, .jpg, .jpeg, .gif, .bmp, .emf, .wmf, .svg.'
-            format: uri
-        additionalProperties: false
-      example:
-        dataSourceFieldId: 2
-        type: image
-        fileName: Cat
-        fileUrl: https://en.wikipedia.org/wiki/Cat#/media/File:Cat_August_2010-4.jpg
-    DataSourceNumberItemField:
-      allOf:
-      - $ref: '#/components/schemas/DataSourceItemField'
-      - type: object
-        properties:
-          value:
-            type: number
-            description: The value of the field with the precision of 2 decimal places.
-            format: double
-        additionalProperties: false
-      example:
-        dataSourceFieldId: 1
-        type: number
-        value: 123.45
-    CreateImageDataSourceItemFieldRequest:
-      allOf:
-      - $ref: '#/components/schemas/CreateDataSourceItemFieldRequest'
-      - required:
-        - fileName
-        type: object
-        properties:
-          fileName:
-            minLength: 1
-            type: string
-            description: The name of the file.
-          fileUrl:
-            type:
-            - string
-            - 'null'
-            description: 'The file size must be under 2MB, and it should be in one of these formats: .png, .jpg, .jpeg, .gif, .bmp, .emf, .wmf, .svg.'
-            format: uri
-          content:
-            type:
-            - string
-            - 'null'
-            description: 'The base64 content size must be under 2MB, and it should be in one of these formats: .png, .jpg, .jpeg, .gif, .bmp, .emf, .wmf, .svg.'
-        additionalProperties: false
-      example:
-        type: image
-        dataSourceFieldId: 3
-        fileName: Cat
-        fileUrl: https://en.wikipedia.org/wiki/Cat#/media/File:Cat_August_2010-4.jpg
-    PatchDataSourceItemRequest:
-      required:
-      - fields
-      type: object
-      properties:
-        fields:
-          type: array
           items:
-            oneOf:
-            - $ref: '#/components/schemas/PatchTextDataSourceItemFieldRequest'
-            - $ref: '#/components/schemas/PatchNumberDataSourceItemFieldRequest'
-            - $ref: '#/components/schemas/PatchImageDataSourceItemFieldRequest'
-            - $ref: '#/components/schemas/PatchReferenceDataSourceItemFieldRequest'
-            - $ref: '#/components/schemas/PatchFontDataSourceItemFieldRequest'
-            - $ref: '#/components/schemas/PatchColorThemeDataSourceItemFieldRequest'
-          description: The fields of the data source item.
-      additionalProperties: false
-    PatchReferenceDataSourceItemFieldRequest:
-      allOf:
-      - $ref: '#/components/schemas/PatchDataSourceItemFieldRequest'
-      - required:
-        - dataSourceItemId
-        type: object
-        properties:
-          dataSourceItemId:
-            type: integer
-            description: The identifier of the data source item to be referenced.
-            format: int64
-        additionalProperties: false
-      example:
-        dataSourceFieldId: 4
-        type: reference
-        dataSourceItemId: '638247997437572264'
-    PatchImageDataSourceItemFieldRequest:
-      allOf:
-      - $ref: '#/components/schemas/PatchDataSourceItemFieldRequest'
-      - required:
-        - fileName
-        type: object
-        properties:
-          fileName:
-            minLength: 1
-            type: string
-            description: The name of the file.
-          fileUrl:
-            type:
-            - string
-            - 'null'
-            description: 'The file size must be under 2MB, and it should be in one of these formats: .png, .jpg, .jpeg, .gif, .bmp, .emf, .wmf, .svg.'
-            format: uri
-          content:
-            type:
-            - string
-            - 'null'
-            description: 'The base64 content size must be under 2MB, and it should be in one of these formats: .png, .jpg, .jpeg, .gif, .bmp, .emf, .wmf, .svg.'
-        additionalProperties: false
-      example:
-        dataSourceFieldId: 2
-        type: image
-        fileName: Cat
-        fileUrl: https://en.wikipedia.org/wiki/Cat#/media/File:Cat_August_2010-4.jpg
-    DataSourceFontItemField:
-      allOf:
-      - $ref: '#/components/schemas/DataSourceItemField'
-      - type: object
-        properties:
-          fileName:
-            type:
-            - string
-            - 'null'
-            description: Font item field file name.
-          fileUrl:
-            type:
-            - string
-            - 'null'
-            description: 'The file size must be under 2MB, and it should be in one of these formats: .ttf, .otf.'
-            format: uri
-        additionalProperties: false
-      example:
-        dataSourceFieldId: 3
-        type: font
-        fileName: best-font
-        fileUrl: https://allfonts.com/best-font
-    NotFoundProblemDetails:
-      type: object
-      properties:
+            $ref: '#/components/schemas/Dependency'
         type:
           type:
           - string
@@ -500,45 +333,62 @@ components:
           - string
           - 'null'
       additionalProperties: false
+      description: The reason the resource is locked with an optional array of dependencies. Dependencies array is populated only when lockedReason is hardDependency and contains a maximum of 50 items per sourceEntityType
       example:
-        title: NotFound
-        detail: The server can not find the requested resource.
-        status: 404
+        title: Locked
+        detail: The data source item cannot be deleted because it has been used by another resource.
+        status: 423
         traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-    DataSourceColorThemeItemField:
+        lockReason: hardDependency
+        dependencies:
+        - sourceEntityType: dataSourceItem
+          sourceEntityId: '1031936131644784655'
+          description: There is a dependency from 'DataSourceItem'.
+    CreateTextDataSourceItemFieldRequest:
       allOf:
-      - $ref: '#/components/schemas/DataSourceItemField'
+      - $ref: '#/components/schemas/CreateDataSourceItemFieldRequest'
       - type: object
         properties:
-          xmlValue:
+          value:
+            maxLength: 8000
             type:
             - string
             - 'null'
-            description: The value of the field based on the schema http://schemas.openxmlformats.org/drawingml/2006/main.
+            description: Text data source item field value. Max length is 8000 characters.
         additionalProperties: false
       example:
-        dataSourceFieldId: 5
-        type: colorTheme
-        xmlValue: <a:clrScheme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="Templafy_New"><a:dk1><a:srgbClr val="0078FF"/></a:dk1><a:lt1><a:sysClr val="window" lastClr="FFFFFF"/></a:lt1><a:dk2><a:srgbClr val="000000"/></a:dk2><a:lt2><a:srgbClr val="E5E5E5"/></a:lt2><a:accent1><a:srgbClr val="0078FF"/></a:accent1><a:accent2><a:srgbClr val="575757"/></a:accent2><a:accent3><a:srgbClr val="12AA96"/></a:accent3><a:accent4><a:srgbClr val="15436B"/></a:accent4><a:accent5><a:srgbClr val="D44849"/></a:accent5><a:accent6><a:srgbClr val="7F7F7F"/></a:accent6><a:hlink><a:srgbClr val="0078FF"/></a:hlink><a:folHlink><a:srgbClr val="55CBFF"/></a:folHlink></a:clrScheme>
-    PatchNumberDataSourceItemFieldRequest:
+        type: text
+        dataSourceFieldId: 0
+        value: Sample text
+    CreateDataSourceItemFieldRequest:
+      required:
+      - dataSourceFieldId
+      - type
+      type: object
+      properties:
+        type:
+          minLength: 1
+          type: string
+          description: Data source item field type.
+          readOnly: true
+        dataSourceFieldId:
+          type: integer
+          description: Data source field identifier.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+      discriminator:
+        propertyName: type
+        mapping:
+          Text: '#/components/schemas/CreateTextDataSourceItemFieldRequest'
+          Number: '#/components/schemas/CreateNumberDataSourceItemFieldRequest'
+          Reference: '#/components/schemas/CreateReferenceDataSourceItemFieldRequest'
+          Image: '#/components/schemas/CreateImageDataSourceItemFieldRequest'
+          Font: '#/components/schemas/CreateFontDataSourceItemFieldRequest'
+          ColorTheme: '#/components/schemas/CreateColorThemeDataSourceItemFieldRequest'
+    PatchReferenceDataSourceItemFieldRequest:
       allOf:
       - $ref: '#/components/schemas/PatchDataSourceItemFieldRequest'
-      - required:
-        - value
-        type: object
-        properties:
-          value:
-            type: number
-            description: The value of the field with the precision of 2 decimal places.
-            format: double
-        additionalProperties: false
-      example:
-        dataSourceFieldId: 1
-        type: number
-        value: 123.45
-    CreateReferenceDataSourceItemFieldRequest:
-      allOf:
-      - $ref: '#/components/schemas/CreateDataSourceItemFieldRequest'
       - required:
         - dataSourceItemId
         type: object
@@ -549,103 +399,40 @@ components:
             format: int64
         additionalProperties: false
       example:
-        dataSourceFieldId: 2
+        dataSourceFieldId: 4
         type: reference
         dataSourceItemId: '638247997437572264'
-    CreateDataSourceItemRequest:
-      type: object
-      properties:
-        fields:
-          type:
-          - array
-          - 'null'
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/CreateTextDataSourceItemFieldRequest'
-            - $ref: '#/components/schemas/CreateNumberDataSourceItemFieldRequest'
-            - $ref: '#/components/schemas/CreateReferenceDataSourceItemFieldRequest'
-            - $ref: '#/components/schemas/CreateImageDataSourceItemFieldRequest'
-            - $ref: '#/components/schemas/CreateFontDataSourceItemFieldRequest'
-            - $ref: '#/components/schemas/CreateColorThemeDataSourceItemFieldRequest'
-          description: The fields of the data source item.
-      additionalProperties: false
-      example:
-        fields:
-        - dataSourceFieldId: 0
-          type: text
-          value: Sample text
-        - dataSourceFieldId: 1
-          type: number
-          value: 123.45
-        - dataSourceFieldId: 2
-          type: reference
-          dataSourceItemId: '638247997437572264'
-        - dataSourceFieldId: 3
-          type: image
-          fileName: Cat
-          fileUrl: https://en.wikipedia.org/wiki/Cat#/media/File:Cat_August_2010-4.jpg
-        - dataSourceFieldId: 4
-          type: font
-          fileName: best-font
-          fileUrl: https://allfonts.com/best-font
-        - dataSourceFieldId: 5
-          type: colorTheme
-          xmlValue: <a:clrScheme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="Templafy_New"><a:dk1><a:srgbClr val="0078FF"/></a:dk1><a:lt1><a:sysClr val="window" lastClr="FFFFFF"/></a:lt1><a:dk2><a:srgbClr val="000000"/></a:dk2><a:lt2><a:srgbClr val="E5E5E5"/></a:lt2><a:accent1><a:srgbClr val="0078FF"/></a:accent1><a:accent2><a:srgbClr val="575757"/></a:accent2><a:accent3><a:srgbClr val="12AA96"/></a:accent3><a:accent4><a:srgbClr val="15436B"/></a:accent4><a:accent5><a:srgbClr val="D44849"/></a:accent5><a:accent6><a:srgbClr val="7F7F7F"/></a:accent6><a:hlink><a:srgbClr val="0078FF"/></a:hlink><a:folHlink><a:srgbClr val="55CBFF"/></a:folHlink></a:clrScheme>
-    DataSourceLanguageItemField:
+    DataSourceTextItemField:
       allOf:
       - $ref: '#/components/schemas/DataSourceItemField'
       - type: object
         properties:
-          cultureName:
+          value:
             type:
             - string
             - 'null'
-            description: Language item field culture name.
+            description: Text data source item field value.
         additionalProperties: false
       example:
-        dataSourceFieldId: 6
-        type: language
-        cultureName: en-GB
-    LockReason:
-      enum:
-      - hardDependency
-      - restrictedAccess
-      type: string
-      description: The reason the resource is locked. It is either because the resource is depended upon by another resource or the resource has restricted access and cannot be modified.
-    Dependency:
-      type: object
-      properties:
-        sourceEntityType:
-          $ref: '#/components/schemas/SourceEntityType'
-        sourceEntityId:
-          type:
-          - string
-          - 'null'
-          description: The id of the dependency source.
-        description:
-          type:
-          - string
-          - 'null'
-          description: Human readable description of the source type.
-      additionalProperties: false
-      description: The model describing a dependency.
-    PatchColorThemeDataSourceItemFieldRequest:
+        dataSourceFieldId: 0
+        type: text
+        value: Sample text
+    PatchTextDataSourceItemFieldRequest:
       allOf:
       - $ref: '#/components/schemas/PatchDataSourceItemFieldRequest'
-      - required:
-        - xmlValue
-        type: object
+      - type: object
         properties:
-          xmlValue:
-            maxLength: 3500
-            minLength: 1
-            type: string
-            description: The value of the field based on the schema http://schemas.openxmlformats.org/drawingml/2006/main. Max length is 3500 characters.
+          value:
+            maxLength: 8000
+            type:
+            - string
+            - 'null'
+            description: Text data source item field value. Max length is 8000 characters.
         additionalProperties: false
       example:
-        dataSourceFieldId: 5
-        type: colorTheme
-        xmlValue: <a:clrScheme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="Templafy_New"><a:dk1><a:srgbClr val="0078FF"/></a:dk1><a:lt1><a:sysClr val="window" lastClr="FFFFFF"/></a:lt1><a:dk2><a:srgbClr val="000000"/></a:dk2><a:lt2><a:srgbClr val="E5E5E5"/></a:lt2><a:accent1><a:srgbClr val="0078FF"/></a:accent1><a:accent2><a:srgbClr val="575757"/></a:accent2><a:accent3><a:srgbClr val="12AA96"/></a:accent3><a:accent4><a:srgbClr val="15436B"/></a:accent4><a:accent5><a:srgbClr val="D44849"/></a:accent5><a:accent6><a:srgbClr val="7F7F7F"/></a:accent6><a:hlink><a:srgbClr val="0078FF"/></a:hlink><a:folHlink><a:srgbClr val="55CBFF"/></a:folHlink></a:clrScheme>
+        dataSourceFieldId: 0
+        type: text
+        value: An updated value
     ValidationProblemDetails:
       type: object
       properties:
@@ -716,42 +503,124 @@ components:
           Reference: '#/components/schemas/PatchReferenceDataSourceItemFieldRequest'
           Font: '#/components/schemas/PatchFontDataSourceItemFieldRequest'
           ColorTheme: '#/components/schemas/PatchColorThemeDataSourceItemFieldRequest'
-    SourceEntityType:
-      enum:
-      - dataSource
-      - dataSourceItem
-      - other
-      type: string
-    DataSourceReferenceItemField:
+    DataSourceFontItemField:
       allOf:
       - $ref: '#/components/schemas/DataSourceItemField'
       - type: object
         properties:
-          dataSourceItemId:
-            type: integer
-            description: The identifier of the data source item to be referenced.
-            format: int64
-        additionalProperties: false
-      example:
-        dataSourceFieldId: 4
-        type: reference
-        dataSourceItemId: '638247997437572264'
-    PatchTextDataSourceItemFieldRequest:
-      allOf:
-      - $ref: '#/components/schemas/PatchDataSourceItemFieldRequest'
-      - type: object
-        properties:
-          value:
-            maxLength: 8000
+          fileName:
             type:
             - string
             - 'null'
-            description: Text data source item field value. Max length is 8000 characters.
+            description: Font item field file name.
+          fileUrl:
+            type:
+            - string
+            - 'null'
+            description: 'The file size must be under 2MB, and it should be in one of these formats: .ttf, .otf.'
+            format: uri
         additionalProperties: false
       example:
-        dataSourceFieldId: 0
-        type: text
-        value: An updated value
+        dataSourceFieldId: 3
+        type: font
+        fileName: best-font
+        fileUrl: https://allfonts.com/best-font
+    DataSourceLanguageItemField:
+      allOf:
+      - $ref: '#/components/schemas/DataSourceItemField'
+      - type: object
+        properties:
+          cultureName:
+            type:
+            - string
+            - 'null'
+            description: Language item field culture name.
+        additionalProperties: false
+      example:
+        dataSourceFieldId: 6
+        type: language
+        cultureName: en-GB
+    DataSourceNumberItemField:
+      allOf:
+      - $ref: '#/components/schemas/DataSourceItemField'
+      - type: object
+        properties:
+          value:
+            type: number
+            description: The value of the field with the precision of 2 decimal places.
+            format: double
+        additionalProperties: false
+      example:
+        dataSourceFieldId: 1
+        type: number
+        value: 123.45
+    PatchNumberDataSourceItemFieldRequest:
+      allOf:
+      - $ref: '#/components/schemas/PatchDataSourceItemFieldRequest'
+      - required:
+        - value
+        type: object
+        properties:
+          value:
+            type: number
+            description: The value of the field with the precision of 2 decimal places.
+            format: double
+        additionalProperties: false
+      example:
+        dataSourceFieldId: 1
+        type: number
+        value: 123.45
+    NotFoundProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+        traceId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+      example:
+        title: NotFound
+        detail: The server can not find the requested resource.
+        status: 404
+        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
+    Dependency:
+      type: object
+      properties:
+        sourceEntityType:
+          $ref: '#/components/schemas/SourceEntityType'
+        sourceEntityId:
+          type:
+          - string
+          - 'null'
+          description: The id of the dependency source.
+        description:
+          type:
+          - string
+          - 'null'
+          description: Human readable description of the source type.
+      additionalProperties: false
+      description: The model describing a dependency.
     DataSourceItem:
       type: object
       properties:
@@ -800,99 +669,28 @@ components:
         - type: language
           dataSourceFieldId: 6
           cultureName: en-GB
-    DataSourceObjectLockedProblemDetails:
-      type: object
-      properties:
-        lockReason:
-          $ref: '#/components/schemas/LockReason'
-        dependencies:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Dependency'
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-        traceId:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-      description: The reason the resource is locked with an optional array of dependencies. Dependencies array is populated only when lockedReason is hardDependency and contains a maximum of 50 items per sourceEntityType
-      example:
-        title: Locked
-        detail: The data source item cannot be deleted because it has been used by another resource.
-        status: 423
-        traceId: d61f7ce-cccb-4e5b-8727-3b68a61a0559
-        lockReason: hardDependency
-        dependencies:
-        - sourceEntityType: dataSourceItem
-          sourceEntityId: '1031936131644784655'
-          description: There is a dependency from 'DataSourceItem'.
-    CreateColorThemeDataSourceItemFieldRequest:
+    DataSourceImageItemField:
       allOf:
-      - $ref: '#/components/schemas/CreateDataSourceItemFieldRequest'
-      - required:
-        - xmlValue
-        type: object
-        properties:
-          xmlValue:
-            maxLength: 3500
-            minLength: 1
-            type: string
-            description: The value of the field based on the schema http://schemas.openxmlformats.org/drawingml/2006/main. Max length is 3500 characters.
-        additionalProperties: false
-      example:
-        type: colorTheme
-        dataSourceFieldId: 5
-        xmlValue: <a:clrScheme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="Templafy_New"><a:dk1><a:srgbClr val="0078FF"/></a:dk1><a:lt1><a:sysClr val="window" lastClr="FFFFFF"/></a:lt1><a:dk2><a:srgbClr val="000000"/></a:dk2><a:lt2><a:srgbClr val="E5E5E5"/></a:lt2><a:accent1><a:srgbClr val="0078FF"/></a:accent1><a:accent2><a:srgbClr val="575757"/></a:accent2><a:accent3><a:srgbClr val="12AA96"/></a:accent3><a:accent4><a:srgbClr val="15436B"/></a:accent4><a:accent5><a:srgbClr val="D44849"/></a:accent5><a:accent6><a:srgbClr val="7F7F7F"/></a:accent6><a:hlink><a:srgbClr val="0078FF"/></a:hlink><a:folHlink><a:srgbClr val="55CBFF"/></a:folHlink></a:clrScheme>
-    PatchFontDataSourceItemFieldRequest:
-      allOf:
-      - $ref: '#/components/schemas/PatchDataSourceItemFieldRequest'
-      - required:
-        - fileName
-        type: object
+      - $ref: '#/components/schemas/DataSourceItemField'
+      - type: object
         properties:
           fileName:
-            minLength: 1
-            type: string
+            type:
+            - string
+            - 'null'
             description: The name of the file.
           fileUrl:
             type:
             - string
             - 'null'
-            description: 'The file size must be under 2MB, and it should be in one of these formats: .ttf, .otf.'
+            description: 'The file size must be under 2MB, and it should be in one of these formats: .png, .jpg, .jpeg, .gif, .bmp, .emf, .wmf, .svg.'
             format: uri
-          content:
-            type:
-            - string
-            - 'null'
-            description: 'The base64 content size must be under 2MB, and it should be in one of these formats: .ttf, .otf.'
         additionalProperties: false
       example:
-        dataSourceFieldId: 3
-        type: font
-        fileName: best-font
-        fileUrl: https://allfonts.com/best-font
+        dataSourceFieldId: 2
+        type: image
+        fileName: Cat
+        fileUrl: https://en.wikipedia.org/wiki/Cat#/media/File:Cat_August_2010-4.jpg
     CreateFontDataSourceItemFieldRequest:
       allOf:
       - $ref: '#/components/schemas/CreateDataSourceItemFieldRequest'
@@ -921,6 +719,154 @@ components:
         dataSourceFieldId: 4
         fileName: best-font
         fileUrl: https://allfonts.com/best-font
+    SourceEntityType:
+      enum:
+      - dataSource
+      - dataSourceItem
+      - other
+      type: string
+    DataSourceReferenceItemField:
+      allOf:
+      - $ref: '#/components/schemas/DataSourceItemField'
+      - type: object
+        properties:
+          dataSourceItemId:
+            type: integer
+            description: The identifier of the data source item to be referenced.
+            format: int64
+        additionalProperties: false
+      example:
+        dataSourceFieldId: 4
+        type: reference
+        dataSourceItemId: '638247997437572264'
+    LockReason:
+      enum:
+      - hardDependency
+      - restrictedAccess
+      type: string
+      description: The reason the resource is locked. It is either because the resource is depended upon by another resource or the resource has restricted access and cannot be modified.
+    DataSourceItemField:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: Data source item field type.
+          readOnly: true
+        dataSourceFieldId:
+          type: integer
+          description: Unique data source field identifier.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+      discriminator:
+        propertyName: type
+        mapping:
+          Text: '#/components/schemas/DataSourceTextItemField'
+          Number: '#/components/schemas/DataSourceNumberItemField'
+          Reference: '#/components/schemas/DataSourceReferenceItemField'
+          Image: '#/components/schemas/DataSourceImageItemField'
+          Language: '#/components/schemas/DataSourceLanguageItemField'
+          Font: '#/components/schemas/DataSourceFontItemField'
+          ColorTheme: '#/components/schemas/DataSourceColorThemeItemField'
+    PatchFontDataSourceItemFieldRequest:
+      allOf:
+      - $ref: '#/components/schemas/PatchDataSourceItemFieldRequest'
+      - required:
+        - fileName
+        type: object
+        properties:
+          fileName:
+            minLength: 1
+            type: string
+            description: The name of the file.
+          fileUrl:
+            type:
+            - string
+            - 'null'
+            description: 'The file size must be under 2MB, and it should be in one of these formats: .ttf, .otf.'
+            format: uri
+          content:
+            type:
+            - string
+            - 'null'
+            description: 'The base64 content size must be under 2MB, and it should be in one of these formats: .ttf, .otf.'
+        additionalProperties: false
+      example:
+        dataSourceFieldId: 3
+        type: font
+        fileName: best-font
+        fileUrl: https://allfonts.com/best-font
+    CreateDataSourceItemRequest:
+      type: object
+      properties:
+        fields:
+          type:
+          - array
+          - 'null'
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/CreateTextDataSourceItemFieldRequest'
+            - $ref: '#/components/schemas/CreateNumberDataSourceItemFieldRequest'
+            - $ref: '#/components/schemas/CreateReferenceDataSourceItemFieldRequest'
+            - $ref: '#/components/schemas/CreateImageDataSourceItemFieldRequest'
+            - $ref: '#/components/schemas/CreateFontDataSourceItemFieldRequest'
+            - $ref: '#/components/schemas/CreateColorThemeDataSourceItemFieldRequest'
+          description: The fields of the data source item.
+      additionalProperties: false
+      example:
+        fields:
+        - dataSourceFieldId: 0
+          type: text
+          value: Sample text
+        - dataSourceFieldId: 1
+          type: number
+          value: 123.45
+        - dataSourceFieldId: 2
+          type: reference
+          dataSourceItemId: '638247997437572264'
+        - dataSourceFieldId: 3
+          type: image
+          fileName: Cat
+          fileUrl: https://en.wikipedia.org/wiki/Cat#/media/File:Cat_August_2010-4.jpg
+        - dataSourceFieldId: 4
+          type: font
+          fileName: best-font
+          fileUrl: https://allfonts.com/best-font
+        - dataSourceFieldId: 5
+          type: colorTheme
+          xmlValue: <a:clrScheme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="Templafy_New"><a:dk1><a:srgbClr val="0078FF"/></a:dk1><a:lt1><a:sysClr val="window" lastClr="FFFFFF"/></a:lt1><a:dk2><a:srgbClr val="000000"/></a:dk2><a:lt2><a:srgbClr val="E5E5E5"/></a:lt2><a:accent1><a:srgbClr val="0078FF"/></a:accent1><a:accent2><a:srgbClr val="575757"/></a:accent2><a:accent3><a:srgbClr val="12AA96"/></a:accent3><a:accent4><a:srgbClr val="15436B"/></a:accent4><a:accent5><a:srgbClr val="D44849"/></a:accent5><a:accent6><a:srgbClr val="7F7F7F"/></a:accent6><a:hlink><a:srgbClr val="0078FF"/></a:hlink><a:folHlink><a:srgbClr val="55CBFF"/></a:folHlink></a:clrScheme>
+    CreateImageDataSourceItemFieldRequest:
+      allOf:
+      - $ref: '#/components/schemas/CreateDataSourceItemFieldRequest'
+      - required:
+        - fileName
+        type: object
+        properties:
+          fileName:
+            minLength: 1
+            type: string
+            description: The name of the file.
+          fileUrl:
+            type:
+            - string
+            - 'null'
+            description: 'The file size must be under 2MB, and it should be in one of these formats: .png, .jpg, .jpeg, .gif, .bmp, .emf, .wmf, .svg.'
+            format: uri
+          content:
+            type:
+            - string
+            - 'null'
+            description: 'The base64 content size must be under 2MB, and it should be in one of these formats: .png, .jpg, .jpeg, .gif, .bmp, .emf, .wmf, .svg.'
+        additionalProperties: false
+      example:
+        type: image
+        dataSourceFieldId: 3
+        fileName: Cat
+        fileUrl: https://en.wikipedia.org/wiki/Cat#/media/File:Cat_August_2010-4.jpg
     CreateNumberDataSourceItemFieldRequest:
       allOf:
       - $ref: '#/components/schemas/CreateDataSourceItemFieldRequest'
@@ -937,47 +883,101 @@ components:
         type: number
         dataSourceFieldId: 1
         value: 123.45
-    DataSourceTextItemField:
+    PatchColorThemeDataSourceItemFieldRequest:
       allOf:
-      - $ref: '#/components/schemas/DataSourceItemField'
-      - type: object
+      - $ref: '#/components/schemas/PatchDataSourceItemFieldRequest'
+      - required:
+        - xmlValue
+        type: object
         properties:
-          value:
+          xmlValue:
+            maxLength: 3500
+            minLength: 1
+            type: string
+            description: The value of the field based on the schema http://schemas.openxmlformats.org/drawingml/2006/main. Max length is 3500 characters.
+        additionalProperties: false
+      example:
+        dataSourceFieldId: 5
+        type: colorTheme
+        xmlValue: <a:clrScheme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="Templafy_New"><a:dk1><a:srgbClr val="0078FF"/></a:dk1><a:lt1><a:sysClr val="window" lastClr="FFFFFF"/></a:lt1><a:dk2><a:srgbClr val="000000"/></a:dk2><a:lt2><a:srgbClr val="E5E5E5"/></a:lt2><a:accent1><a:srgbClr val="0078FF"/></a:accent1><a:accent2><a:srgbClr val="575757"/></a:accent2><a:accent3><a:srgbClr val="12AA96"/></a:accent3><a:accent4><a:srgbClr val="15436B"/></a:accent4><a:accent5><a:srgbClr val="D44849"/></a:accent5><a:accent6><a:srgbClr val="7F7F7F"/></a:accent6><a:hlink><a:srgbClr val="0078FF"/></a:hlink><a:folHlink><a:srgbClr val="55CBFF"/></a:folHlink></a:clrScheme>
+    CreateReferenceDataSourceItemFieldRequest:
+      allOf:
+      - $ref: '#/components/schemas/CreateDataSourceItemFieldRequest'
+      - required:
+        - dataSourceItemId
+        type: object
+        properties:
+          dataSourceItemId:
+            type: integer
+            description: The identifier of the data source item to be referenced.
+            format: int64
+        additionalProperties: false
+      example:
+        dataSourceFieldId: 2
+        type: reference
+        dataSourceItemId: '638247997437572264'
+    PatchDataSourceItemRequest:
+      required:
+      - fields
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/PatchTextDataSourceItemFieldRequest'
+            - $ref: '#/components/schemas/PatchNumberDataSourceItemFieldRequest'
+            - $ref: '#/components/schemas/PatchImageDataSourceItemFieldRequest'
+            - $ref: '#/components/schemas/PatchReferenceDataSourceItemFieldRequest'
+            - $ref: '#/components/schemas/PatchFontDataSourceItemFieldRequest'
+            - $ref: '#/components/schemas/PatchColorThemeDataSourceItemFieldRequest'
+          description: The fields of the data source item.
+      additionalProperties: false
+    PatchImageDataSourceItemFieldRequest:
+      allOf:
+      - $ref: '#/components/schemas/PatchDataSourceItemFieldRequest'
+      - required:
+        - fileName
+        type: object
+        properties:
+          fileName:
+            minLength: 1
+            type: string
+            description: The name of the file.
+          fileUrl:
             type:
             - string
             - 'null'
-            description: Text data source item field value.
+            description: 'The file size must be under 2MB, and it should be in one of these formats: .png, .jpg, .jpeg, .gif, .bmp, .emf, .wmf, .svg.'
+            format: uri
+          content:
+            type:
+            - string
+            - 'null'
+            description: 'The base64 content size must be under 2MB, and it should be in one of these formats: .png, .jpg, .jpeg, .gif, .bmp, .emf, .wmf, .svg.'
         additionalProperties: false
       example:
-        dataSourceFieldId: 0
-        type: text
-        value: Sample text
-    CreateDataSourceItemFieldRequest:
-      required:
-      - dataSourceFieldId
-      - type
-      type: object
-      properties:
-        type:
-          minLength: 1
-          type: string
-          description: Data source item field type.
-          readOnly: true
-        dataSourceFieldId:
-          type: integer
-          description: Data source field identifier.
-          format: int32
-          readOnly: true
-      additionalProperties: false
-      discriminator:
-        propertyName: type
-        mapping:
-          Text: '#/components/schemas/CreateTextDataSourceItemFieldRequest'
-          Number: '#/components/schemas/CreateNumberDataSourceItemFieldRequest'
-          Reference: '#/components/schemas/CreateReferenceDataSourceItemFieldRequest'
-          Image: '#/components/schemas/CreateImageDataSourceItemFieldRequest'
-          Font: '#/components/schemas/CreateFontDataSourceItemFieldRequest'
-          ColorTheme: '#/components/schemas/CreateColorThemeDataSourceItemFieldRequest'
+        dataSourceFieldId: 2
+        type: image
+        fileName: Cat
+        fileUrl: https://en.wikipedia.org/wiki/Cat#/media/File:Cat_August_2010-4.jpg
+    CreateColorThemeDataSourceItemFieldRequest:
+      allOf:
+      - $ref: '#/components/schemas/CreateDataSourceItemFieldRequest'
+      - required:
+        - xmlValue
+        type: object
+        properties:
+          xmlValue:
+            maxLength: 3500
+            minLength: 1
+            type: string
+            description: The value of the field based on the schema http://schemas.openxmlformats.org/drawingml/2006/main. Max length is 3500 characters.
+        additionalProperties: false
+      example:
+        type: colorTheme
+        dataSourceFieldId: 5
+        xmlValue: <a:clrScheme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="Templafy_New"><a:dk1><a:srgbClr val="0078FF"/></a:dk1><a:lt1><a:sysClr val="window" lastClr="FFFFFF"/></a:lt1><a:dk2><a:srgbClr val="000000"/></a:dk2><a:lt2><a:srgbClr val="E5E5E5"/></a:lt2><a:accent1><a:srgbClr val="0078FF"/></a:accent1><a:accent2><a:srgbClr val="575757"/></a:accent2><a:accent3><a:srgbClr val="12AA96"/></a:accent3><a:accent4><a:srgbClr val="15436B"/></a:accent4><a:accent5><a:srgbClr val="D44849"/></a:accent5><a:accent6><a:srgbClr val="7F7F7F"/></a:accent6><a:hlink><a:srgbClr val="0078FF"/></a:hlink><a:folHlink><a:srgbClr val="55CBFF"/></a:folHlink></a:clrScheme>
   securitySchemes:
     bearerAuth:
       type: http
