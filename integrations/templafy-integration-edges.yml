@@ -11,6 +11,7 @@ checked:
 - https://developer.salesforce.com/docs/atlas.en-us.packagingGuide.meta/packagingGuide/security_review_overview.htm
 - https://slack.com/marketplace
 - salesforce/integrations/salesforce-integration-edges.yml
+- adobe-experience-manager/integrations/adobe-experience-manager-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: Microsoft Azure Marketplace
@@ -124,5 +125,22 @@ edges:
   detected: '2026-10-21'
   detected_by: mirror-platform-listings.py
   category: documentGeneration
+- partner_name: Adobe Experience Manager (own)
+  partner: adobe-experience-manager
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://exchange.adobe.com/apps/ec/600317
+  mirror_of: adobe-experience-manager/integrations/adobe-experience-manager-integration-edges.yml
+  apps:
+  - Templafy
+  listing_count: 1
+  detected: '2026-10-23'
+  detected_by: mirror-platform-listings.py
+  category: Adobe Exchange Experience Cloud listing (Experience Manager)
 source:
 - okta/integrations/okta-integration-edges.yml
